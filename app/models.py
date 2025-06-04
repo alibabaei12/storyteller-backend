@@ -22,22 +22,26 @@ class Story(BaseModel):
     id: str = Field(default_factory=lambda: f"story_{int(datetime.now().timestamp())}_{uuid4().hex[:8]}")
     title: str
     character_name: str
+    character_gender: str = "unspecified"
     setting: str
     tone: str
     character_origin: str
-    power_system: str
-    cultivation_stage: Optional[str] = None
-    current_node_id: str
+    story_length: str = "medium"
     nodes: Dict[str, StoryNode]
+    current_node_id: str
     last_updated: float = Field(default_factory=lambda: datetime.now().timestamp())
+    # Internal fields that aren't directly set by users
+    power_system: str = "auto"
+    cultivation_stage: Optional[str] = None
 
 class StoryCreationParams(BaseModel):
     """Parameters for creating a new story."""
     character_name: str
+    character_gender: str = "unspecified"
     setting: str = "cultivation"
     tone: str = "optimistic"
     character_origin: str = "normal"
-    power_system: str = "none"
+    story_length: str = "medium"  # Options: short, medium, long, infinite
 
 class StoryMetadata(BaseModel):
     """Metadata about a story for listings."""
@@ -86,6 +90,7 @@ class UserUsage:
     
     def can_continue_story(self) -> bool:
         """Check if user can continue a story based on current usage."""
+        # For infinite stories, we still use the regular limits
         return self.story_continuations_used < self.story_continuations_limit
     
     def increment_usage(self) -> None:

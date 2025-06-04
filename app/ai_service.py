@@ -20,10 +20,11 @@ class AIService:
     @staticmethod
     def generate_initial_story(
         character_name: str,
+        character_gender: str,
         setting: str,
         tone: str,
         character_origin: str,
-        power_system: str
+        story_length: str
     ) -> Tuple[str, List[Choice]]:
         """
         Generate the initial story content based on character parameters.
@@ -74,6 +75,26 @@ class AIService:
             elif tone == "philosophical":
                 tone_prompt = "The story should be contemplative, focusing on self-discovery, existential questions, and deep themes."
             
+            # Create length-specific prompt addition
+            length_prompt = ""
+            if story_length == "short":
+                length_prompt = "This should be a shorter story that could be completed in 5-8 interactions."
+            elif story_length == "medium":
+                length_prompt = "This should be a medium-length story that could be completed in 10-15 interactions."
+            elif story_length == "long":
+                length_prompt = "This should be a longer, more complex story that could extend to 20+ interactions."
+            elif story_length == "infinite":
+                length_prompt = "This should be an open-ended story that can continue indefinitely with new challenges and scenarios."
+            
+            # Create gender-specific prompt addition
+            gender_prompt = ""
+            if character_gender == "male":
+                gender_prompt = "The main character is male. Use appropriate pronouns (he/him) when referencing the character."
+            elif character_gender == "female":
+                gender_prompt = "The main character is female. Use appropriate pronouns (she/her) when referencing the character."
+            elif character_gender == "non-binary":
+                gender_prompt = "The main character is non-binary. Use appropriate pronouns (they/them) when referencing the character."
+            
             # Create the system prompt
             system_prompt = f"""You are an expert storyteller specializing in interactive fiction.
 Create immersive, plot-driven narratives with meaningful choices and dynamic progression.
@@ -81,6 +102,8 @@ Your stories should be written in second-person perspective, addressing the read
 
 {setting_prompt}
 {tone_prompt}
+{length_prompt}
+{gender_prompt}
 
 ESSENTIAL STORYTELLING RULES:
 1. Set the scene quickly and efficiently (1-2 sentences maximum for setting or description).
@@ -98,10 +121,6 @@ CHOICE REQUIREMENTS:
 
 The main character (named {character_name}) has the origin: {character_origin}.
 """
-
-            # Add power system info if it's not "none"
-            if power_system != "none":
-                system_prompt += f"\nThe character will develop or use {power_system} as their special ability or power system."
 
             # Create the user prompt
             user_prompt = f"""Create the beginning of an interactive story for a character named {character_name}.
@@ -161,8 +180,10 @@ Format your response as follows:
     @staticmethod
     def continue_story(
         character_name: str,
+        character_gender: str,
         setting: str,
         tone: str,
+        story_length: str,
         previous_content: str,
         selected_choice: str
     ) -> Tuple[str, List[Choice]]:
@@ -215,6 +236,26 @@ Format your response as follows:
             elif tone == "philosophical":
                 tone_prompt = "Continue the contemplative approach, focusing on self-discovery, existential questions, and deep themes."
             
+            # Create length-specific prompt addition
+            length_prompt = ""
+            if story_length == "short":
+                length_prompt = "This should be a shorter story that could be completed in 5-8 interactions."
+            elif story_length == "medium":
+                length_prompt = "This should be a medium-length story that could be completed in 10-15 interactions."
+            elif story_length == "long":
+                length_prompt = "This should be a longer, more complex story that could extend to 20+ interactions."
+            elif story_length == "infinite":
+                length_prompt = "This should be an open-ended story that can continue indefinitely with new challenges and scenarios."
+            
+            # Create gender-specific prompt addition
+            gender_prompt = ""
+            if character_gender == "male":
+                gender_prompt = "The main character is male. Use appropriate pronouns (he/him) when referencing the character."
+            elif character_gender == "female":
+                gender_prompt = "The main character is female. Use appropriate pronouns (she/her) when referencing the character."
+            elif character_gender == "non-binary":
+                gender_prompt = "The main character is non-binary. Use appropriate pronouns (they/them) when referencing the character."
+            
             # Create the system prompt
             system_prompt = f"""You are an expert storyteller specializing in interactive fiction.
 Create immersive, plot-driven narratives with meaningful choices and dynamic progression.
@@ -222,6 +263,8 @@ Your stories should be written in second-person perspective, addressing the read
 
 {setting_prompt}
 {tone_prompt}
+{length_prompt}
+{gender_prompt}
 
 ESSENTIAL STORYTELLING RULES:
 1. After each choice, ESCALATE the situation - increase the danger, stakes, or complexity.
@@ -323,6 +366,9 @@ Format your response as follows:
             # Extra safety: Remove any [CHOICES] sections that might still be in the content
             if "[CHOICES]" in story_match:
                 story_match = story_match.split("[CHOICES]")[0].strip()
+                
+            # Remove "[STORY]" or "[/STORY]" tags that might appear in the content itself
+            story_match = story_match.replace("[STORY]", "").replace("[/STORY]", "").strip()
             
             # Extract choices
             choices = []

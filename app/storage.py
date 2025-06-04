@@ -198,19 +198,21 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
         story = Story(
             title=title,
             character_name=params.character_name,
+            character_gender=params.character_gender,
             setting=params.setting,
             tone=params.tone,
             character_origin=params.character_origin,
-            power_system=params.power_system,
+            story_length=params.story_length,
+            power_system="auto",  # AI will decide the appropriate power system
             cultivation_stage=cultivation_stage,
-            current_node_id=node_id,
-            nodes={node_id: node}
+            current_node_id=node.id,
+            nodes={node.id: node}
         )
         
         # Save the story
         save_story(story)
         
-        print(f"[Storage] Created new story: {story.id}")
+        print(f"[Storage] Created new story: {story.id} - {title}")
         return story
     except Exception as e:
         print(f"[Storage] Error creating story: {e}")

@@ -107,19 +107,21 @@ def create_new_story():
         
         params = StoryCreationParams(
             character_name=data.get('character_name', ''),
+            character_gender=data.get('character_gender', 'unspecified'),
             setting=data.get('setting', 'cultivation'),
             tone=data.get('tone', 'adventure'),
             character_origin=data.get('character_origin', 'normal'),
-            power_system=data.get('power_system', 'qi')
+            story_length=data.get('story_length', 'medium')
         )
         
         # Generate initial story content
         story_content, choices = AIService.generate_initial_story(
             character_name=params.character_name,
+            character_gender=params.character_gender,
             setting=params.setting,
             tone=params.tone,
             character_origin=params.character_origin,
-            power_system=params.power_system
+            story_length=params.story_length
         )
         
         # Create initial node
@@ -145,18 +147,20 @@ def make_choice(story_id, choice_id):
         # Get user ID from request headers or default to IP address
         user_id = request.headers.get('X-User-ID', request.remote_addr)
         
-        # Check if user has reached their limit
-        if not usage_service.increment_story_continuation(user_id):
-            remaining = usage_service.get_remaining_continuations(user_id)
-            return jsonify({
-                'error': 'Usage limit reached',
-                'message': f'You have reached your limit of story continuations. Remaining: {remaining}',
-                'remaining_continuations': remaining
-            }), 429
-        
+        # Check if user has reached their limit (skip for infinite stories)
         story = get_story(story_id)
         if not story:
             return jsonify({'error': 'Story not found'}), 404
+            
+        # For non-infinite stories, check the usage limits
+        if story.story_length != "infinite":
+            if not usage_service.increment_story_continuation(user_id):
+                remaining = usage_service.get_remaining_continuations(user_id)
+                return jsonify({
+                    'error': 'Usage limit reached',
+                    'message': f'You have reached your limit of story continuations. Remaining: {remaining}',
+                    'remaining_continuations': remaining
+                }), 429
         
         # Get the current node
         current_node = story.nodes.get(story.current_node_id)
@@ -179,8 +183,10 @@ def make_choice(story_id, choice_id):
         # Generate continuation
         story_content, choices = AIService.continue_story(
             character_name=story.character_name,
+            character_gender=story.character_gender,
             setting=story.setting,
             tone=story.tone,
+            story_length=story.story_length,
             previous_content=current_node.content,
             selected_choice=selected_choice.text
         )
@@ -201,15 +207,21 @@ def make_choice(story_id, choice_id):
         if not updated_story:
             return jsonify({'error': 'Failed to update story'}), 500
         
-        # Get remaining continuations
-        remaining = usage_service.get_remaining_continuations(user_id)
-        
-        # Add usage info to response
-        response_data = updated_story.model_dump()
-        response_data['usage'] = {
-            'remaining_continuations': remaining,
-            'limit': usage_service.get_user_usage(user_id).story_continuations_limit
-        }
+        # Get remaining continuations (for non-infinite stories)
+        if story.story_length != "infinite":
+            remaining = usage_service.get_remaining_continuations(user_id)
+            # Add usage info to response
+            response_data = updated_story.model_dump()
+            response_data['usage'] = {
+                'remaining_continuations': remaining,
+                'limit': usage_service.get_user_usage(user_id).story_continuations_limit
+            }
+        else:
+            response_data = updated_story.model_dump()
+            response_data['usage'] = {
+                'remaining_continuations': 'unlimited',
+                'limit': 'unlimited'
+            }
         
         return jsonify(response_data)
     
