@@ -8,7 +8,11 @@ from .models import Choice
 load_dotenv()
 
 # Initialize OpenAI client
-client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+try:
+    client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+except TypeError:
+    # Fallback for older versions of the library
+    client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"), base_url="https://api.openai.com/v1")
 
 class AIService:
     """Service for generating story content using OpenAI API."""

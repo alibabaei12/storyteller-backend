@@ -15,4 +15,4 @@ from .storage import (
     create_story
 )
 from .ai_service import AIService
-from .api import app as flask_app, run_api 
+from .api import app, run_api 
