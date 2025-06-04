@@ -10,15 +10,19 @@ from dotenv import load_dotenv
 # Ensure we have the correct environment variables
 load_dotenv()
 
-# Check if OpenAI API key is set
-if not os.getenv("OPENAI_API_KEY"):
-    print("Error: OPENAI_API_KEY environment variable is not set.")
-    print("Please create a .env file with your OpenAI API key or set it in your environment.")
-    print("Example: OPENAI_API_KEY=your_api_key_here")
-    sys.exit(1)
-
-# Import the API
+# Import the API - do this early to catch any import errors
 from app.api import app
+
+# Check if OpenAI API key is set - but don't exit on Render.com
+if not os.getenv("OPENAI_API_KEY"):
+    if not os.environ.get("PORT"):  # Only exit if not running on Render
+        print("Error: OPENAI_API_KEY environment variable is not set.")
+        print("Please create a .env file with your OpenAI API key or set it in your environment.")
+        print("Example: OPENAI_API_KEY=your_api_key_here")
+        sys.exit(1)
+    else:
+        print("Warning: OPENAI_API_KEY environment variable is not set.")
+        print("Make sure it's set in your Render.com environment variables.")
 
 def create_app():
     """Create and return the Flask application for web deployment."""
@@ -42,6 +46,7 @@ if __name__ == "__main__":
     # If PORT environment variable is set, run the web app
     if os.environ.get("PORT"):
         port = int(os.environ.get("PORT", 5000))
+        print(f"Starting web server on port {port}")
         app.run(host="0.0.0.0", port=port)
     else:
         # Otherwise run the terminal game
