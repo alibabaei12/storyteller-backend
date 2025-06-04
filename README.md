@@ -1,74 +1,50 @@
-# StoryTeller
+# StoryTeller API
 
-An AI-powered interactive fiction experience running in your terminal.
+The backend API for the StoryTeller interactive fiction application.
 
-## Features
+## Setup
 
-- Generate unique, AI-driven interactive stories
-- Multiple settings, character origins, and power systems
-- Terminal-based UI with rich text formatting
-- Local storage for saving and continuing stories
-- Robust error handling and logging
-
-## Requirements
-
-- Python 3.7+
-- OpenAI API key
-
-## Installation
-
-1. Clone the repository:
+1. Clone the repository
+2. Create a virtual environment: `python -m venv venv`
+3. Activate the virtual environment:
+   - Windows: `venv\Scripts\activate`
+   - MacOS/Linux: `source venv/bin/activate`
+4. Install dependencies: `pip install -r requirements.txt`
+5. Create a `.env` file with your OpenAI API key:
    ```
-   git clone https://github.com/yourusername/storyteller.git
-   cd storyteller-python
+   OPENAI_API_KEY=your_key_here
    ```
 
-2. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+## Running Locally
 
-3. Create a `.env` file with your OpenAI API key:
-   ```
-   OPENAI_API_KEY=your_openai_api_key_here
-   ```
+Run the API server:
 
-## Usage
-
-Run the application:
-```
+```bash
 python main.py
 ```
 
-Follow the prompts to:
-1. Create a new story with your character
-2. Choose settings, origin, power system, and tone
-3. Make choices to advance the story
-4. Save and load stories
+The API will be available at http://localhost:5000
 
-## Directory Structure
+## Deploying to Render.com
 
-```
-storyteller-python/
-├── app/                  # Main application package
-│   ├── __init__.py       # Package initialization
-│   ├── ai_service.py     # OpenAI integration
-│   ├── game.py           # Terminal UI and game logic
-│   ├── models.py         # Data models
-│   └── storage.py        # Local storage utilities
-├── data/                 # Directory for saved stories (created on first run)
-├── main.py               # Entry point
-├── requirements.txt      # Dependencies
-└── .env                  # Environment variables (you need to create this)
-```
+1. Push your code to GitHub
+2. Create a new Web Service on Render.com
+3. Connect to your GitHub repository
+4. Configure the following settings:
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `gunicorn 'main:create_app()' --bind=0.0.0.0:$PORT`
+5. Add the environment variable:
+   - `OPENAI_API_KEY`: Your OpenAI API key
 
-## Future Enhancements
+## API Documentation
 
-- Cloud-based storage option
-- User authentication
-- More settings and story genres
-- Web-based frontend
+### Endpoints
 
-## License
-
-MIT 
+- `GET /api/status` - Check API status
+- `GET /api/stories` - Get all stories
+- `GET /api/stories/<story_id>` - Get a specific story
+- `POST /api/stories` - Create a new story
+- `DELETE /api/stories/<story_id>` - Delete a story
+- `POST /api/stories/<story_id>/choices/<choice_id>` - Make a choice in a story
+- `GET /api/usage` - Get current usage statistics
+- `POST /api/usage/reset` - Reset usage for a user (admin function) 

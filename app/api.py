@@ -15,12 +15,16 @@ from .storage import (
     create_story
 )
 from .ai_service import AIService
+from .usage_service import UsageService
 
 # Initialize Flask app
 app = Flask(__name__)
 
-# Enable CORS for all routes
-CORS(app)
+# Enable CORS for all routes with proper configuration for deployment
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
+
+# Initialize usage service
+usage_service = UsageService()
 
 @app.route('/api/status', methods=['GET'])
 def get_status():
@@ -97,6 +101,18 @@ def create_new_story():
 def make_choice(story_id, choice_id):
     """API endpoint to make a choice in a story."""
     try:
+        # Get user ID from request headers or default to IP address
+        user_id = request.headers.get('X-User-ID', request.remote_addr)
+        
+        # Check if user has reached their limit
+        if not usage_service.increment_story_continuation(user_id):
+            remaining = usage_service.get_remaining_continuations(user_id)
+            return jsonify({
+                'error': 'Usage limit reached',
+                'message': f'You have reached your limit of story continuations. Remaining: {remaining}',
+                'remaining_continuations': remaining
+            }), 429
+        
         story = get_story(story_id)
         if not story:
             return jsonify({'error': 'Story not found'}), 404
@@ -144,10 +160,46 @@ def make_choice(story_id, choice_id):
         if not updated_story:
             return jsonify({'error': 'Failed to update story'}), 500
         
-        return jsonify(updated_story.model_dump())
+        # Get remaining continuations
+        remaining = usage_service.get_remaining_continuations(user_id)
+        
+        # Add usage info to response
+        response_data = updated_story.model_dump()
+        response_data['usage'] = {
+            'remaining_continuations': remaining,
+            'limit': usage_service.get_user_usage(user_id).story_continuations_limit
+        }
+        
+        return jsonify(response_data)
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/api/usage', methods=['GET'])
+def get_usage():
+    """API endpoint to get user's usage statistics."""
+    user_id = request.headers.get('X-User-ID', request.remote_addr)
+    usage = usage_service.get_user_usage(user_id)
+    
+    return jsonify({
+        'user_id': usage.user_id,
+        'story_continuations_used': usage.story_continuations_used,
+        'story_continuations_limit': usage.story_continuations_limit,
+        'remaining_continuations': usage.get_remaining_continuations()
+    })
+
+@app.route('/api/usage/reset', methods=['POST'])
+def reset_usage():
+    """Admin endpoint to reset a user's usage."""
+    # This should be protected with authentication in production
+    data = request.json
+    user_id = data.get('user_id')
+    
+    if not user_id:
+        return jsonify({'error': 'User ID is required'}), 400
+    
+    usage_service.reset_usage(user_id)
+    return jsonify({'success': True})
 
 def run_api(host='0.0.0.0', port=5000, debug=False):
     """Run the Flask API server."""

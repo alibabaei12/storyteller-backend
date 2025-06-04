@@ -155,8 +155,23 @@ def save_choice(story_id: str, node_id: str, choice_id: str) -> Optional[Story]:
 def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] = None) -> Story:
     """Create a new story with the given parameters."""
     try:
-        # Generate title
-        title = f"{params.character_name}'s {params.setting.capitalize()} Adventure"
+        # Generate title based on setting
+        if params.setting == "cultivation":
+            title = f"{params.character_name}'s Cultivation Journey"
+        elif params.setting == "academy":
+            title = f"{params.character_name} at the Academy"
+        elif params.setting == "gamelike":
+            title = f"The Adventures of {params.character_name}"
+        elif params.setting == "apocalypse":
+            title = f"{params.character_name}'s Survival"
+        elif params.setting == "fantasy":
+            title = f"{params.character_name}'s Fantasy Quest"
+        elif params.setting == "scifi":
+            title = f"{params.character_name}'s Space Odyssey"
+        elif params.setting == "modern":
+            title = f"{params.character_name}'s Urban Mystery"
+        else:
+            title = f"{params.character_name}'s Story"
         
         # Create a node ID
         node_id = "initial"
@@ -176,7 +191,7 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
                 timestamp=time.time()
             )
         
-        # Determine cultivation stage
+        # Determine cultivation stage for cultivation setting
         cultivation_stage = "Qi Condensation Stage (Level 1)" if params.setting == "cultivation" else None
         
         # Create the story

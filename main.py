@@ -17,11 +17,16 @@ if not os.getenv("OPENAI_API_KEY"):
     print("Example: OPENAI_API_KEY=your_api_key_here")
     sys.exit(1)
 
-# Import the game
+# Import the game and API
 from app import StoryGame
+from app.api import app
+
+def create_app():
+    """Create and return the Flask application for web deployment."""
+    return app
 
 def main():
-    """Main entry point for the application."""
+    """Main entry point for the terminal application."""
     game = StoryGame()
     try:
         game.start()
@@ -33,4 +38,10 @@ def main():
         sys.exit(1)
 
 if __name__ == "__main__":
-    main() 
+    # If PORT environment variable is set, run the web app
+    if os.environ.get("PORT"):
+        port = int(os.environ.get("PORT", 5000))
+        app.run(host="0.0.0.0", port=port)
+    else:
+        # Otherwise run the terminal game
+        main() 
