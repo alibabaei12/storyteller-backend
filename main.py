@@ -17,8 +17,7 @@ if not os.getenv("OPENAI_API_KEY"):
     print("Example: OPENAI_API_KEY=your_api_key_here")
     sys.exit(1)
 
-# Import the game and API
-from app import StoryGame
+# Import the API
 from app.api import app
 
 def create_app():
@@ -27,6 +26,8 @@ def create_app():
 
 def main():
     """Main entry point for the terminal application."""
+    # Only import StoryGame for terminal usage
+    from app import StoryGame
     game = StoryGame()
     try:
         game.start()

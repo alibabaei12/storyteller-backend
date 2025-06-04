@@ -1,4 +1,9 @@
-from .game import StoryGame
+import os
+
+# Only import StoryGame for terminal usage, not for web deployment
+if not os.environ.get("PORT"):
+    from .game import StoryGame
+
 from .models import Story, StoryNode, Choice, StoryCreationParams, StoryMetadata
 from .storage import (
     save_story, 
