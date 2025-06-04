@@ -20,8 +20,13 @@ from .usage_service import UsageService
 # Initialize Flask app
 app = Flask(__name__)
 
-# Enable CORS for all routes with proper configuration for deployment
-CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
+# Enable CORS for all routes with maximum permissiveness
+CORS(app, 
+    resources={r"/*": {"origins": "*"}}, 
+    supports_credentials=True,
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "X-User-ID"]
+)
 
 # Initialize usage service
 usage_service = UsageService()
