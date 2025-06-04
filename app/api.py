@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS
 import os
 import json
@@ -31,6 +31,42 @@ CORS(app,
 # Initialize usage service
 usage_service = UsageService()
 
+# Root status endpoint (for frontend without /api prefix)
+@app.route('/status', methods=['GET', 'OPTIONS'])
+def root_status():
+    """Root status endpoint for compatibility."""
+    return jsonify({
+        'status': 'ok',
+        'message': 'StoryTeller API is running'
+    })
+
+# Routes without /api prefix for compatibility
+@app.route('/stories', methods=['GET', 'OPTIONS'])
+def root_get_stories():
+    """Get all stories (without /api prefix)."""
+    return get_stories()
+
+@app.route('/stories/<story_id>', methods=['GET', 'OPTIONS'])
+def root_get_story(story_id):
+    """Get a specific story (without /api prefix)."""
+    return get_story_by_id(story_id)
+
+@app.route('/stories', methods=['POST', 'OPTIONS'])
+def root_create_story():
+    """Create a new story (without /api prefix)."""
+    return create_new_story()
+
+@app.route('/stories/<story_id>/choices/<choice_id>', methods=['POST', 'OPTIONS'])
+def root_make_choice(story_id, choice_id):
+    """Make a choice in a story (without /api prefix)."""
+    return make_choice(story_id, choice_id)
+
+@app.route('/stories/<story_id>', methods=['DELETE', 'OPTIONS'])
+def root_delete_story(story_id):
+    """Delete a story (without /api prefix)."""
+    return delete_story_by_id(story_id)
+
+# Original API endpoints with /api prefix
 @app.route('/api/status', methods=['GET'])
 def get_status():
     """API endpoint to check if the server is running."""
