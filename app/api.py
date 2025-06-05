@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, redirect, g
+from flask import Flask, request, jsonify, redirect, g, make_response
 from flask_cors import CORS
 import os
 import json
@@ -27,9 +27,18 @@ CORS(app,
     resources={r"/*": {"origins": ["http://localhost:3000", "https://storyteller-frontend-1.onrender.com"]}}, 
     supports_credentials=True,
     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization", "X-User-ID"],
+    allow_headers=["Content-Type", "Authorization", "X-User-ID", "Access-Control-Request-Method", "Access-Control-Request-Headers"],
     expose_headers=["Authorization"]
 )
+
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        response = make_response()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
 
 # Usage service is imported as a singleton
 
