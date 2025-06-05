@@ -3,6 +3,7 @@ import json
 import jsonpickle
 from typing import List, Optional, Dict
 from .models import Story, StoryNode, StoryMetadata, Choice, StoryCreationParams
+from .firebase_service import firebase_service
 
 # Storage constants
 STORAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
@@ -12,87 +13,42 @@ STORIES_INDEX = "stories_index.json"
 os.makedirs(STORAGE_DIR, exist_ok=True)
 
 def save_story(story: Story) -> None:
-    """Save a story to local storage."""
+    """Save a story to Firebase Firestore."""
     try:
-        # Convert to JSON-serializable format
-        story_json = jsonpickle.encode(story)
-        
-        # Save the story to a file
-        story_path = os.path.join(STORAGE_DIR, f"{story.id}.json")
-        with open(story_path, "w") as f:
-            f.write(story_json)
-        
-        # Update the stories index
-        story_ids = get_story_ids()
-        if story.id not in story_ids:
-            story_ids.append(story.id)
-            save_story_ids(story_ids)
-        
+        firebase_service.save_story(story)
         print(f"[Storage] Saved story {story.id}: {story.title}")
     except Exception as e:
         print(f"[Storage] Error saving story: {e}")
         raise
 
 def get_story(story_id: str) -> Optional[Story]:
-    """Get a story by ID."""
+    """Get a story by ID from Firebase."""
     try:
-        story_path = os.path.join(STORAGE_DIR, f"{story_id}.json")
-        if not os.path.exists(story_path):
+        story = firebase_service.get_story(story_id)
+        if story:
+            print(f"[Storage] Retrieved story {story_id}: {story.title}")
+        else:
             print(f"[Storage] Story not found: {story_id}")
-            return None
-        
-        with open(story_path, "r") as f:
-            story_json = f.read()
-        
-        story = jsonpickle.decode(story_json)
-        print(f"[Storage] Retrieved story {story_id}: {story.title}")
         return story
     except Exception as e:
         print(f"[Storage] Error retrieving story: {e}")
         return None
 
 def delete_story(story_id: str) -> bool:
-    """Delete a story."""
+    """Delete a story from Firebase."""
     try:
-        story_path = os.path.join(STORAGE_DIR, f"{story_id}.json")
-        if os.path.exists(story_path):
-            os.remove(story_path)
-        
-        # Update the stories index
-        story_ids = get_story_ids()
-        if story_id in story_ids:
-            story_ids.remove(story_id)
-            save_story_ids(story_ids)
-        
-        print(f"[Storage] Deleted story {story_id}")
-        return True
+        result = firebase_service.delete_story(story_id)
+        if result:
+            print(f"[Storage] Deleted story {story_id}")
+        return result
     except Exception as e:
         print(f"[Storage] Error deleting story: {e}")
         return False
 
 def get_all_stories() -> List[StoryMetadata]:
-    """Get metadata for all stories."""
+    """Get metadata for all stories from Firebase."""
     try:
-        story_ids = get_story_ids()
-        metadata_list = []
-        
-        for story_id in story_ids:
-            story = get_story(story_id)
-            if story:
-                metadata = StoryMetadata(
-                    id=story.id,
-                    title=story.title,
-                    character_name=story.character_name,
-                    setting=story.setting,
-                    last_updated=story.last_updated,
-                    cultivation_stage=story.cultivation_stage,
-                    user_id=story.user_id
-                )
-                metadata_list.append(metadata)
-        
-        # Sort by last updated (newest first)
-        metadata_list.sort(key=lambda x: x.last_updated, reverse=True)
-        
+        metadata_list = firebase_service.get_all_stories()
         print(f"[Storage] Retrieved {len(metadata_list)} stories")
         return metadata_list
     except Exception as e:
@@ -100,11 +56,9 @@ def get_all_stories() -> List[StoryMetadata]:
         return []
 
 def get_user_stories(user_id: str) -> List[StoryMetadata]:
-    """Get metadata for stories owned by a specific user."""
+    """Get metadata for stories owned by a specific user from Firebase."""
     try:
-        all_stories = get_all_stories()
-        user_stories = [story for story in all_stories if story.user_id == user_id]
-        
+        user_stories = firebase_service.get_user_stories(user_id)
         print(f"[Storage] Retrieved {len(user_stories)} stories for user {user_id}")
         return user_stories
     except Exception as e:
@@ -112,7 +66,7 @@ def get_user_stories(user_id: str) -> List[StoryMetadata]:
         return []
 
 def add_story_node(story_id: str, node: StoryNode) -> Optional[Story]:
-    """Add a new node to a story."""
+    """Add a new node to a story in Firebase."""
     try:
         story = get_story(story_id)
         if not story:
@@ -138,7 +92,7 @@ def add_story_node(story_id: str, node: StoryNode) -> Optional[Story]:
         return None
 
 def save_choice(story_id: str, node_id: str, choice_id: str) -> Optional[Story]:
-    """Record a choice selection in a story node."""
+    """Record a choice selection in a story node in Firebase."""
     try:
         story = get_story(story_id)
         if not story:
@@ -166,7 +120,7 @@ def save_choice(story_id: str, node_id: str, choice_id: str) -> Optional[Story]:
         return None
 
 def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] = None) -> Story:
-    """Create a new story with the given parameters."""
+    """Create a new story with the given parameters in Firebase."""
     try:
         # Generate title based on setting
         if params.setting == "cultivation":
@@ -223,7 +177,7 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
             user_id=params.user_id  # Include user_id from params
         )
         
-        # Save the story
+        # Save the story to Firebase
         save_story(story)
         
         print(f"[Storage] Created new story: {story.id} - {title}")
@@ -232,25 +186,17 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
         print(f"[Storage] Error creating story: {e}")
         raise
 
+# Legacy functions for backward compatibility (not used with Firebase)
 def get_story_ids() -> List[str]:
-    """Get list of all story IDs."""
+    """Get list of all story IDs (legacy function for compatibility)."""
     try:
-        index_path = os.path.join(STORAGE_DIR, STORIES_INDEX)
-        if not os.path.exists(index_path):
-            return []
-        
-        with open(index_path, "r") as f:
-            return json.load(f)
+        stories = get_all_stories()
+        return [story.id for story in stories]
     except Exception as e:
         print(f"[Storage] Error retrieving story IDs: {e}")
         return []
 
 def save_story_ids(story_ids: List[str]) -> None:
-    """Save the list of story IDs."""
-    try:
-        index_path = os.path.join(STORAGE_DIR, STORIES_INDEX)
-        with open(index_path, "w") as f:
-            json.dump(story_ids, f)
-    except Exception as e:
-        print(f"[Storage] Error saving story IDs: {e}")
-        raise 
+    """Save the list of story IDs (legacy function - no-op with Firebase)."""
+    # No-op: Firebase handles this automatically
+    pass 

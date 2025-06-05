@@ -3,6 +3,10 @@
 *.env
 *.pem
 
+# Firebase credentials
+firebase-service-account.json
+*firebase-service-account*.json
+
 # Python
 __pycache__/
 *.py[cod]

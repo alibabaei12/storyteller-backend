@@ -16,7 +16,7 @@ from .storage import (
     get_user_stories
 )
 from .ai_service import AIService
-from .usage_service import UsageService
+from .usage_service import usage_service
 from .auth import auth_required, auth_optional
 
 # Initialize Flask app
@@ -31,8 +31,7 @@ CORS(app,
     expose_headers=["Authorization"]
 )
 
-# Initialize usage service
-usage_service = UsageService()
+# Usage service is imported as a singleton
 
 # Root status endpoint (for frontend without /api prefix)
 @app.route('/status', methods=['GET', 'OPTIONS'])
@@ -192,13 +191,16 @@ def make_choice(story_id, choice_id):
             
         # For non-infinite stories, check the usage limits
         if story.story_length != "infinite":
-            if not usage_service.increment_story_continuation(user_id):
+            if not usage_service.can_continue_story(user_id):
                 remaining = usage_service.get_remaining_continuations(user_id)
                 return jsonify({
                     'error': 'Usage limit reached',
                     'message': f'You have reached your limit of story continuations. Remaining: {remaining}',
                     'remaining_continuations': remaining
                 }), 429
+            
+            # Increment usage count
+            usage_service.increment_story_continuations(user_id)
         
         # Get the current node
         current_node = story.nodes.get(story.current_node_id)
@@ -277,7 +279,7 @@ def get_usage():
         'user_id': usage.user_id,
         'story_continuations_used': usage.story_continuations_used,
         'story_continuations_limit': usage.story_continuations_limit,
-        'remaining_continuations': usage.get_remaining_continuations()
+        'remaining_continuations': usage_service.get_remaining_continuations(user_id)
     })
 
 @app.route('/api/usage/reset', methods=['POST'])
@@ -291,7 +293,7 @@ def reset_usage():
     if not user_id:
         return jsonify({'error': 'User ID is required'}), 400
     
-    usage_service.reset_usage(user_id)
+    usage_service.reset_daily_limits(user_id)
     return jsonify({'success': True})
 
 def run_api(host='0.0.0.0', port=5001, debug=False):
