@@ -23,8 +23,8 @@ class UsageService:
                 usage = UserUsage(
                     user_id=user_id,
                     story_continuations_used=0,
-                    story_continuations_limit=20,  # Default limit
-                    last_reset_date=datetime.now().isoformat()
+                    story_continuations_limit=15,  # Default limit
+                    last_reset_date=datetime.now()
                 )
                 # Save the new usage record
                 firebase_service.save_user_usage(usage)
@@ -38,7 +38,7 @@ class UsageService:
                 user_id=user_id,
                 story_continuations_used=0,
                 story_continuations_limit=20,
-                last_reset_date=datetime.now().isoformat()
+                last_reset_date=datetime.now()
             )
     
     def update_user_usage(self, user_id: str, usage: UserUsage) -> None:
@@ -85,7 +85,7 @@ class UsageService:
         try:
             usage = self.get_user_usage(user_id)
             usage.story_continuations_used = 0
-            usage.last_reset_date = datetime.now().isoformat()
+            usage.last_reset_date = datetime.now()
             self.update_user_usage(user_id, usage)
             print(f"[Usage] Reset daily limits for user: {user_id}")
         except Exception as e:

@@ -77,18 +77,36 @@ class UserUsage:
             "user_id": self.user_id,
             "story_continuations_used": self.story_continuations_used,
             "story_continuations_limit": self.story_continuations_limit,
-            "last_reset_date": self.last_reset_date.isoformat() if self.last_reset_date else None
+            "last_reset_date": (
+                self.last_reset_date.isoformat() 
+                if self.last_reset_date and hasattr(self.last_reset_date, 'isoformat') 
+                else str(self.last_reset_date) if self.last_reset_date 
+                else None
+            )
         }
     
     @classmethod
     def from_dict(cls, data: Dict) -> 'UserUsage':
         """Create from dictionary."""
-        last_reset = datetime.fromisoformat(data.get("last_reset_date")) if data.get("last_reset_date") else None
+        last_reset_data = data.get("last_reset_date")
+        last_reset = None
+        
+        if last_reset_data:
+            if isinstance(last_reset_data, str):
+                try:
+                    last_reset = datetime.fromisoformat(last_reset_data)
+                except ValueError:
+                    # Fallback to current datetime if parsing fails
+                    last_reset = datetime.now()
+            elif isinstance(last_reset_data, datetime):
+                last_reset = last_reset_data
+            else:
+                last_reset = datetime.now()
         
         return cls(
             user_id=data.get("user_id", ""),
             story_continuations_used=data.get("story_continuations_used", 0),
-            story_continuations_limit=data.get("story_continuations_limit", 10),
+            story_continuations_limit=data.get("story_continuations_limit", 20),
             last_reset_date=last_reset
         )
     
