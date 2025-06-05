@@ -158,8 +158,23 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
                 timestamp=time.time()
             )
         
-        # Determine cultivation stage for cultivation setting
-        cultivation_stage = "Qi Condensation Stage (Level 1)" if params.setting == "cultivation" else None
+        # Determine progress indicator based on setting
+        cultivation_stage = None
+        if params.setting == "cultivation":
+            cultivation_stage = "Qi Condensation Stage (Level 1)"
+        elif params.setting == "academy":
+            cultivation_stage = "First Year Student"
+        elif params.setting == "gamelike":
+            cultivation_stage = "Level 1 Adventurer"
+        elif params.setting == "apocalypse":
+            cultivation_stage = "Rookie Survivor"
+        elif params.setting == "fantasy":
+            cultivation_stage = "Novice Adventurer"
+        elif params.setting == "scifi":
+            cultivation_stage = "Cadet" 
+        elif params.setting == "modern":
+            cultivation_stage = "Rookie Investigator"
+        # romance and other general settings get no progress indicator
         
         # Create the story
         story = Story(
