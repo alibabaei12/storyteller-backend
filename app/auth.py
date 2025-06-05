@@ -53,6 +53,10 @@ def auth_required(f):
     """Decorator to require authentication for routes."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        # Skip authentication for OPTIONS requests (CORS preflight)
+        if request.method == 'OPTIONS':
+            return f(*args, **kwargs)
+            
         token = get_auth_token()
         
         if not token:
@@ -76,6 +80,10 @@ def auth_optional(f):
     """Decorator to use authentication if provided but not require it."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        # Skip authentication for OPTIONS requests (CORS preflight)
+        if request.method == 'OPTIONS':
+            return f(*args, **kwargs)
+            
         token = get_auth_token()
         
         if token:
