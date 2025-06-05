@@ -31,13 +31,26 @@ CORS(app,
     expose_headers=["Authorization"]
 )
 
+@app.after_request
+def after_request(response):
+    origin = request.headers.get('Origin')
+    if origin in ["http://localhost:3000", "https://storyteller-frontend-1.onrender.com"]:
+        response.headers.add('Access-Control-Allow-Origin', origin)
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-User-ID')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
+
 @app.before_request
 def handle_preflight():
     if request.method == "OPTIONS":
         response = make_response()
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add('Access-Control-Allow-Headers', "*")
-        response.headers.add('Access-Control-Allow-Methods', "*")
+        origin = request.headers.get('Origin')
+        if origin in ["http://localhost:3000", "https://storyteller-frontend-1.onrender.com"]:
+            response.headers.add("Access-Control-Allow-Origin", origin)
+        response.headers.add('Access-Control-Allow-Headers', "Content-Type,Authorization,X-User-ID")
+        response.headers.add('Access-Control-Allow-Methods', "GET,PUT,POST,DELETE,OPTIONS")
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response
 
 # Usage service is imported as a singleton
@@ -83,7 +96,7 @@ def root_delete_story(story_id):
     return delete_story_by_id(story_id)
 
 # Original API endpoints with /api prefix
-@app.route('/api/status', methods=['GET'])
+@app.route('/api/status', methods=['GET', 'OPTIONS'])
 def get_status():
     """API endpoint to check if the server is running."""
     return jsonify({
@@ -91,7 +104,7 @@ def get_status():
         'message': 'StoryTeller API is running'
     })
 
-@app.route('/api/stories', methods=['GET'])
+@app.route('/api/stories', methods=['GET', 'OPTIONS'])
 @auth_optional
 def get_stories():
     """API endpoint to get all stories."""
@@ -105,7 +118,7 @@ def get_stories():
         
     return jsonify([story.model_dump() for story in stories])
 
-@app.route('/api/stories/<story_id>', methods=['GET'])
+@app.route('/api/stories/<story_id>', methods=['GET', 'OPTIONS'])
 @auth_optional
 def get_story_by_id(story_id):
     """API endpoint to get a specific story."""
@@ -119,7 +132,7 @@ def get_story_by_id(story_id):
     
     return jsonify(story.model_dump())
 
-@app.route('/api/stories/<story_id>', methods=['DELETE'])
+@app.route('/api/stories/<story_id>', methods=['DELETE', 'OPTIONS'])
 @auth_required
 def delete_story_by_id(story_id):
     """API endpoint to delete a story."""
@@ -138,7 +151,7 @@ def delete_story_by_id(story_id):
     
     return jsonify({'success': True})
 
-@app.route('/api/stories', methods=['POST'])
+@app.route('/api/stories', methods=['POST', 'OPTIONS'])
 @auth_required
 def create_new_story():
     """API endpoint to create a new story."""
@@ -181,7 +194,7 @@ def create_new_story():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/stories/<story_id>/choices/<choice_id>', methods=['POST'])
+@app.route('/api/stories/<story_id>/choices/<choice_id>', methods=['POST', 'OPTIONS'])
 @auth_required
 def make_choice(story_id, choice_id):
     """API endpoint to make a choice in a story."""
@@ -277,7 +290,7 @@ def make_choice(story_id, choice_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/usage', methods=['GET'])
+@app.route('/api/usage', methods=['GET', 'OPTIONS'])
 @auth_required
 def get_usage():
     """API endpoint to get user's usage statistics."""
@@ -291,7 +304,7 @@ def get_usage():
         'remaining_continuations': usage_service.get_remaining_continuations(user_id)
     })
 
-@app.route('/api/usage/reset', methods=['POST'])
+@app.route('/api/usage/reset', methods=['POST', 'OPTIONS'])
 @auth_required
 def reset_usage():
     """Admin endpoint to reset a user's usage."""
