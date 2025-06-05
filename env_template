@@ -1,0 +1,13 @@
+# StoryTeller Backend Environment Variables
+# Copy this file to .env and update the values
+
+# Firebase Configuration
+FIREBASE_PROJECT_ID=storyteller-6deea
+
+# Server Configuration
+HOST=0.0.0.0
+PORT=5001
+DEBUG=True
+
+# OpenAI Configuration (if needed)
+OPENAI_API_KEY=your_openai_api_key_here 

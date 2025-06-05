@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, redirect
+from flask import Flask, request, jsonify, redirect, g
 from flask_cors import CORS
 import os
 import json
@@ -12,20 +12,23 @@ from .storage import (
     get_all_stories, 
     add_story_node, 
     save_choice, 
-    create_story
+    create_story,
+    get_user_stories
 )
 from .ai_service import AIService
 from .usage_service import UsageService
+from .auth import auth_required, auth_optional
 
 # Initialize Flask app
 app = Flask(__name__)
 
-# Enable CORS for all routes with maximum permissiveness
+# Enable CORS for all routes with explicit origins
 CORS(app, 
-    resources={r"/*": {"origins": "*"}}, 
+    resources={r"/*": {"origins": ["http://localhost:3000", "https://storyteller-frontend-1.onrender.com"]}}, 
     supports_credentials=True,
     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization", "X-User-ID"]
+    allow_headers=["Content-Type", "Authorization", "X-User-ID"],
+    expose_headers=["Authorization"]
 )
 
 # Initialize usage service
@@ -42,26 +45,31 @@ def root_status():
 
 # Routes without /api prefix for compatibility
 @app.route('/stories', methods=['GET', 'OPTIONS'])
+@auth_optional
 def root_get_stories():
     """Get all stories (without /api prefix)."""
     return get_stories()
 
 @app.route('/stories/<story_id>', methods=['GET', 'OPTIONS'])
+@auth_optional
 def root_get_story(story_id):
     """Get a specific story (without /api prefix)."""
     return get_story_by_id(story_id)
 
 @app.route('/stories', methods=['POST', 'OPTIONS'])
+@auth_required
 def root_create_story():
     """Create a new story (without /api prefix)."""
     return create_new_story()
 
 @app.route('/stories/<story_id>/choices/<choice_id>', methods=['POST', 'OPTIONS'])
+@auth_required
 def root_make_choice(story_id, choice_id):
     """Make a choice in a story (without /api prefix)."""
     return make_choice(story_id, choice_id)
 
 @app.route('/stories/<story_id>', methods=['DELETE', 'OPTIONS'])
+@auth_required
 def root_delete_story(story_id):
     """Delete a story (without /api prefix)."""
     return delete_story_by_id(story_id)
@@ -76,23 +84,46 @@ def get_status():
     })
 
 @app.route('/api/stories', methods=['GET'])
+@auth_optional
 def get_stories():
     """API endpoint to get all stories."""
-    stories = get_all_stories()
+    # If authenticated, filter to only show user's stories
+    if hasattr(g, 'user_id') and g.user_id:
+        # Get stories for the authenticated user
+        stories = get_user_stories(g.user_id)
+    else:
+        # Get all stories for unauthenticated users
+        stories = get_all_stories()
+        
     return jsonify([story.model_dump() for story in stories])
 
 @app.route('/api/stories/<story_id>', methods=['GET'])
+@auth_optional
 def get_story_by_id(story_id):
     """API endpoint to get a specific story."""
     story = get_story(story_id)
     if not story:
         return jsonify({'error': 'Story not found'}), 404
     
+    # In a real implementation, you might check if the user has access to this story
+    # if hasattr(g, 'user_id') and g.user_id and story.user_id != g.user_id:
+    #    return jsonify({'error': 'Access denied'}), 403
+    
     return jsonify(story.model_dump())
 
 @app.route('/api/stories/<story_id>', methods=['DELETE'])
+@auth_required
 def delete_story_by_id(story_id):
     """API endpoint to delete a story."""
+    # Get the story first to check ownership
+    story = get_story(story_id)
+    if not story:
+        return jsonify({'error': 'Story not found'}), 404
+    
+    # Check if the user owns this story
+    if story.user_id and story.user_id != g.user_id:
+        return jsonify({'error': 'Access denied: You do not own this story'}), 403
+    
     success = delete_story(story_id)
     if not success:
         return jsonify({'error': 'Failed to delete story'}), 500
@@ -100,6 +131,7 @@ def delete_story_by_id(story_id):
     return jsonify({'success': True})
 
 @app.route('/api/stories', methods=['POST'])
+@auth_required
 def create_new_story():
     """API endpoint to create a new story."""
     try:
@@ -111,7 +143,8 @@ def create_new_story():
             setting=data.get('setting', 'cultivation'),
             tone=data.get('tone', 'adventure'),
             character_origin=data.get('character_origin', 'normal'),
-            story_length=data.get('story_length', 'medium')
+            story_length=data.get('story_length', 'medium'),
+            user_id=g.user_id  # Add the authenticated user's ID
         )
         
         # Generate initial story content
@@ -141,16 +174,21 @@ def create_new_story():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/stories/<story_id>/choices/<choice_id>', methods=['POST'])
+@auth_required
 def make_choice(story_id, choice_id):
     """API endpoint to make a choice in a story."""
     try:
-        # Get user ID from request headers or default to IP address
-        user_id = request.headers.get('X-User-ID', request.remote_addr)
+        # Get user ID from auth context
+        user_id = g.user_id
         
         # Check if user has reached their limit (skip for infinite stories)
         story = get_story(story_id)
         if not story:
             return jsonify({'error': 'Story not found'}), 404
+        
+        # Check if the user owns this story
+        if story.user_id and story.user_id != user_id:
+            return jsonify({'error': 'Access denied: You do not own this story'}), 403
             
         # For non-infinite stories, check the usage limits
         if story.story_length != "infinite":
@@ -229,9 +267,10 @@ def make_choice(story_id, choice_id):
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/usage', methods=['GET'])
+@auth_required
 def get_usage():
     """API endpoint to get user's usage statistics."""
-    user_id = request.headers.get('X-User-ID', request.remote_addr)
+    user_id = g.user_id if hasattr(g, 'user_id') else request.headers.get('X-User-ID', request.remote_addr)
     usage = usage_service.get_user_usage(user_id)
     
     return jsonify({
@@ -242,9 +281,10 @@ def get_usage():
     })
 
 @app.route('/api/usage/reset', methods=['POST'])
+@auth_required
 def reset_usage():
     """Admin endpoint to reset a user's usage."""
-    # This should be protected with authentication in production
+    # This should be protected with admin authentication in production
     data = request.json
     user_id = data.get('user_id')
     
@@ -254,9 +294,13 @@ def reset_usage():
     usage_service.reset_usage(user_id)
     return jsonify({'success': True})
 
-def run_api(host='0.0.0.0', port=5000, debug=False):
+def run_api(host='0.0.0.0', port=5001, debug=False):
     """Run the Flask API server."""
     app.run(host=host, port=port, debug=debug)
 
 if __name__ == '__main__':
-    run_api(debug=True) 
+    import sys
+    host = sys.argv[1] if len(sys.argv) > 1 else '0.0.0.0'
+    port = int(sys.argv[2]) if len(sys.argv) > 2 else 5001
+    debug = sys.argv[3].lower() == 'true' if len(sys.argv) > 3 else True
+    run_api(host=host, port=port, debug=debug) 

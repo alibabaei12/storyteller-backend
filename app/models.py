@@ -33,6 +33,8 @@ class Story(BaseModel):
     # Internal fields that aren't directly set by users
     power_system: str = "auto"
     cultivation_stage: Optional[str] = None
+    # User identification
+    user_id: Optional[str] = None
 
 class StoryCreationParams(BaseModel):
     """Parameters for creating a new story."""
@@ -42,6 +44,7 @@ class StoryCreationParams(BaseModel):
     tone: str = "optimistic"
     character_origin: str = "normal"
     story_length: str = "medium"  # Options: short, medium, long, infinite
+    user_id: Optional[str] = None
 
 class StoryMetadata(BaseModel):
     """Metadata about a story for listings."""
@@ -51,6 +54,7 @@ class StoryMetadata(BaseModel):
     setting: str
     last_updated: float
     cultivation_stage: Optional[str] = None
+    user_id: Optional[str] = None
 
 class UserUsage:
     """Tracks a user's API usage."""

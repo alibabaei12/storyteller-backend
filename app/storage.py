@@ -85,7 +85,8 @@ def get_all_stories() -> List[StoryMetadata]:
                     character_name=story.character_name,
                     setting=story.setting,
                     last_updated=story.last_updated,
-                    cultivation_stage=story.cultivation_stage
+                    cultivation_stage=story.cultivation_stage,
+                    user_id=story.user_id
                 )
                 metadata_list.append(metadata)
         
@@ -96,6 +97,18 @@ def get_all_stories() -> List[StoryMetadata]:
         return metadata_list
     except Exception as e:
         print(f"[Storage] Error retrieving all stories: {e}")
+        return []
+
+def get_user_stories(user_id: str) -> List[StoryMetadata]:
+    """Get metadata for stories owned by a specific user."""
+    try:
+        all_stories = get_all_stories()
+        user_stories = [story for story in all_stories if story.user_id == user_id]
+        
+        print(f"[Storage] Retrieved {len(user_stories)} stories for user {user_id}")
+        return user_stories
+    except Exception as e:
+        print(f"[Storage] Error retrieving user stories: {e}")
         return []
 
 def add_story_node(story_id: str, node: StoryNode) -> Optional[Story]:
@@ -206,7 +219,8 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
             power_system="auto",  # AI will decide the appropriate power system
             cultivation_stage=cultivation_stage,
             current_node_id=node.id,
-            nodes={node.id: node}
+            nodes={node.id: node},
+            user_id=params.user_id  # Include user_id from params
         )
         
         # Save the story
