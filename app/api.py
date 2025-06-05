@@ -114,6 +114,10 @@ def get_story_by_id(story_id):
 @auth_required
 def delete_story_by_id(story_id):
     """API endpoint to delete a story."""
+    # Handle OPTIONS request for CORS preflight
+    if request.method == 'OPTIONS':
+        return jsonify({'status': 'ok'})
+        
     # Get the story first to check ownership
     story = get_story(story_id)
     if not story:
@@ -133,6 +137,10 @@ def delete_story_by_id(story_id):
 @auth_required
 def create_new_story():
     """API endpoint to create a new story."""
+    # Handle OPTIONS request for CORS preflight
+    if request.method == 'OPTIONS':
+        return jsonify({'status': 'ok'})
+        
     try:
         data = request.json
         
@@ -176,6 +184,10 @@ def create_new_story():
 @auth_required
 def make_choice(story_id, choice_id):
     """API endpoint to make a choice in a story."""
+    # Handle OPTIONS request for CORS preflight
+    if request.method == 'OPTIONS':
+        return jsonify({'status': 'ok'})
+        
     try:
         # Get user ID from auth context
         user_id = g.user_id
@@ -272,6 +284,10 @@ def make_choice(story_id, choice_id):
 @auth_required
 def get_usage():
     """API endpoint to get user's usage statistics."""
+    # Handle OPTIONS request for CORS preflight
+    if request.method == 'OPTIONS':
+        return jsonify({'status': 'ok'})
+        
     user_id = g.user_id if hasattr(g, 'user_id') else request.headers.get('X-User-ID', request.remote_addr)
     usage = usage_service.get_user_usage(user_id)
     
@@ -286,6 +302,10 @@ def get_usage():
 @auth_required
 def reset_usage():
     """Admin endpoint to reset a user's usage."""
+    # Handle OPTIONS request for CORS preflight
+    if request.method == 'OPTIONS':
+        return jsonify({'status': 'ok'})
+        
     # This should be protected with admin authentication in production
     data = request.json
     user_id = data.get('user_id')
