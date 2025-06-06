@@ -74,6 +74,12 @@ def root_delete_story(story_id):
     """Delete a story (without /api prefix)."""
     return delete_story_by_id(story_id)
 
+@app.route('/stories/<story_id>/share', methods=['POST', 'OPTIONS'])
+@auth_required
+def root_generate_share_token(story_id):
+    """Generate a share token for public viewing of a story (without /api prefix)."""
+    return generate_share_token(story_id)
+
 # Original API endpoints with /api prefix
 @app.route('/api/status', methods=['GET', 'OPTIONS'])
 def get_status():
@@ -373,6 +379,77 @@ def reset_usage():
     return jsonify({'success': True})
 
 
+
+@app.route('/api/stories/<story_id>/share', methods=['POST', 'OPTIONS'])
+@auth_required
+def generate_share_token(story_id):
+    """Generate a share token for public viewing of a story."""
+    # Handle OPTIONS request for CORS preflight
+    if request.method == 'OPTIONS':
+        return jsonify({'status': 'ok'})
+    
+    try:
+        # Get the story first to check ownership
+        story = get_story(story_id)
+        if not story:
+            return jsonify({'error': 'Story not found'}), 404
+        
+        # Check if the user owns this story
+        if story.user_id and story.user_id != g.user_id:
+            return jsonify({'error': 'Access denied: You do not own this story'}), 403
+        
+        # Generate a unique share token if it doesn't exist
+        if not story.share_token:
+            story.share_token = f"share_{uuid4().hex[:16]}"
+            story.is_shareable = True
+            
+            # Update the story in storage
+            from .storage import update_story_share_token
+            success = update_story_share_token(story_id, story.share_token)
+            if not success:
+                return jsonify({'error': 'Failed to generate share token'}), 500
+        
+        # Create URL that points to the React frontend, not the API
+        if request.host_url.startswith('http://localhost'):
+            # Local development - point to React dev server
+            share_url = f"http://localhost:3000/share/{story.share_token}"
+        else:
+            # Production - point to the same host but React frontend route
+            share_url = f"{request.host_url}share/{story.share_token}"
+        
+        return jsonify({
+            'share_token': story.share_token,
+            'share_url': share_url,
+            'success': True
+        })
+        
+    except Exception as e:
+        print(f"[API] Error generating share token: {e}")
+        return jsonify({'error': 'Failed to generate share token'}), 500
+
+@app.route('/api/shared/<share_token>', methods=['GET'])
+def view_shared_story(share_token):
+    """API endpoint to get shared story data for frontend."""
+    try:
+        # Find story by share token
+        from .storage import get_story_by_share_token
+        story = get_story_by_share_token(share_token)
+        
+        if not story or not story.is_shareable:
+            return jsonify({'error': 'Shared story not found or not available'}), 404
+        
+        # Return the story data for public viewing
+        story_data = story.model_dump()
+        
+        # Remove sensitive fields for public viewing
+        story_data.pop('user_id', None)
+        story_data.pop('share_token', None)
+        
+        return jsonify(story_data)
+        
+    except Exception as e:
+        print(f"[API] Error viewing shared story: {e}")
+        return jsonify({'error': 'Failed to load shared story'}), 500
 
 @app.route('/api/feedback', methods=['POST'])
 @auth_required

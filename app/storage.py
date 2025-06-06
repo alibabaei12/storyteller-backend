@@ -298,4 +298,25 @@ def submit_feedback(user_id: str, feedback_request: FeedbackRequest) -> bool:
         
     except Exception as e:
         print(f"[Storage] Error submitting feedback: {e}")
-        return False 
+        return False
+
+def update_story_share_token(story_id: str, share_token: str) -> bool:
+    """Update a story's share token in Firebase."""
+    try:
+        return firebase_service.update_story_share_token(story_id, share_token)
+    except Exception as e:
+        print(f"[Storage] Error updating share token: {e}")
+        return False
+
+def get_story_by_share_token(share_token: str) -> Optional[Story]:
+    """Get a story by its share token from Firebase."""
+    try:
+        story = firebase_service.get_story_by_share_token(share_token)
+        if story:
+            print(f"[Storage] Retrieved shared story: {story.title}")
+        else:
+            print(f"[Storage] Shared story not found for token: {share_token}")
+        return story
+    except Exception as e:
+        print(f"[Storage] Error retrieving shared story: {e}")
+        return None

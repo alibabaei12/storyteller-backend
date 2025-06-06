@@ -37,6 +37,9 @@ class Story(BaseModel):
     cultivation_stage: Optional[str] = None
     # User identification
     user_id: Optional[str] = None
+    # Public sharing
+    share_token: Optional[str] = None
+    is_shareable: bool = False
 
 class StoryCreationParams(BaseModel):
     """Parameters for creating a new story."""

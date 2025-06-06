@@ -223,6 +223,39 @@ class FirebaseService:
             print(f"[Firebase] Error retrieving all user usage: {e}")
             return {}
 
+    # Share token operations
+    def update_story_share_token(self, story_id: str, share_token: str) -> bool:
+        """Update a story's share token in Firestore."""
+        try:
+            doc_ref = self.db.collection('stories').document(story_id)
+            doc_ref.update({
+                'share_token': share_token,
+                'is_shareable': True
+            })
+            print(f"[Firebase] Updated share token for story {story_id}")
+            return True
+        except Exception as e:
+            print(f"[Firebase] Error updating share token: {e}")
+            return False
+
+    def get_story_by_share_token(self, share_token: str) -> Optional[Story]:
+        """Get a story by its share token from Firestore."""
+        try:
+            stories_ref = self.db.collection('stories').where('share_token', '==', share_token)
+            docs = list(stories_ref.stream())
+            
+            if docs:
+                story_data = docs[0].to_dict()
+                story = Story(**story_data)
+                print(f"[Firebase] Retrieved shared story {story.id}: {story.title}")
+                return story
+            else:
+                print(f"[Firebase] No shared story found for token: {share_token}")
+                return None
+        except Exception as e:
+            print(f"[Firebase] Error retrieving shared story: {e}")
+            return None
+
 
 # Global Firebase service instance
 firebase_service = FirebaseService() 
