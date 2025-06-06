@@ -24,7 +24,8 @@ class AIService:
         setting: str,
         tone: str,
         character_origin: str,
-        story_length: str
+        story_length: str,
+        language_complexity: str = "simple"
     ) -> Tuple[str, List[Choice]]:
         """
         Generate the initial story content based on character parameters.
@@ -37,43 +38,47 @@ class AIService:
             
             # Create setting-specific prompt addition
             setting_prompt = ""
-            if setting == "cultivation":
-                setting_prompt = "Create a story set in a world where practitioners seek immortality and power through martial arts and spiritual cultivation."
-            elif setting == "academy":
-                setting_prompt = "Create a story set in a magical academy where students learn to control their abilities."
-            elif setting == "gamelike":
-                setting_prompt = "Create a story with RPG-like mechanics such as levels, skills, and quests."
-            elif setting == "apocalypse":
-                setting_prompt = "Create a story in a world facing an apocalyptic scenario where survival is a daily challenge."
+            if setting == "modern":
+                setting_prompt = "Create a story set in the modern world - contemporary cities, towns, everyday life with hidden secrets or mysteries."
             elif setting == "fantasy":
-                setting_prompt = "Create a story in a magical fantasy world with mythical creatures and ancient powers."
+                setting_prompt = "Create a story in a magical fantasy world with wizards, dragons, enchanted forests, and mystical powers."
             elif setting == "scifi":
-                setting_prompt = "Create a story in a futuristic world with advanced technology and space exploration."
-            elif setting == "modern":
-                setting_prompt = "Create a story set in the modern world, possibly with hidden secrets or supernatural elements."
+                setting_prompt = "Create a story in a futuristic world with advanced technology, space travel, and scientific wonders."
+            elif setting == "academy":
+                setting_prompt = "Create a story set in an educational setting - school, university, magical academy, or boarding school."
+            elif setting == "historical":
+                setting_prompt = "Create a story set in a past historical era - medieval times, ancient civilizations, Victorian era, or any historical period."
+            elif setting == "gamelike":
+                setting_prompt = "Create a story in a video game-inspired world with levels, skills, quests, and RPG mechanics."
+            elif setting == "cultivation":
+                setting_prompt = "Create a story set in an Eastern fantasy world where practitioners seek immortality through martial arts and spiritual cultivation."
+            elif setting == "apocalypse":
+                setting_prompt = "Create a story in a post-apocalyptic world where civilization has collapsed and survival is everything."
             
             # Create tone-specific prompt addition
             tone_prompt = ""
-            if tone == "optimistic":
-                tone_prompt = "The story should have a hopeful tone where challenges are overcome with perseverance and positivity."
-            elif tone == "tragic":
-                tone_prompt = "The story should have a bittersweet or sorrowful tone where loss, sacrifice, or downfall play key roles."
-            elif tone == "epic":
-                tone_prompt = "The story should have a grand, larger-than-life tone filled with heroism, trials, and major turning points."
-            elif tone == "thrilling":
-                tone_prompt = "The story should have a fast-paced, edge-of-your-seat tone full of danger, twists, and suspense."
+            if tone == "romantic":
+                tone_prompt = "This is a ROMANCE story. Focus on love, relationships, emotional connections, sweet moments, and romantic tension. Avoid action, violence, or thriller elements."
             elif tone == "mystery":
-                tone_prompt = "The story should be driven by secrets, hidden truths, and the uncovering of the unknown."
-            elif tone == "romantic":
-                tone_prompt = "The story should focus on relationships, love, and emotional connections, but with clear conflicts and plot progression."
-            elif tone == "dark":
-                tone_prompt = "The story should have a grim, morally complex tone where choices are hard and consequences are heavy."
-            elif tone == "whimsical":
-                tone_prompt = "The story should have a playful, imaginative tone filled with wonder, oddities, and a sense of magic."
-            elif tone == "gritty":
-                tone_prompt = "The story should have a realistic, tough tone where survival and resilience are constantly tested."
+                tone_prompt = "This is a MYSTERY story. Focus on puzzles to solve, secrets to uncover, clues to discover, and surprising revelations. Build intrigue and suspense around solving mysteries."
+            elif tone == "adventure":
+                tone_prompt = "This is an ADVENTURE story. Focus on exciting journeys, exploration, quests, and discovery. Include thrilling but not scary moments."
+            elif tone == "thriller":
+                tone_prompt = "This is a THRILLER story. Focus on suspense, danger, fast-paced action, and edge-of-your-seat tension. Create excitement through high stakes and unexpected twists."
+            elif tone == "comedy":
+                tone_prompt = "This is a COMEDY story. Focus on humor, amusing situations, funny characters, and light-hearted moments. Keep things fun and entertaining."
+            elif tone == "drama":
+                tone_prompt = "This is a DRAMA story. Focus on deep emotions, character development, meaningful relationships, and realistic conflicts with emotional weight."
+            elif tone == "horror":
+                tone_prompt = "This is a HORROR story. Focus on scary atmosphere, supernatural elements, dark themes, and spine-chilling moments that create fear and tension."
+            elif tone == "slice-of-life":
+                tone_prompt = "This is a SLICE OF LIFE story. Focus on realistic everyday moments, ordinary situations, character interactions, and the beauty in simple experiences."
+            elif tone == "epic":
+                tone_prompt = "This is an EPIC FANTASY story. Focus on grand heroic tales, larger-than-life adventures, epic quests, and legendary challenges."
+            elif tone == "shonen":
+                tone_prompt = "This is a SHONEN story. Focus on character growth, training arcs, overcoming limits, and progression from weak to strong. Include determination, friendship bonds, challenging opponents, and the drive to become better."
             elif tone == "philosophical":
-                tone_prompt = "The story should be contemplative, focusing on self-discovery, existential questions, and deep themes."
+                tone_prompt = "This is a DEEP & THOUGHTFUL story. Focus on contemplation, life's big questions, meaningful choices, and exploring existential themes."
             
             # Create length-specific prompt addition
             length_prompt = ""
@@ -95,23 +100,38 @@ class AIService:
             elif character_gender == "non-binary":
                 gender_prompt = "The main character is non-binary. Use appropriate pronouns (they/them) when referencing the character."
             
+            # Create language complexity prompt addition
+            language_prompt = ""
+            if language_complexity == "simple":
+                language_prompt = "LANGUAGE STYLE: Use simple, clear language like manga or light novels. Keep sentences short and vocabulary accessible. Perfect for non-native speakers or casual reading."
+            elif language_complexity == "moderate":
+                language_prompt = "LANGUAGE STYLE: Use balanced language with some complex vocabulary, like popular fantasy novels. Accessible but engaging."
+            elif language_complexity == "complex":
+                language_prompt = "LANGUAGE STYLE: Use rich, sophisticated language with advanced vocabulary like classic literature. Be eloquent and beautiful in your prose."
+            
             # Create the system prompt
-            system_prompt = f"""You are an expert storyteller specializing in interactive fiction.
-Create immersive, plot-driven narratives with meaningful choices and dynamic progression.
-Your stories should be written in second-person perspective, addressing the reader as "you".
+            system_prompt = f"""You are a master storyteller who creates ADDICTIVE interactive fiction that readers can't put down.
+Write in gripping second-person perspective that makes readers feel like the protagonist.
 
 {setting_prompt}
 {tone_prompt}
 {length_prompt}
 {gender_prompt}
+{language_prompt}
 
-ESSENTIAL STORYTELLING RULES:
-1. Set the scene quickly and efficiently (1-2 sentences maximum for setting or description).
-2. Introduce a clear GOAL or CONFLICT for the main character within the first few sentences.
-3. Create a sense of urgency, risk, or reward in every scene.
-4. Focus on ACTION and PLOT over lengthy descriptions or passive feelings.
-5. Include unexpected twists or complications to avoid predictability.
-6. Make sure the character has agency and meaningful decisions to make.
+HOOK MASTERY RULES:
+1. NEVER start with introductions - drop readers into the action
+2. Every sentence should raise stakes or deepen intrigue
+3. Use sensory details that make scenes feel visceral and real
+4. Create immediate emotional investment through conflict
+5. End every passage on a cliffhanger that compels the next choice
+
+WRITING STYLE:
+- Short, punchy sentences for action sequences
+- Rich sensory details (what they see, hear, feel, smell)
+- Internal tension through urgent thoughts
+- Show character background through actions, not exposition
+- Use unexpected details that surprise and delight
 
 CHOICE REQUIREMENTS:
 1. Create 3 distinct choices that lead to DIVERGENT outcomes (not looping back to the same scenario).
@@ -120,17 +140,26 @@ CHOICE REQUIREMENTS:
 4. Avoid "false choices" where all paths lead to the same outcome.
 
 The main character (named {character_name}) has the origin: {character_origin}.
+Your goal: Make readers think "I NEED to know what happens next!" after every single passage.
 """
 
             # Create the user prompt
-            user_prompt = f"""Create the beginning of an interactive story for a character named {character_name}.
+            user_prompt = f"""Create an EXPLOSIVE opening for an interactive story. The character's name is {character_name}, they have a {character_origin} background.
 
-Start by QUICKLY establishing:
-1. Their {character_origin} background (1-2 sentences)
-2. The {setting} setting (1-2 sentences)
-3. AN IMMEDIATE PROBLEM, GOAL OR CONFLICT they must address
+CRITICAL RULES:
+- NO character introductions ("You are..." or "Your name is...")
+- START IN THE MIDDLE OF ACTION or at a crucial moment
+- Create immediate TENSION, DANGER, or high stakes
+- Drop the reader into a gripping scene that demands instant decisions
+- Make them feel the urgency and excitement from the first sentence
 
-Write 300-400 words focusing on PLOT and ACTION, then provide exactly 3 distinct choices that lead to different paths.
+WRITE 300-400 words that:
+1. Open with action, conflict, or a moment of crisis
+2. Weave in the {character_origin} background naturally through actions/thoughts (not exposition)
+3. Show the {setting} world through vivid, immediate details
+4. End on a cliffhanger that makes the reader NEED to choose
+
+Create a story so engaging that someone would immediately want to know what happens next.
 
 Format your response as follows:
 [STORY]
@@ -185,7 +214,8 @@ Format your response as follows:
         tone: str,
         story_length: str,
         previous_content: str,
-        selected_choice: str
+        selected_choice: str,
+        language_complexity: str = "simple"
     ) -> Tuple[str, List[Choice]]:
         """
         Continue the story based on the selected choice.
@@ -198,43 +228,47 @@ Format your response as follows:
             
             # Create setting-specific prompt addition
             setting_prompt = ""
-            if setting == "cultivation":
-                setting_prompt = "This is a story set in a world where practitioners seek immortality and power through martial arts and spiritual cultivation."
-            elif setting == "academy":
-                setting_prompt = "This is a story set in a magical academy where students learn to control their abilities."
-            elif setting == "gamelike":
-                setting_prompt = "This is a story with RPG-like mechanics such as levels, skills, and quests."
-            elif setting == "apocalypse":
-                setting_prompt = "This is a story in a world facing an apocalyptic scenario where survival is a daily challenge."
+            if setting == "modern":
+                setting_prompt = "This is a story set in the modern world - contemporary cities, towns, everyday life with hidden secrets or mysteries."
             elif setting == "fantasy":
-                setting_prompt = "This is a story in a magical fantasy world with mythical creatures and ancient powers."
+                setting_prompt = "This is a story in a magical fantasy world with wizards, dragons, enchanted forests, and mystical powers."
             elif setting == "scifi":
-                setting_prompt = "This is a story in a futuristic world with advanced technology and space exploration."
-            elif setting == "modern":
-                setting_prompt = "This is a story set in the modern world, possibly with hidden secrets or supernatural elements."
+                setting_prompt = "This is a story in a futuristic world with advanced technology, space travel, and scientific wonders."
+            elif setting == "academy":
+                setting_prompt = "This is a story set in an educational setting - school, university, magical academy, or boarding school."
+            elif setting == "historical":
+                setting_prompt = "This is a story set in a past historical era - medieval times, ancient civilizations, Victorian era, or any historical period."
+            elif setting == "gamelike":
+                setting_prompt = "This is a story in a video game-inspired world with levels, skills, quests, and RPG mechanics."
+            elif setting == "cultivation":
+                setting_prompt = "This is a story set in an Eastern fantasy world where practitioners seek immortality through martial arts and spiritual cultivation."
+            elif setting == "apocalypse":
+                setting_prompt = "This is a story in a post-apocalyptic world where civilization has collapsed and survival is everything."
             
             # Create tone-specific prompt addition
             tone_prompt = ""
-            if tone == "optimistic":
-                tone_prompt = "Maintain a hopeful tone where challenges are overcome with perseverance and positivity."
-            elif tone == "tragic":
-                tone_prompt = "Maintain a bittersweet or sorrowful tone where loss, sacrifice, or downfall play key roles."
-            elif tone == "epic":
-                tone_prompt = "Maintain a grand, larger-than-life tone filled with heroism, trials, and major turning points."
-            elif tone == "thrilling":
-                tone_prompt = "Maintain a fast-paced, edge-of-your-seat tone full of danger, twists, and suspense."
+            if tone == "romantic":
+                tone_prompt = "Continue the ROMANCE story. Keep focusing on love, relationships, emotional connections, sweet moments, and romantic development. Avoid action, violence, or thriller elements."
             elif tone == "mystery":
-                tone_prompt = "Continue driving the story with secrets, hidden truths, and the uncovering of the unknown."
-            elif tone == "romantic":
-                tone_prompt = "Keep focusing on relationships and emotional connections, but ensure strong plot progression and conflict."
-            elif tone == "dark":
-                tone_prompt = "Maintain a grim, morally complex tone where choices are hard and consequences are heavy."
-            elif tone == "whimsical":
-                tone_prompt = "Keep the playful, imaginative tone filled with wonder, oddities, and a sense of magic."
-            elif tone == "gritty":
-                tone_prompt = "Maintain a realistic, tough tone where survival and resilience are constantly tested."
+                tone_prompt = "Continue the MYSTERY story. Keep focusing on puzzles, secrets, clues, and revelations. Build intrigue around solving mysteries and uncovering truths."
+            elif tone == "adventure":
+                tone_prompt = "Continue the ADVENTURE story. Keep focusing on exciting journeys, exploration, quests, and discovery. Maintain thrilling but not scary elements."
+            elif tone == "thriller":
+                tone_prompt = "Continue the THRILLER story. Keep focusing on suspense, danger, fast-paced action, and tension. Maintain excitement through high stakes and twists."
+            elif tone == "comedy":
+                tone_prompt = "Continue the COMEDY story. Keep focusing on humor, amusing situations, funny moments, and light-hearted entertainment."
+            elif tone == "drama":
+                tone_prompt = "Continue the DRAMA story. Keep focusing on deep emotions, character development, meaningful relationships, and realistic emotional conflicts."
+            elif tone == "horror":
+                tone_prompt = "Continue the HORROR story. Keep focusing on scary atmosphere, supernatural elements, dark themes, and spine-chilling tension."
+            elif tone == "slice-of-life":
+                tone_prompt = "Continue the SLICE OF LIFE story. Keep focusing on realistic everyday moments, ordinary situations, and character interactions."
+            elif tone == "epic":
+                tone_prompt = "Continue the EPIC FANTASY story. Keep focusing on grand heroic tales, larger-than-life adventures, and legendary challenges."
+            elif tone == "shonen":
+                tone_prompt = "Continue the SHONEN story. Keep focusing on character growth, training, overcoming limits, and progression from weak to strong. Include determination, friendship bonds, and challenging obstacles."
             elif tone == "philosophical":
-                tone_prompt = "Continue the contemplative approach, focusing on self-discovery, existential questions, and deep themes."
+                tone_prompt = "Continue the DEEP & THOUGHTFUL story. Keep focusing on contemplation, life's big questions, and meaningful existential themes."
             
             # Create length-specific prompt addition
             length_prompt = ""
@@ -256,22 +290,38 @@ Format your response as follows:
             elif character_gender == "non-binary":
                 gender_prompt = "The main character is non-binary. Use appropriate pronouns (they/them) when referencing the character."
             
+            # Create language complexity prompt addition
+            language_prompt = ""
+            if language_complexity == "simple":
+                language_prompt = "LANGUAGE STYLE: Use simple, clear language like manga or light novels. Keep sentences short and vocabulary accessible. Perfect for non-native speakers or casual reading."
+            elif language_complexity == "moderate":
+                language_prompt = "LANGUAGE STYLE: Use balanced language with some complex vocabulary, like popular fantasy novels. Accessible but engaging."
+            elif language_complexity == "complex":
+                language_prompt = "LANGUAGE STYLE: Use rich, sophisticated language with advanced vocabulary like classic literature. Be eloquent and beautiful in your prose."
+            
             # Create the system prompt
-            system_prompt = f"""You are an expert storyteller specializing in interactive fiction.
-Create immersive, plot-driven narratives with meaningful choices and dynamic progression.
-Your stories should be written in second-person perspective, addressing the reader as "you".
+            system_prompt = f"""You are a master storyteller who creates ADDICTIVE interactive fiction that keeps readers hooked.
+Write in gripping second-person perspective that makes readers feel like the protagonist.
 
 {setting_prompt}
 {tone_prompt}
 {length_prompt}
 {gender_prompt}
+{language_prompt}
 
-ESSENTIAL STORYTELLING RULES:
-1. After each choice, ESCALATE the situation - increase the danger, stakes, or complexity.
-2. Never return to a safe or static situation - keep pushing the plot forward.
-3. Focus on ACTION and PLOT over lengthy descriptions or passive feelings.
-4. Include unexpected twists, complications, or surprises to maintain engagement.
-5. Maintain consistency with previous story elements while introducing new developments.
+CONTINUATION MASTERY RULES:
+1. ESCALATE immediately - raise stakes, add complications, introduce new dangers
+2. Build on the previous choice with UNEXPECTED consequences or twists
+3. Use vivid sensory details that make scenes feel visceral and real
+4. Create internal tension through urgent thoughts and reactions
+5. End every passage on a cliffhanger that compels the next choice
+
+WRITING STYLE:
+- Short, punchy sentences for action sequences
+- Rich sensory details (what they see, hear, feel, smell)
+- Show emotions through actions, not exposition
+- Surprise the reader with unexpected developments
+- Keep momentum building - never slow down
 
 CHOICE REQUIREMENTS:
 1. Create 3 distinct choices that lead to DIVERGENT outcomes (not looping back to the same scenario).
@@ -279,11 +329,10 @@ CHOICE REQUIREMENTS:
 3. Make each choice have clear implications and push the story in a new direction.
 4. Avoid "false choices" where all paths lead to the same outcome.
 
-Maintain consistency with the previous parts of the story.
-Your task is to continue the story based on the choice the user has made."""
+Your goal: Make readers think "I NEED to know what happens next!" after every single passage."""
 
             # Create the user prompt
-            user_prompt = f"""Continue the story for {character_name} based on the previous content and the selected choice.
+            user_prompt = f"""Build on the momentum and create an even MORE thrilling continuation based on {character_name}'s choice.
 
 Previous content:
 {previous_content}
@@ -291,13 +340,20 @@ Previous content:
 Selected choice:
 {selected_choice}
 
-IMPORTANT:
-1. ESCALATE the situation based on this choice - introduce new complications or raise the stakes
-2. Focus on PLOT and ACTION, not just reactions or descriptions
-3. Keep the story moving forward with clear progression
-4. Introduce a new challenge, obstacle, or opportunity
+ESCALATION REQUIREMENTS:
+- This choice must have immediate, dramatic CONSEQUENCES
+- Introduce a NEW complication, threat, or opportunity that raises the stakes
+- Create a moment of high tension or revelation
+- NO repetitive patterns or safe outcomes - surprise the reader!
 
-Write 300-400 words continuing the story based on this choice, then provide exactly 3 new distinct choices that lead to different paths.
+WRITE 300-400 words that:
+1. Show the dramatic results of this choice immediately
+2. Introduce unexpected twists or complications
+3. Use vivid action and sensory details
+4. Build to an even bigger cliffhanger than before
+5. Make the reader desperate to know what happens next
+
+Keep the adrenaline pumping - this should be even more exciting than what came before!
 
 Format your response as follows:
 [STORY]

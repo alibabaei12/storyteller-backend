@@ -149,8 +149,9 @@ def create_new_story():
             character_gender=data.get('character_gender', 'unspecified'),
             setting=data.get('setting', 'cultivation'),
             tone=data.get('tone', 'adventure'),
-            character_origin=data.get('character_origin', 'normal'),
+            character_origin=data.get('character_origin', 'ordinary'),
             story_length=data.get('story_length', 'medium'),
+            language_complexity=data.get('language_complexity', 'simple'),
             user_id=g.user_id  # Add the authenticated user's ID
         )
         
@@ -161,7 +162,8 @@ def create_new_story():
             setting=params.setting,
             tone=params.tone,
             character_origin=params.character_origin,
-            story_length=params.story_length
+            story_length=params.story_length,
+            language_complexity=params.language_complexity
         )
         
         # Create initial node
@@ -240,7 +242,8 @@ def make_choice(story_id, choice_id):
             tone=story.tone,
             story_length=story.story_length,
             previous_content=current_node.content,
-            selected_choice=selected_choice.text
+            selected_choice=selected_choice.text,
+            language_complexity=getattr(story, 'language_complexity', 'simple')
         )
         
         # Create new node

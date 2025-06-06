@@ -122,23 +122,27 @@ def save_choice(story_id: str, node_id: str, choice_id: str) -> Optional[Story]:
 def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] = None) -> Story:
     """Create a new story with the given parameters in Firebase."""
     try:
-        # Generate title based on setting
-        if params.setting == "cultivation":
-            title = f"{params.character_name}'s Cultivation Journey"
-        elif params.setting == "academy":
-            title = f"{params.character_name} at the Academy"
-        elif params.setting == "gamelike":
-            title = f"The Adventures of {params.character_name}"
-        elif params.setting == "apocalypse":
-            title = f"{params.character_name}'s Survival"
-        elif params.setting == "fantasy":
-            title = f"{params.character_name}'s Fantasy Quest"
-        elif params.setting == "scifi":
-            title = f"{params.character_name}'s Space Odyssey"
-        elif params.setting == "modern":
-            title = f"{params.character_name}'s Urban Mystery"
+        # Generate title based on setting and tone
+        tone_titles = {
+            "romantic": "Love Story", "mystery": "Mystery", "adventure": "Adventure", 
+            "thriller": "Thriller", "comedy": "Comedy", "drama": "Story",
+            "horror": "Horror Tale", "slice-of-life": "Story", "epic": "Epic",
+            "philosophical": "Journey"
+        }
+        
+        setting_titles = {
+            "modern": "Urban", "fantasy": "Fantasy", "scifi": "Space", 
+            "academy": "Academy", "historical": "Historical", "gamelike": "Game",
+            "cultivation": "Cultivation", "apocalypse": "Survival"
+        }
+        
+        tone_title = tone_titles.get(params.tone, "Story")
+        setting_title = setting_titles.get(params.setting, "")
+        
+        if setting_title:
+            title = f"{params.character_name}'s {setting_title} {tone_title}"
         else:
-            title = f"{params.character_name}'s Story"
+            title = f"{params.character_name}'s {tone_title}"
         
         # Create a node ID
         node_id = "initial"
@@ -174,7 +178,9 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
             cultivation_stage = "Cadet" 
         elif params.setting == "modern":
             cultivation_stage = "Rookie Investigator"
-        # romance and other general settings get no progress indicator
+        elif params.setting == "historical":
+            cultivation_stage = "Aspiring Apprentice"
+        # Other general settings get no progress indicator for slice-of-life stories
         
         # Create the story
         story = Story(
@@ -185,6 +191,7 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
             tone=params.tone,
             character_origin=params.character_origin,
             story_length=params.story_length,
+            language_complexity=params.language_complexity,
             power_system="auto",  # AI will decide the appropriate power system
             cultivation_stage=cultivation_stage,
             current_node_id=node.id,

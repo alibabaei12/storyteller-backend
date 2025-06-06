@@ -27,6 +27,7 @@ class Story(BaseModel):
     tone: str
     character_origin: str
     story_length: str = "medium"
+    language_complexity: str = "simple"
     nodes: Dict[str, StoryNode]
     current_node_id: str
     last_updated: float = Field(default_factory=lambda: datetime.now().timestamp())
@@ -42,8 +43,9 @@ class StoryCreationParams(BaseModel):
     character_gender: str = "unspecified"
     setting: str = "cultivation"
     tone: str = "optimistic"
-    character_origin: str = "normal"
+    character_origin: str = "ordinary"
     story_length: str = "medium"  # Options: short, medium, long, infinite
+    language_complexity: str = "simple"  # Options: simple, moderate, complex
     user_id: Optional[str] = None
 
 class StoryMetadata(BaseModel):
