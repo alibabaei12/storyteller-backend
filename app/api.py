@@ -155,7 +155,7 @@ def delete_story_by_id(story_id):
                 if (story_created.year == now.year and 
                     story_created.month == now.month):
                     usage_service.decrement_stories_created(user_id)
-                    print(f"[API] Decremented usage count for user {user_id}")
+                    print("[API] Decremented usage count for user")
             except Exception as e:
                 print(f"[API] Error updating usage after delete: {e}")
                 # Don't fail the delete if usage update fails

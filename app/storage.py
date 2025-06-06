@@ -315,7 +315,7 @@ def get_story_by_share_token(share_token: str) -> Optional[Story]:
         if story:
             print(f"[Storage] Retrieved shared story: {story.title}")
         else:
-            print(f"[Storage] Shared story not found for token: {share_token}")
+            print("[Storage] Shared story not found for provided token")
         return story
     except Exception as e:
         print(f"[Storage] Error retrieving shared story: {e}")

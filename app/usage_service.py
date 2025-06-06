@@ -30,7 +30,7 @@ class UsageService:
                 )
                 # Save the new usage record
                 firebase_service.save_user_usage(usage)
-                print(f"[Usage] Created new usage record for user: {user_id}")
+                print("[Usage] Created new usage record")
             else:
                 # Migrate existing users to include new fields
                 if not hasattr(usage, 'stories_created_this_month'):
@@ -62,7 +62,7 @@ class UsageService:
                     usage.stories_created_this_month = current_month_stories
                     usage.stories_created_limit = 5
                     firebase_service.save_user_usage(usage)
-                    print(f"[Usage] Migrated user {user_id}: found {current_month_stories} stories this month")
+                    print(f"[Usage] Migrated user: found {current_month_stories} stories this month")
             
             return usage
         except Exception as e:

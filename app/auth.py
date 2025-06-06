@@ -24,7 +24,7 @@ def get_auth_token():
         print(f"Invalid Authorization header format: {auth_header}")
         return None
     
-    print(f"Auth token extracted successfully: {parts[1][:10]}...")
+    print("Auth token extracted successfully")
     return parts[1]
 
 def decode_token_simple(token):
@@ -43,7 +43,7 @@ def decode_token_simple(token):
         decoded = base64.b64decode(payload)
         data = json.loads(decoded)
         
-        print(f"Decoded token payload (DEV MODE): {data}")
+        print("Token decoded successfully (DEV MODE)")
         return data
     except Exception as e:
         print(f"Error decoding token: {e}")
@@ -71,7 +71,7 @@ def auth_required(f):
         g.user_id = decoded_token.get("user_id") or decoded_token.get("sub") or decoded_token.get("uid")
         g.user_email = decoded_token.get("email", "")
         
-        print(f"Authentication successful for user: {g.user_id}")
+        print("Authentication successful")
         return f(*args, **kwargs)
     
     return decorated_function
@@ -92,7 +92,7 @@ def auth_optional(f):
             if decoded_token:
                 g.user_id = decoded_token.get("user_id") or decoded_token.get("sub") or decoded_token.get("uid")
                 g.user_email = decoded_token.get("email", "")
-                print(f"Optional authentication successful for user: {g.user_id}")
+                print("Optional authentication successful")
             else:
                 g.user_id = None
                 g.user_email = None

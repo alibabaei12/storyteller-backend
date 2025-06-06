@@ -250,7 +250,7 @@ class FirebaseService:
                 print(f"[Firebase] Retrieved shared story {story.id}: {story.title}")
                 return story
             else:
-                print(f"[Firebase] No shared story found for token: {share_token}")
+                print("[Firebase] No shared story found for provided token")
                 return None
         except Exception as e:
             print(f"[Firebase] Error retrieving shared story: {e}")
