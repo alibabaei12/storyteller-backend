@@ -4,7 +4,7 @@ import os
 import json
 from uuid import uuid4
 
-from .models import Story, StoryNode, Choice, StoryCreationParams, StoryMetadata
+from .models import Story, StoryNode, Choice, StoryCreationParams, StoryMetadata, FeedbackRequest
 from .storage import (
     save_story, 
     get_story, 
@@ -13,7 +13,8 @@ from .storage import (
     add_story_node, 
     save_choice, 
     create_story,
-    get_user_stories
+    get_user_stories,
+    submit_feedback
 )
 from .ai_service import AIService
 from .usage_service import usage_service
@@ -318,6 +319,45 @@ def reset_usage():
     
     usage_service.reset_daily_limits(user_id)
     return jsonify({'success': True})
+
+@app.route('/api/feedback', methods=['POST'])
+@auth_required
+def submit_feedback_endpoint():
+    """Submit user feedback with rate limiting and validation."""
+    try:
+        user_id = g.user_id
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        # Validate required fields
+        if 'feedback_type' not in data or 'message' not in data:
+            return jsonify({'error': 'Missing required fields'}), 400
+        
+        # Create feedback request
+        feedback_request = FeedbackRequest(
+            feedback_type=data.get('feedback_type'),
+            message=data.get('message', ''),
+            contact_email=data.get('contact_email', '')
+        )
+        
+        # Submit with rate limiting
+        success = submit_feedback(user_id, feedback_request)
+        
+        if not success:
+            return jsonify({
+                'error': 'Feedback submission failed. You may have exceeded the rate limit (3 per day, 1 per 10 minutes) or provided invalid input.'
+            }), 429
+        
+        return jsonify({
+            'message': 'Feedback submitted successfully. Thank you!',
+            'success': True
+        })
+        
+    except Exception as e:
+        print(f"[API] Error in submit_feedback: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
 
 def run_api(host='0.0.0.0', port=5001, debug=False):
     """Run the Flask API server."""

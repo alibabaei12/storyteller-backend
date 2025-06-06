@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Dict, List, Optional
 from datetime import datetime
 from uuid import uuid4
+from dataclasses import dataclass
 
 class Choice(BaseModel):
     """A choice that the user can make in the story."""
@@ -123,4 +124,20 @@ class UserUsage:
     
     def get_remaining_continuations(self) -> int:
         """Get the number of remaining story continuations."""
-        return max(0, self.story_continuations_limit - self.story_continuations_used) 
+        return max(0, self.story_continuations_limit - self.story_continuations_used)
+
+@dataclass
+class Feedback:
+    id: str
+    user_id: str
+    feedback_type: str  # 'bug', 'feature', 'general'
+    message: str  # max 500 chars
+    contact_email: str = ""
+    status: str = "open"  # 'open', 'resolved', 'spam'
+    created_at: str = ""
+    
+@dataclass 
+class FeedbackRequest:
+    feedback_type: str
+    message: str
+    contact_email: str = "" 

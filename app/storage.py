@@ -2,8 +2,10 @@ import os
 import json
 import jsonpickle
 from typing import List, Optional, Dict
-from .models import Story, StoryNode, StoryMetadata, Choice, StoryCreationParams
+from .models import Story, StoryNode, StoryMetadata, Choice, StoryCreationParams, Feedback, FeedbackRequest
 from .firebase_service import firebase_service
+from datetime import datetime, timedelta
+from uuid import uuid4
 
 # Storage constants
 STORAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
@@ -221,4 +223,79 @@ def get_story_ids() -> List[str]:
 def save_story_ids(story_ids: List[str]) -> None:
     """Save the list of story IDs (legacy function - no-op with Firebase)."""
     # No-op: Firebase handles this automatically
-    pass 
+    pass
+
+def submit_feedback(user_id: str, feedback_request: FeedbackRequest) -> bool:
+    """
+    Submit feedback with rate limiting and validation.
+    Returns True if successful, False if rate limited or invalid.
+    """
+    try:
+        # Check rate limiting - max 3 per day, 1 per 10 minutes
+        now = datetime.utcnow()
+        today_start = datetime(now.year, now.month, now.day)
+        ten_minutes_ago = now - timedelta(minutes=10)
+        
+        # Check daily limit
+        daily_count = firebase_service.db.collection('feedback').where(
+            'user_id', '==', user_id
+        ).where(
+            'created_at', '>=', today_start.isoformat()
+        ).get()
+        
+        if len(daily_count) >= 3:
+            print(f"[Storage] Rate limit exceeded for user {user_id}: {len(daily_count)} submissions today")
+            return False
+        
+        # Check recent submission limit
+        recent_count = firebase_service.db.collection('feedback').where(
+            'user_id', '==', user_id
+        ).where(
+            'created_at', '>=', ten_minutes_ago.isoformat()
+        ).get()
+        
+        if len(recent_count) >= 1:
+            print(f"[Storage] Rate limit exceeded for user {user_id}: recent submission")
+            return False
+        
+        # Validate input
+        if not feedback_request.message or len(feedback_request.message.strip()) < 5:
+            print(f"[Storage] Invalid feedback: message too short")
+            return False
+            
+        if len(feedback_request.message) > 500:
+            print(f"[Storage] Invalid feedback: message too long")
+            return False
+            
+        if feedback_request.feedback_type not in ['bug', 'feature', 'general']:
+            print(f"[Storage] Invalid feedback type: {feedback_request.feedback_type}")
+            return False
+        
+        # Create feedback record
+        feedback_id = str(uuid4())
+        feedback = Feedback(
+            id=feedback_id,
+            user_id=user_id,
+            feedback_type=feedback_request.feedback_type,
+            message=feedback_request.message.strip()[:500],  # Ensure max length
+            contact_email=feedback_request.contact_email.strip()[:100] if feedback_request.contact_email else "",
+            status="open",
+            created_at=now.isoformat()
+        )
+        
+        # Store in database
+        firebase_service.db.collection('feedback').document(feedback_id).set({
+            'user_id': feedback.user_id,
+            'feedback_type': feedback.feedback_type,
+            'message': feedback.message,
+            'contact_email': feedback.contact_email,
+            'status': feedback.status,
+            'created_at': feedback.created_at
+        })
+        
+        print(f"[Storage] Feedback submitted successfully: {feedback_id}")
+        return True
+        
+    except Exception as e:
+        print(f"[Storage] Error submitting feedback: {e}")
+        return False 
