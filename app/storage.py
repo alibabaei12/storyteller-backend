@@ -4,7 +4,7 @@ import jsonpickle
 from typing import List, Optional, Dict
 from .models import Story, StoryNode, StoryMetadata, Choice, StoryCreationParams, Feedback, FeedbackRequest
 from .firebase_service import firebase_service
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from uuid import uuid4
 
 # Storage constants
@@ -153,15 +153,13 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
         if initial_node:
             node = initial_node
         else:
-            import time
             node = StoryNode(
                 id=node_id,
                 content="Your adventure is about to begin...",
                 choices=[
                     Choice(id="1", text="Start your journey")
                 ],
-                parent_node_id=None,
-                timestamp=time.time()
+                parent_node_id=None
             )
         
         # Determine progress indicator based on setting
@@ -232,8 +230,8 @@ def submit_feedback(user_id: str, feedback_request: FeedbackRequest) -> bool:
     """
     try:
         # Check rate limiting - max 3 per day, 1 per 10 minutes
-        now = datetime.utcnow()
-        today_start = datetime(now.year, now.month, now.day)
+        now = datetime.now(timezone.utc)
+        today_start = datetime(now.year, now.month, now.day, tzinfo=timezone.utc)
         ten_minutes_ago = now - timedelta(minutes=10)
         
         # Check daily limit

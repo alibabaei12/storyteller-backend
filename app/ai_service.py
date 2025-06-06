@@ -110,8 +110,7 @@ class AIService:
                 language_prompt = "LANGUAGE STYLE: Use rich, sophisticated language with advanced vocabulary like classic literature. Be eloquent and beautiful in your prose."
             
             # Create the system prompt
-            system_prompt = f"""You are a master storyteller who creates ADDICTIVE interactive fiction that readers can't put down.
-Write in gripping second-person perspective that makes readers feel like the protagonist.
+            system_prompt = f"""You are a storytelling genius who creates BINGE-WORTHY interactive fiction that readers devour in one sitting.
 
 {setting_prompt}
 {tone_prompt}
@@ -119,47 +118,55 @@ Write in gripping second-person perspective that makes readers feel like the pro
 {gender_prompt}
 {language_prompt}
 
-HOOK MASTERY RULES:
-1. NEVER start with introductions - drop readers into the action
-2. Every sentence should raise stakes or deepen intrigue
-3. Use sensory details that make scenes feel visceral and real
-4. Create immediate emotional investment through conflict
-5. End every passage on a cliffhanger that compels the next choice
+STORY MASTERY RULES:
+1. CONTEXT FIRST - Give readers enough background to care about what happens
+2. INTRIGUE over action - Create mysteries, secrets, or goals that drive the plot
+3. MEANINGFUL CHOICES - Each decision shapes the story direction significantly
+4. PLOT MOMENTUM - Something important should happen or be revealed every chapter
+5. EMOTIONAL HOOKS - Make readers invested in the character's goals and relationships
 
-WRITING STYLE:
-- Short, punchy sentences for action sequences
-- Rich sensory details (what they see, hear, feel, smell)
-- Internal tension through urgent thoughts
-- Show character background through actions, not exposition
-- Use unexpected details that surprise and delight
+WRITING APPROACH:
+- Start with a SITUATION, not an action scene
+- Establish CLEAR STAKES - what the character wants/needs
+- Create IMMEDIATE INTRIGUE - questions that need answers
+- Use CONCRETE DETAILS - specific, relatable scenarios
+- ADVANCE THE PLOT - don't just describe the same scene
 
 CHOICE REQUIREMENTS:
-1. Create 3 distinct choices that lead to DIVERGENT outcomes (not looping back to the same scenario).
-2. Include one RISKY choice, one SAFE choice, and one CLEVER/STRATEGIC choice.
-3. Make each choice have clear implications and push the story in a new direction.
-4. Avoid "false choices" where all paths lead to the same outcome.
+1. Create 3 distinct choices that lead to DIFFERENT story paths and outcomes
+2. Each choice should unlock new plot elements, characters, or revelations
+3. Avoid combat-heavy or repetitive scenario choices
+4. Include choices that appeal to different player motivations (social, strategic, bold)
 
 The main character (named {character_name}) has the origin: {character_origin}.
-Your goal: Make readers think "I NEED to know what happens next!" after every single passage.
-"""
+Your goal: Make readers think "I'm hooked - this story is going somewhere interesting!" after every passage."""
 
-            # Create the user prompt
-            user_prompt = f"""Create an EXPLOSIVE opening for an interactive story. The character's name is {character_name}, they have a {character_origin} background.
+            # Create the user prompt  
+            user_prompt = f"""Create a COMPELLING opening that immediately hooks the reader with an intriguing situation.
 
-CRITICAL RULES:
-- NO character introductions ("You are..." or "Your name is...")
-- START IN THE MIDDLE OF ACTION or at a crucial moment
-- Create immediate TENSION, DANGER, or high stakes
-- Drop the reader into a gripping scene that demands instant decisions
-- Make them feel the urgency and excitement from the first sentence
+Character: {character_name} with {character_origin} background
+Setting: {setting}
+Tone: {tone}
 
-WRITE 300-400 words that:
-1. Open with action, conflict, or a moment of crisis
-2. Weave in the {character_origin} background naturally through actions/thoughts (not exposition)
-3. Show the {setting} world through vivid, immediate details
-4. End on a cliffhanger that makes the reader NEED to choose
+OPENING STRATEGY:
+- Start with a specific, intriguing SITUATION that sets up the story
+- Give enough context so readers understand what's happening and why it matters
+- Create a clear goal, mystery, or conflict that drives the plot forward
+- End with a meaningful choice that will shape the story's direction
 
-Create a story so engaging that someone would immediately want to know what happens next.
+AVOID:
+- Generic action sequences or combat
+- Vague mystical/dramatic descriptions  
+- Starting mid-fight with no explanation
+- Overly long atmospheric writing
+
+WRITE 200-300 words that:
+1. Establish a clear, interesting situation
+2. Give the character a goal or problem to solve
+3. Create immediate intrigue about what happens next
+4. Present a meaningful choice with real consequences
+
+Make me want to keep reading because I'm invested in this character and curious about their story!
 
 Format your response as follows:
 [STORY]
@@ -168,7 +175,7 @@ Format your response as follows:
 
 [CHOICES]
 1. (First choice text)
-2. (Second choice text)
+2. (Second choice text)  
 3. (Third choice text)
 [/CHOICES]"""
 
@@ -300,8 +307,7 @@ Format your response as follows:
                 language_prompt = "LANGUAGE STYLE: Use rich, sophisticated language with advanced vocabulary like classic literature. Be eloquent and beautiful in your prose."
             
             # Create the system prompt
-            system_prompt = f"""You are a master storyteller who creates ADDICTIVE interactive fiction that keeps readers hooked.
-Write in gripping second-person perspective that makes readers feel like the protagonist.
+            system_prompt = f"""You are a storytelling genius who creates BINGE-WORTHY interactive fiction that readers devour in one sitting.
 
 {setting_prompt}
 {tone_prompt}
@@ -309,30 +315,30 @@ Write in gripping second-person perspective that makes readers feel like the pro
 {gender_prompt}
 {language_prompt}
 
-CONTINUATION MASTERY RULES:
-1. ESCALATE immediately - raise stakes, add complications, introduce new dangers
-2. Build on the previous choice with UNEXPECTED consequences or twists
-3. Use vivid sensory details that make scenes feel visceral and real
-4. Create internal tension through urgent thoughts and reactions
-5. End every passage on a cliffhanger that compels the next choice
+STORY PROGRESSION RULES:
+1. ADVANCE THE PLOT - Each chapter should introduce new elements, characters, or revelations
+2. CONSEQUENCES MATTER - Show clear results from the previous choice 
+3. VARIETY IS KEY - Change locations, introduce new characters, reveal secrets
+4. STORY MOMENTUM - Always move toward solving mysteries or achieving goals
+5. MEANINGFUL DEVELOPMENT - Character growth or world-building in every passage
 
-WRITING STYLE:
-- Short, punchy sentences for action sequences
-- Rich sensory details (what they see, hear, feel, smell)
-- Show emotions through actions, not exposition
-- Surprise the reader with unexpected developments
-- Keep momentum building - never slow down
+WRITING APPROACH:
+- CHANGE SOMETHING SIGNIFICANT - location, characters, situation, or knowledge
+- BUILD ON PREVIOUS CHOICES - show how decisions shape the story path
+- CREATE NEW INTRIGUE - introduce fresh mysteries or challenges
+- AVOID REPETITION - don't rehash the same scenario or conflict
+- PROGRESS THE NARRATIVE - move closer to resolution or deeper into complexity
 
 CHOICE REQUIREMENTS:
-1. Create 3 distinct choices that lead to DIVERGENT outcomes (not looping back to the same scenario).
-2. Include one RISKY choice, one SAFE choice, and one CLEVER/STRATEGIC choice.
-3. Make each choice have clear implications and push the story in a new direction.
-4. Avoid "false choices" where all paths lead to the same outcome.
+1. Create 3 distinct choices that unlock DIFFERENT story paths and content
+2. Each choice should lead to new locations, characters, or plot developments
+3. Offer meaningful alternatives that appeal to different story approaches
+4. Avoid choices that all lead back to similar scenarios or conflicts
 
-Your goal: Make readers think "I NEED to know what happens next!" after every single passage."""
+Your goal: Make readers think "This story keeps getting more interesting!" after every choice."""
 
             # Create the user prompt
-            user_prompt = f"""Build on the momentum and create an even MORE thrilling continuation based on {character_name}'s choice.
+            user_prompt = f"""Continue the story by showing the consequences of {character_name}'s choice and advancing the plot.
 
 Previous content:
 {previous_content}
@@ -340,20 +346,25 @@ Previous content:
 Selected choice:
 {selected_choice}
 
-ESCALATION REQUIREMENTS:
-- This choice must have immediate, dramatic CONSEQUENCES
-- Introduce a NEW complication, threat, or opportunity that raises the stakes
-- Create a moment of high tension or revelation
-- NO repetitive patterns or safe outcomes - surprise the reader!
+CONTINUATION STRATEGY:
+- Show immediate results of this choice
+- Introduce NEW story elements (characters, locations, information, conflicts)
+- Move the plot forward significantly - don't stay in the same scenario
+- Create fresh intrigue that builds on what came before
 
-WRITE 300-400 words that:
-1. Show the dramatic results of this choice immediately
-2. Introduce unexpected twists or complications
-3. Use vivid action and sensory details
-4. Build to an even bigger cliffhanger than before
-5. Make the reader desperate to know what happens next
+PLOT ADVANCEMENT REQUIREMENTS:
+1. Change something significant about the situation
+2. Introduce new characters, locations, or revelations
+3. Move closer to resolving mysteries or achieving goals
+4. Create new questions or challenges for the reader
 
-Keep the adrenaline pumping - this should be even more exciting than what came before!
+WRITE 200-300 words that:
+1. Show clear consequences of the previous choice
+2. Introduce new elements that advance the story
+3. Create compelling intrigue about what happens next
+4. End with choices that offer genuinely different story directions
+
+Keep the story moving forward - I want to see real progress and development!
 
 Format your response as follows:
 [STORY]

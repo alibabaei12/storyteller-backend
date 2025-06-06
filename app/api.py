@@ -147,9 +147,9 @@ def delete_story_by_id(story_id):
         if story_last_updated:
             try:
                 # Check if the story was created this month
-                from datetime import datetime
-                now = datetime.utcnow()
-                story_created = datetime.fromtimestamp(story_last_updated)
+                from datetime import datetime, timezone
+                now = datetime.now(timezone.utc)
+                story_created = datetime.fromtimestamp(story_last_updated, tz=timezone.utc)
                 
                 # If story was created in the current month, decrement the counter
                 if (story_created.year == now.year and 

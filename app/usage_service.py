@@ -1,7 +1,7 @@
 import os
 import json
 from typing import Dict, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from .models import UserUsage
 from .firebase_service import firebase_service
 
@@ -26,7 +26,7 @@ class UsageService:
                     story_continuations_limit=25,  # Free tier limit
                     stories_created_this_month=0,
                     stories_created_limit=5,  # Free tier limit
-                    last_reset_date=datetime.now()
+                    last_reset_date=datetime.now(timezone.utc)
                 )
                 # Save the new usage record
                 firebase_service.save_user_usage(usage)
@@ -36,7 +36,6 @@ class UsageService:
                 if not hasattr(usage, 'stories_created_this_month'):
                     # Count existing stories created this month
                     from .storage import get_user_stories
-                    from datetime import datetime
                     
                     user_stories = get_user_stories(user_id)
                     current_month_stories = 0
@@ -49,10 +48,10 @@ class UsageService:
                                 story_date = datetime.fromisoformat(story_meta.created_at.replace('Z', '+00:00'))
                             else:
                                 # Fallback to last_updated timestamp
-                                story_date = datetime.fromtimestamp(story_meta.last_updated)
+                                story_date = datetime.fromtimestamp(story_meta.last_updated, tz=timezone.utc)
                             
-                            if (story_date.year == datetime.now().year and 
-                                story_date.month == datetime.now().month):
+                            if (story_date.year == datetime.now(timezone.utc).year and 
+                                story_date.month == datetime.now(timezone.utc).month):
                                 current_month_stories += 1
                                 print(f"[Usage] Found story from this month: {story_meta.title} created on {story_date}")
                         except Exception as e:
@@ -74,7 +73,7 @@ class UsageService:
                 story_continuations_limit=25,  # Free tier limit
                 stories_created_this_month=0,
                 stories_created_limit=5,  # Free tier limit
-                last_reset_date=datetime.now()
+                last_reset_date=datetime.now(timezone.utc)
             )
     
     def update_user_usage(self, user_id: str, usage: UserUsage) -> None:
@@ -172,14 +171,14 @@ class UsageService:
             
             # Count current month stories manually
             current_month_stories = 0
-            now = datetime.now()
+            now = datetime.now(timezone.utc)
             
             for story_meta in user_stories:
                 try:
                     if hasattr(story_meta, 'created_at') and story_meta.created_at:
                         story_date = datetime.fromisoformat(story_meta.created_at.replace('Z', '+00:00'))
                     else:
-                        story_date = datetime.fromtimestamp(story_meta.last_updated)
+                        story_date = datetime.fromtimestamp(story_meta.last_updated, tz=timezone.utc)
                     
                     if (story_date.year == now.year and story_date.month == now.month):
                         current_month_stories += 1
@@ -201,7 +200,7 @@ class UsageService:
         try:
             usage = self.get_user_usage(user_id)
             usage.story_continuations_used = 0
-            usage.last_reset_date = datetime.now()
+            usage.last_reset_date = datetime.now(timezone.utc)
             self.update_user_usage(user_id, usage)
             print(f"[Usage] Reset daily limits for user: {user_id}")
         except Exception as e:

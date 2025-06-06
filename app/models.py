@@ -1,8 +1,9 @@
 from pydantic import BaseModel, Field
 from typing import Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 from dataclasses import dataclass
+import time
 
 class Choice(BaseModel):
     """A choice that the user can make in the story."""
@@ -16,11 +17,11 @@ class StoryNode(BaseModel):
     choices: List[Choice]
     parent_node_id: Optional[str] = None
     selected_choice_id: Optional[str] = None
-    timestamp: float = Field(default_factory=lambda: datetime.now().timestamp())
+    timestamp: float = Field(default_factory=lambda: time.time())
 
 class Story(BaseModel):
     """The main story object containing all nodes and metadata."""
-    id: str = Field(default_factory=lambda: f"story_{int(datetime.now().timestamp())}_{uuid4().hex[:8]}")
+    id: str = Field(default_factory=lambda: f"story_{int(time.time())}_{uuid4().hex[:8]}")
     title: str
     character_name: str
     character_gender: str = "unspecified"
@@ -31,7 +32,7 @@ class Story(BaseModel):
     language_complexity: str = "simple"
     nodes: Dict[str, StoryNode]
     current_node_id: str
-    last_updated: float = Field(default_factory=lambda: datetime.now().timestamp())
+    last_updated: float = Field(default_factory=lambda: time.time())
     # Internal fields that aren't directly set by users
     power_system: str = "auto"
     cultivation_stage: Optional[str] = None
@@ -79,7 +80,7 @@ class UserUsage:
         self.story_continuations_limit = story_continuations_limit
         self.stories_created_this_month = stories_created_this_month
         self.stories_created_limit = stories_created_limit
-        self.last_reset_date = last_reset_date or datetime.now()
+        self.last_reset_date = last_reset_date or datetime.now(timezone.utc)
     
     def to_dict(self) -> Dict:
         """Convert to dictionary for JSON serialization."""
@@ -109,11 +110,11 @@ class UserUsage:
                     last_reset = datetime.fromisoformat(last_reset_data)
                 except ValueError:
                     # Fallback to current datetime if parsing fails
-                    last_reset = datetime.now()
+                    last_reset = datetime.now(timezone.utc)
             elif isinstance(last_reset_data, datetime):
                 last_reset = last_reset_data
             else:
-                last_reset = datetime.now()
+                last_reset = datetime.now(timezone.utc)
         
         return cls(
             user_id=data.get("user_id", ""),
