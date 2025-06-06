@@ -118,21 +118,47 @@ def delete_story_by_id(story_id):
     # Handle OPTIONS request for CORS preflight
     if request.method == 'OPTIONS':
         return jsonify({'status': 'ok'})
+    
+    try:        
+        # Get the story first to check ownership and save creation date
+        story = get_story(story_id)
+        if not story:
+            return jsonify({'error': 'Story not found'}), 404
         
-    # Get the story first to check ownership
-    story = get_story(story_id)
-    if not story:
-        return jsonify({'error': 'Story not found'}), 404
+        # Check if the user owns this story
+        if story.user_id and story.user_id != g.user_id:
+            return jsonify({'error': 'Access denied: You do not own this story'}), 403
+        
+        # Save creation date before deleting (using last_updated as creation timestamp)
+        story_last_updated = story.last_updated
+        user_id = g.user_id
+        
+        success = delete_story(story_id)
+        if not success:
+            return jsonify({'error': 'Failed to delete story'}), 500
+        
+        # Update usage tracking - decrement stories created count if it was created this month
+        if story_last_updated:
+            try:
+                # Check if the story was created this month
+                from datetime import datetime
+                now = datetime.utcnow()
+                story_created = datetime.fromtimestamp(story_last_updated)
+                
+                # If story was created in the current month, decrement the counter
+                if (story_created.year == now.year and 
+                    story_created.month == now.month):
+                    usage_service.decrement_stories_created(user_id)
+                    print(f"[API] Decremented usage count for user {user_id}")
+            except Exception as e:
+                print(f"[API] Error updating usage after delete: {e}")
+                # Don't fail the delete if usage update fails
+        
+        return jsonify({'success': True})
     
-    # Check if the user owns this story
-    if story.user_id and story.user_id != g.user_id:
-        return jsonify({'error': 'Access denied: You do not own this story'}), 403
-    
-    success = delete_story(story_id)
-    if not success:
+    except Exception as e:
+        print(f"[API] Error in delete_story_by_id: {e}")
         return jsonify({'error': 'Failed to delete story'}), 500
-    
-    return jsonify({'success': True})
 
 @app.route('/api/stories', methods=['POST', 'OPTIONS'])
 @auth_required
@@ -143,6 +169,16 @@ def create_new_story():
         return jsonify({'status': 'ok'})
         
     try:
+        # Check if user can create new stories
+        user_id = g.user_id
+        if not usage_service.can_create_story(user_id):
+            remaining = usage_service.get_remaining_stories(user_id)
+            return jsonify({
+                'error': 'Story creation limit reached',
+                'message': f'You have reached your limit of {usage_service.get_user_usage(user_id).stories_created_limit} stories per month. Remaining: {remaining}',
+                'remaining_stories': remaining
+            }), 429
+        
         data = request.json
         
         params = StoryCreationParams(
@@ -178,7 +214,20 @@ def create_new_story():
         # Create the story
         story = create_story(params, initial_node)
         
-        return jsonify(story.model_dump())
+        # Increment stories created count
+        usage_service.increment_stories_created(user_id)
+        
+        # Add usage info to response
+        usage = usage_service.get_user_usage(user_id)
+        response_data = story.model_dump()
+        response_data['usage'] = {
+            'remaining_stories': usage_service.get_remaining_stories(user_id),
+            'remaining_continuations': usage_service.get_remaining_continuations(user_id),
+            'stories_limit': usage.stories_created_limit,
+            'continuations_limit': usage.story_continuations_limit
+        }
+        
+        return jsonify(response_data)
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -299,7 +348,10 @@ def get_usage():
         'user_id': usage.user_id,
         'story_continuations_used': usage.story_continuations_used,
         'story_continuations_limit': usage.story_continuations_limit,
-        'remaining_continuations': usage_service.get_remaining_continuations(user_id)
+        'stories_created_this_month': getattr(usage, 'stories_created_this_month', 0),
+        'stories_created_limit': getattr(usage, 'stories_created_limit', 5),
+        'remaining_continuations': usage_service.get_remaining_continuations(user_id),
+        'remaining_stories': usage_service.get_remaining_stories(user_id)
     })
 
 @app.route('/api/usage/reset', methods=['POST', 'OPTIONS'])
@@ -319,6 +371,8 @@ def reset_usage():
     
     usage_service.reset_daily_limits(user_id)
     return jsonify({'success': True})
+
+
 
 @app.route('/api/feedback', methods=['POST'])
 @auth_required

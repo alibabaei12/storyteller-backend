@@ -66,12 +66,16 @@ class UserUsage:
         self,
         user_id: str,
         story_continuations_used: int = 0,
-        story_continuations_limit: int = 20,
+        story_continuations_limit: int = 25,  # Free tier limit
+        stories_created_this_month: int = 0,
+        stories_created_limit: int = 5,  # Free tier limit
         last_reset_date: Optional[datetime] = None
     ):
         self.user_id = user_id
         self.story_continuations_used = story_continuations_used
         self.story_continuations_limit = story_continuations_limit
+        self.stories_created_this_month = stories_created_this_month
+        self.stories_created_limit = stories_created_limit
         self.last_reset_date = last_reset_date or datetime.now()
     
     def to_dict(self) -> Dict:
@@ -80,6 +84,8 @@ class UserUsage:
             "user_id": self.user_id,
             "story_continuations_used": self.story_continuations_used,
             "story_continuations_limit": self.story_continuations_limit,
+            "stories_created_this_month": getattr(self, 'stories_created_this_month', 0),
+            "stories_created_limit": getattr(self, 'stories_created_limit', 5),
             "last_reset_date": (
                 self.last_reset_date.isoformat() 
                 if self.last_reset_date and hasattr(self.last_reset_date, 'isoformat') 
@@ -109,7 +115,9 @@ class UserUsage:
         return cls(
             user_id=data.get("user_id", ""),
             story_continuations_used=data.get("story_continuations_used", 0),
-            story_continuations_limit=data.get("story_continuations_limit", 20),
+            story_continuations_limit=data.get("story_continuations_limit", 25),
+            stories_created_this_month=data.get("stories_created_this_month", 0),
+            stories_created_limit=data.get("stories_created_limit", 5),
             last_reset_date=last_reset
         )
     
