@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 from .genres.cultivation_progression import CultivationProgression
 from .genres.fantasy_adventure import FantasyAdventure
 from .genres.academy_magic import AcademyMagic
+from .base_genre import BaseGenre
 
 # Load environment variables
 load_dotenv()
@@ -224,27 +225,24 @@ Format your response as follows:
             # Extract the content from the response
             response_text = response.choices[0].message.content
             
-            # Parse the response
-            story_content, choices = AIService._parse_story_response(response_text)
-            
-            logger.info(f"Generated initial story: {len(story_content)} chars and {len(choices)} choices")
-            
-            return story_content, choices
+            # Parse the response with retry logic for better choice generation
+            try:
+                story_content, choices = BaseGenre.parse_story_response_strict(response_text)
+                logger.info(f"Generated initial story: {len(story_content)} chars and {len(choices)} choices")
+                return story_content, choices
+            except ValueError as parse_error:
+                logger.warning(f"Initial story parsing failed, retrying: {parse_error}")
+                # If parsing fails, try to regenerate with stricter instructions
+                return AIService._retry_initial_story_generation_with_better_format(
+                    system_prompt, user_prompt, character_name, setting
+                )
             
         except openai.OpenAIError as e:
             logger.error(f"OpenAI API error generating initial story: {e}")
+            return AIService._create_initial_story_fallback(character_name, setting)
         except Exception as e:
             logger.error(f"Unexpected error generating initial story: {e}")
-            # Provide fallback content
-            return (
-                f"Welcome to your adventure, {character_name}. " 
-                f"Your journey begins now, and the choices you make will shape your destiny...",
-                [
-                    Choice(id="1", text="Begin your adventure"),
-                    Choice(id="2", text="Learn more about your surroundings"),
-                    Choice(id="3", text="Consider your options carefully")
-                ]
-            )
+            return AIService._create_initial_story_fallback(character_name, setting)
 
     @staticmethod
     def continue_story(
@@ -424,113 +422,231 @@ Format your response as follows:
             # Extract the content from the response
             response_text = response.choices[0].message.content
             
-            # Parse the response
-            story_content, choices = AIService._parse_story_response(response_text)
-            
-            logger.info(f"Generated continuation: {len(story_content)} chars and {len(choices)} choices")
-            
-            return story_content, choices
+            # Parse the response with retry logic for better choice generation
+            try:
+                story_content, choices = BaseGenre.parse_story_response_strict(response_text)
+                logger.info(f"Generated continuation: {len(story_content)} chars and {len(choices)} choices")
+                return story_content, choices
+            except ValueError as parse_error:
+                logger.warning(f"Story parsing failed, retrying: {parse_error}")
+                # If parsing fails, try to regenerate with stricter instructions
+                return AIService._retry_story_generation_with_better_format(
+                    system_prompt, user_prompt, character_name, setting, selected_choice
+                )
             
         except openai.OpenAIError as e:
             logger.error(f"OpenAI API error continuing story: {e}")
+            return AIService._create_contextual_api_fallback(character_name, setting, selected_choice)
         except Exception as e:
             logger.error(f"Unexpected error continuing story: {e}")
-            # Provide contextual fallback content based on selected choice
-            story_content = f"{character_name} takes a deep breath and decides to {selected_choice.lower()}. " \
-                           f"The path ahead in this {setting} world remains uncertain, but {character_name}'s " \
-                           f"determination grows stronger with each step forward..."
-            
-            # Create setting-appropriate choices
-            if setting in ["fantasy", "cultivation"]:
-                choices = [
-                    Choice(id="1", text="Focus on developing inner strength and abilities"),
-                    Choice(id="2", text="Seek guidance from wise mentors or allies"),
-                    Choice(id="3", text="Take on challenges to prove worthiness")
-                ]
-            elif setting in ["scifi", "gamelike"]:
-                choices = [
-                    Choice(id="1", text="Analyze the situation using available technology"),
-                    Choice(id="2", text="Gather intelligence about current circumstances"),
-                    Choice(id="3", text="Take strategic action based on available data")
-                ]
-            elif setting in ["academy", "modern"]:
-                choices = [
-                    Choice(id="1", text="Study the situation carefully and plan ahead"),
-                    Choice(id="2", text="Reach out to friends or mentors for support"),
-                    Choice(id="3", text="Take initiative to address the challenge directly")
-                ]
-            else:
-                choices = [
-                    Choice(id="1", text="Carefully assess the current circumstances"),
-                    Choice(id="2", text="Trust instincts and take decisive action"),
-                    Choice(id="3", text="Seek additional information before proceeding")
-                ]
-            
-            return story_content, choices
+            return AIService._create_contextual_api_fallback(character_name, setting, selected_choice)
 
     @staticmethod
-    def _parse_story_response(response_text: str) -> Tuple[str, List[Choice]]:
+    def _retry_story_generation_with_better_format(
+        system_prompt: str, 
+        user_prompt: str, 
+        character_name: str, 
+        setting: str, 
+        selected_choice: str
+    ) -> Tuple[str, List[Choice]]:
         """
-        Parse the AI response into story content and choices.
-        
-        Returns:
-            Tuple containing story content and list of choices
+        Retry story generation with stricter formatting instructions.
         """
         try:
-            # Extract story content
-            if "[STORY]" in response_text and "[/STORY]" in response_text:
-                story_match = response_text.split("[STORY]")[1].split("[/STORY]")[0].strip()
-            else:
-                # If the story doesn't follow the format, use the whole text before [CHOICES]
-                if "[CHOICES]" in response_text:
-                    story_match = response_text.split("[CHOICES]")[0].strip()
-                else:
-                    story_match = response_text.strip()
+            # Enhanced user prompt with stricter formatting requirements
+            enhanced_prompt = f"""{user_prompt}
+
+CRITICAL FORMATTING REQUIREMENTS:
+- Your response MUST include [STORY] and [/STORY] tags around the story content
+- Your response MUST include [CHOICES] and [/CHOICES] tags around the choices
+- Each choice MUST be on a separate line, numbered (1. , 2. , 3. )
+- Choices MUST be specific to the story content, not generic
+- Example format:
+
+[STORY]
+Your story content here...
+[/STORY]
+
+[CHOICES]
+1. Specific choice related to the story
+2. Another specific choice related to the story  
+3. Third specific choice related to the story
+[/CHOICES]"""
+
+            logger.info(f"Retrying story generation with enhanced formatting for {character_name}")
             
-            # Extra safety: Remove any [CHOICES] sections that might still be in the content
-            if "[CHOICES]" in story_match:
-                story_match = story_match.split("[CHOICES]")[0].strip()
-                
-            # Remove "[STORY]" or "[/STORY]" tags that might appear in the content itself
-            story_match = story_match.replace("[STORY]", "").replace("[/STORY]", "").strip()
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": enhanced_prompt}
+                ],
+                temperature=0.7,
+                max_tokens=800,
+            )
             
-            # Extract choices
-            choices = []
-            if "[CHOICES]" in response_text and "[/CHOICES]" in response_text:
-                choices_section = response_text.split("[CHOICES]")[1].split("[/CHOICES]")[0].strip()
-                choice_lines = choices_section.split("\n")
-                
-                # Parse individual choices
-                for i, line in enumerate(choice_lines):
-                    if line.strip():
-                        # Remove numbers and dots from the beginning (e.g., "1. ")
-                        choice_text = line
-                        for prefix in [f"{i+1}. ", f"{i+1} ", f"{i+1}."]:
-                            if choice_text.startswith(prefix):
-                                choice_text = choice_text[len(prefix):].strip()
-                                break
-                        
-                        if choice_text:
-                            choices.append(Choice(id=str(i+1), text=choice_text))
+            response_text = response.choices[0].message.content
+            story_content, choices = BaseGenre.parse_story_response_strict(response_text)
             
-            # Ensure we have at least one choice
-            if not choices:
-                choices = [
-                    Choice(id="1", text="Focus on improving your cultivation technique"),
-                    Choice(id="2", text="Seek guidance from a senior disciple"),
-                    Choice(id="3", text="Take on a challenging training task")
-                ]
-            
-            return story_match, choices
+            logger.info(f"Retry successful: {len(story_content)} chars, {len(choices)} choices")
+            return story_content, choices
             
         except Exception as e:
-            logger.warning(f"Error parsing story response: {e}")
-            # Provide fallback content and choices
-            return (
-                "Your adventure continues...",
-                [
-                    Choice(id="1", text="Continue your journey"),
-                    Choice(id="2", text="Try a different approach"),
-                    Choice(id="3", text="Reflect on your situation")
-                ]
-            ) 
+            logger.error(f"Retry failed: {e}")
+            # Use contextual fallback as last resort
+            return AIService._create_contextual_api_fallback(character_name, setting, selected_choice)
+    
+    @staticmethod
+    def _create_contextual_api_fallback(
+        character_name: str, 
+        setting: str, 
+        selected_choice: str
+    ) -> Tuple[str, List[Choice]]:
+        """
+        Create contextual fallback content that references the actual selected choice.
+        """
+        # Create contextual story content based on the selected choice
+        story_content = f"{character_name} takes a deep breath and decides to {selected_choice.lower()}. " \
+                       f"The path ahead in this {setting} world remains uncertain, but {character_name}'s " \
+                       f"determination grows stronger. Every choice shapes the journey ahead, and this " \
+                       f"decision will have consequences that ripple through their adventure..."
+        
+        # Create setting-appropriate choices that relate to the story context
+        if setting in ["fantasy", "cultivation"]:
+            choices = [
+                Choice(id="1", text=f"Continue following through on the decision to {selected_choice.lower()}"),
+                Choice(id="2", text="Seek guidance from wise mentors about the next steps"),
+                Choice(id="3", text="Take time to reflect on the consequences of this choice")
+            ]
+        elif setting in ["scifi", "gamelike"]:
+            choices = [
+                Choice(id="1", text=f"Analyze the results of choosing to {selected_choice.lower()}"),
+                Choice(id="2", text="Use available technology to assess the situation"),
+                Choice(id="3", text="Gather data about the effects of this decision")
+            ]
+        elif setting in ["academy", "modern"]:
+            choices = [
+                Choice(id="1", text=f"Continue with the plan to {selected_choice.lower()}"),
+                Choice(id="2", text="Discuss the decision with friends or mentors"),
+                Choice(id="3", text="Study the implications of this choice carefully")
+            ]
+        else:
+            choices = [
+                Choice(id="1", text=f"Follow through on the decision to {selected_choice.lower()}"),
+                Choice(id="2", text="Consider the consequences of this choice"),
+                Choice(id="3", text="Adjust the approach based on new circumstances")
+            ]
+        
+        logger.info(f"Created contextual fallback for {character_name} with choice reference")
+        return story_content, choices
+
+    @staticmethod
+    def _retry_initial_story_generation_with_better_format(
+        system_prompt: str, 
+        user_prompt: str, 
+        character_name: str, 
+        setting: str
+    ) -> Tuple[str, List[Choice]]:
+        """
+        Retry initial story generation with stricter formatting instructions.
+        """
+        try:
+            # Enhanced user prompt with stricter formatting requirements
+            enhanced_prompt = f"""{user_prompt}
+
+CRITICAL FORMATTING REQUIREMENTS:
+- Your response MUST include [STORY] and [/STORY] tags around the story content
+- Your response MUST include [CHOICES] and [/CHOICES] tags around the choices
+- Each choice MUST be on a separate line, numbered (1. , 2. , 3. )
+- Choices MUST be specific to the story content, not generic
+- Example format:
+
+[STORY]
+Your story content here...
+[/STORY]
+
+[CHOICES]
+1. Specific choice related to the story
+2. Another specific choice related to the story  
+3. Third specific choice related to the story
+[/CHOICES]"""
+
+            logger.info(f"Retrying initial story generation with enhanced formatting for {character_name}")
+            
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": enhanced_prompt}
+                ],
+                temperature=0.7,
+                max_tokens=800,
+            )
+            
+            response_text = response.choices[0].message.content
+            story_content, choices = BaseGenre.parse_story_response_strict(response_text)
+            
+            logger.info(f"Initial story retry successful: {len(story_content)} chars, {len(choices)} choices")
+            return story_content, choices
+            
+        except Exception as e:
+            logger.error(f"Initial story retry failed: {e}")
+            # Use contextual fallback as last resort
+            return AIService._create_initial_story_fallback(character_name, setting)
+    
+    @staticmethod
+    def _create_initial_story_fallback(
+        character_name: str, 
+        setting: str
+    ) -> Tuple[str, List[Choice]]:
+        """
+        Create contextual fallback content for initial stories.
+        """
+        # Create setting-appropriate initial story content
+        if setting in ["fantasy", "cultivation"]:
+            story_content = f"Welcome to your adventure, {character_name}. You find yourself in a world where " \
+                           f"magic and mystery shape every moment. Ancient powers stir, and destiny calls to those " \
+                           f"brave enough to answer. Your journey begins now, and the choices you make will determine " \
+                           f"whether you rise to greatness or fall to the challenges ahead..."
+            
+            choices = [
+                Choice(id="1", text="Embrace the magical energies and begin training"),
+                Choice(id="2", text="Seek out a wise mentor to guide your journey"),
+                Choice(id="3", text="Explore the ancient mysteries of this world")
+            ]
+        elif setting in ["scifi", "gamelike"]:
+            story_content = f"Welcome to your adventure, {character_name}. In this world of advanced technology " \
+                           f"and digital possibilities, you stand at the threshold of something extraordinary. " \
+                           f"Systems analyze, data flows, and opportunities await those who can navigate " \
+                           f"the complexities of this high-tech realm..."
+            
+            choices = [
+                Choice(id="1", text="Access the advanced systems and begin your mission"),
+                Choice(id="2", text="Analyze the available data before making a move"),
+                Choice(id="3", text="Connect with other users in this digital realm")
+            ]
+        elif setting in ["academy", "modern"]:
+            story_content = f"Welcome to your adventure, {character_name}. In this familiar yet extraordinary " \
+                           f"world, ordinary life hides remarkable secrets. Whether in academic halls or city " \
+                           f"streets, your story is about to unfold in ways you never imagined..."
+            
+            choices = [
+                Choice(id="1", text="Focus on your studies and academic pursuits"),
+                Choice(id="2", text="Build connections with friends and peers"),
+                Choice(id="3", text="Investigate the mysteries hidden in plain sight")
+            ]
+        else:
+            story_content = f"Welcome to your adventure, {character_name}. Your journey begins in a world " \
+                           f"filled with possibilities and challenges. Every choice will shape your path, " \
+                           f"and destiny awaits those bold enough to seize it..."
+            
+            choices = [
+                Choice(id="1", text="Begin your adventure with confidence"),
+                Choice(id="2", text="Carefully observe your surroundings first"),
+                Choice(id="3", text="Seek guidance before making important decisions")
+            ]
+        
+        logger.info(f"Created initial story fallback for {character_name} in {setting} setting")
+        return story_content, choices
+
+ 
