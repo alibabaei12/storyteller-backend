@@ -26,7 +26,8 @@ class AcademyMagic(Genre):
         self,
         character_name: str,
         character_gender: str,
-        language_complexity: str
+        language_complexity: str,
+        character_origin: str = "normal"
     ) -> Tuple[str, List[Choice]]:
         """Generate an academy magic story optimized for school progression."""
         
@@ -36,11 +37,20 @@ class AcademyMagic(Genre):
         # Create gender-specific pronouns
         pronouns = BaseGenre.create_gender_pronouns(character_gender)
         
+        # Import the origin profile method
+        from app.ai_service import AIService
+        
+        # Create character origin profile with academy-specific context
+        origin_prompt = AIService._create_character_origin_profile(character_origin, "academy")
+        
         system_prompt = f"""You are creating an engaging magic academy story in the style of popular manga/light novels like "The Irregular at Magic High School" and "Little Witch Academia."
 
 {language_prompt}
 
 CHARACTER PRONOUNS: Use {pronouns} pronouns for {character_name}.
+
+CHARACTER ORIGIN INTEGRATION:
+{origin_prompt}
 
 ACADEMY MAGIC STORY REQUIREMENTS:
 🎓 SCHOOL IMMERSION: Create a vivid magic academy with unique systems, not generic "magic school"
@@ -92,7 +102,15 @@ FORMAT:
 [/CHOICES]
 """
 
-        user_prompt = f"""Create an engaging magic academy story opening for {character_name}. Make it feel like the start of an academy adventure with clear magical progression and social dynamics.
+        user_prompt = f"""Create an engaging magic academy story opening for {character_name} with a {character_origin} origin.
+
+ORIGIN INTEGRATION REQUIREMENTS:
+- Make {character_name}'s {character_origin} background central to their academy experience
+- Show how their origin affects their magical abilities, academic standing, and relationships with classmates
+- Include at least one moment where their {character_origin} nature creates academic advantages or challenges
+- Let their origin influence their reputation and starting position at the academy
+
+Make it feel like the start of an academy adventure with clear magical progression and social dynamics that relate to their {character_origin} background.
 
 Format your response as:
 [STORY]
@@ -135,7 +153,8 @@ Format your response as:
         character_gender: str,
         previous_content: str,
         selected_choice: str,
-        language_complexity: str
+        language_complexity: str,
+        character_origin: str = None
     ) -> Tuple[str, List[Choice]]:
         """Continue an academy magic story."""
         

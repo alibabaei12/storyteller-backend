@@ -26,7 +26,8 @@ class CultivationProgression(Genre):
         self,
         character_name: str,
         character_gender: str,
-        language_complexity: str
+        language_complexity: str,
+        character_origin: str = "normal"
     ) -> Tuple[str, List[Choice]]:
         """
         Generate a manga-style cultivation progression story.
@@ -56,6 +57,12 @@ class CultivationProgression(Genre):
             elif language_complexity == "complex":
                 language_prompt = "LANGUAGE: Use rich, sophisticated language with detailed cultivation terminology."
             
+            # Import the origin profile method
+            from app.ai_service import AIService
+            
+            # Create character origin profile with cultivation-specific context
+            origin_prompt = AIService._create_character_origin_profile(character_origin, "cultivation")
+            
             # Manga-specific system prompt
             system_prompt = f"""You are creating an opening chapter for a CULTIVATION PROGRESSION manga that hooks readers immediately.
 
@@ -77,6 +84,9 @@ OPENING STRUCTURE:
 - INTRODUCE WORLD NATURALLY: Cultivation system through character's perspective
 - END WITH CLEAR STAKES: Specific goal that matters to the character
 
+CHARACTER ORIGIN INTEGRATION:
+{origin_prompt}
+
 UNIQUE WORLD-BUILDING REQUIREMENTS:
 - CREATIVE SECT NAMES: Avoid Azure/Jade/Golden - use unique names like "Thousand Stars Sect", "Iron Will Academy", "Shifting Sands Order"
 - AUTHENTIC TECHNIQUES: Avoid Cloud/Dragon - use "Shattered Earth Palm", "Whisper Step", "Molten Forge Breathing"
@@ -91,6 +101,7 @@ CHARACTER IMMERSION REQUIREMENTS:
 - CONCRETE DAILY SCENES (specific training failures, exact bullying incidents, meal struggles)
 - PERSONAL EMOTIONAL STAKES (not parents' death - maybe protecting a younger friend, proving a teacher wrong, earning enough to buy medicine)
 - UNIQUE PERSONALITY MOMENTS (how they react to mockery, what small things bring them joy)
+- ORIGIN-DRIVEN ABILITIES: Let {character_name}'s {character_origin} background directly affect their cultivation style and capabilities
 
 {gender_prompt}
 {language_prompt}
@@ -114,7 +125,7 @@ Your goal: Create an opening that makes readers think "I'm already invested in t
             user_prompt = f"""Create an opening chapter for a cultivation progression story featuring {character_name}.
 
 CHARACTER SETUP:
-{character_name} is considered weak in a cultivation world where spiritual power determines everything. Give them a SPECIFIC backstory and clear motivation for wanting to get stronger.
+{character_name} has a {character_origin} origin in a cultivation world where spiritual power determines everything. Use this origin to create a SPECIFIC backstory and clear motivation for wanting to get stronger that directly relates to their {character_origin} background.
 
 WORLD-BUILDING REQUIREMENTS:
 1. Define SPECIFIC cultivation stages (e.g., Qi Gathering 1-9 → Foundation Building → Core Formation)
@@ -157,14 +168,14 @@ CHOICE APPROACHES (pick 3 DIFFERENT types for variety):
 AVOID REPETITIVE PATTERNS - Don't use the same choice types or structure!
 
 WRITE 350-400 words that:
-1. Start with a CHARACTER MOMENT showing {character_name}'s personality in action
-2. Give them a FRESH, SPECIFIC motivation from the examples above (not generic goals)
-3. Include at least ONE named technique they're learning or want to learn
-4. Introduce ONE rival with personality and ONE supportive character
-5. Show visual qi descriptions with specific colors and effects
+1. Start with a CHARACTER MOMENT showing {character_name}'s {character_origin} nature in action
+2. Give them a FRESH, SPECIFIC motivation that stems from their {character_origin} background
+3. Include at least ONE named technique they're learning that relates to their origin
+4. Show how other characters react to {character_name} based on their {character_origin} nature
+5. Show visual qi descriptions with specific colors and effects influenced by their origin
 6. Hint at IMMEDIATE world stakes (demon beast attacks, sect wars, ancient ruins discovered)
 7. Build to the path choices through natural story progression
-8. Make reader think "I care about this character and want them to succeed!"
+8. Make reader think "I care about this {character_origin} character and want them to succeed!"
 
 FRESH MOTIVATION EXAMPLES for orphaned characters:
 - "Earn enough spirit stones to buy medicine for a sickly younger disciple he protects"
@@ -213,7 +224,8 @@ Format:
         character_gender: str,
         previous_content: str,
         selected_choice: str,
-        language_complexity: str
+        language_complexity: str,
+        character_origin: str = None
     ) -> Tuple[str, List[Choice]]:
         """
         Continue a cultivation progression story with manga pacing.
@@ -330,12 +342,12 @@ Format:
 [/STORY]
 
 [CHOICES]
-1. (Creative choice - pick from: exploration, mystery, helping others, rule-breaking, etc.)
-2. (Different approach - social, strategic, diplomatic, risky, etc.)
-3. (Unique path - training, investigation, alliance-building, etc.)
+1. [First specific choice based on your story - must be detailed and actionable]
+2. [Second specific choice based on your story - must be detailed and actionable]
+3. [Third specific choice based on your story - must be detailed and actionable]
 [/CHOICES]
 
-CRITICAL: Each choice must use a DIFFERENT approach type! No repetitive patterns!"""
+CRITICAL: Each choice must be SPECIFIC to your story content, not generic templates. Use concrete actions, people, places, and objects from your story. Each choice should be at least 12 words long and lead to different story directions."""
 
             # Generate content with retry logic
             return BaseGenre.generate_story_with_retry(system_prompt, user_prompt, character_name)

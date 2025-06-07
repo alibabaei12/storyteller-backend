@@ -291,6 +291,11 @@ def make_choice(story_id, choice_id):
         save_choice(story_id, current_node.id, choice_id)
         
         # Generate continuation
+        manga_genre_value = getattr(story, 'manga_genre', None)
+        print(f"🔍 DEBUG API: character_name={story.character_name}, manga_genre={manga_genre_value}, setting={story.setting}")
+        print(f"🔍 DEBUG API: selected_choice='{selected_choice.text}'")
+        print(f"🔍 DEBUG API: previous_content length={len(current_node.content)} chars")
+        
         story_content, choices = AIService.continue_story(
             character_name=story.character_name,
             character_gender=story.character_gender,
@@ -299,7 +304,8 @@ def make_choice(story_id, choice_id):
             previous_content=current_node.content,
             selected_choice=selected_choice.text,
             language_complexity=getattr(story, 'language_complexity', 'simple'),
-            manga_genre=getattr(story, 'manga_genre', None)
+            manga_genre=manga_genre_value,
+            character_origin=getattr(story, 'character_origin', 'normal')
         )
         
         # Create new node

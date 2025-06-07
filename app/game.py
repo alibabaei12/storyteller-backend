@@ -286,7 +286,10 @@ class StoryGame:
                     setting=self.current_story.setting,
                     tone=self.current_story.tone,
                     previous_content=self.current_node.content,
-                    selected_choice=selected_choice.text
+                    selected_choice=selected_choice.text,
+                    language_complexity=getattr(self.current_story, 'language_complexity', 'simple'),
+                    manga_genre=getattr(self.current_story, 'manga_genre', None),
+                    character_origin=getattr(self.current_story, 'character_origin', 'normal')
                 )
                 
                 # Create the new node

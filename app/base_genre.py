@@ -39,7 +39,7 @@ class BaseGenre:
             return "they/them/their"
     
     @staticmethod
-    def generate_story_with_openai(system_prompt: str, user_prompt: str, character_name: str, max_tokens: int = 1500, temperature: float = 0.8) -> str:
+    def generate_story_with_openai(system_prompt: str, user_prompt: str, character_name: str, max_tokens: int = 1200, temperature: float = 0.8) -> str:
         """Generate story content using OpenAI API."""
         try:
             logger.info(f"Generating story for {character_name}")
@@ -54,7 +54,15 @@ class BaseGenre:
                 temperature=temperature
             )
             
-            return response.choices[0].message.content.strip()
+            response_text = response.choices[0].message.content.strip()
+            
+            # ✅ LOG THE FULL RESPONSE FOR GENRE DEBUGGING  
+            logger.info(f"🎭 GENRE GPT RESPONSE ({len(response_text)} chars):")
+            logger.info("=" * 60)
+            logger.info(response_text)
+            logger.info("=" * 60)
+            
+            return response_text
         except openai.OpenAIError as e:
             logger.error(f"OpenAI API error generating story for {character_name}: {e}")
             raise
@@ -108,74 +116,152 @@ class BaseGenre:
     @staticmethod
     def parse_story_response_strict(response_text: str) -> Tuple[str, List[Choice]]:
         """
-        Parse the AI response into story content and choices with strict validation.
-        Raises ValueError if parsing fails instead of falling back to generic choices.
+        Parse the AI response into story content and choices with robust parsing.
+        Now uses the same improved logic as the main AI service.
         """
         try:
-            # Extract story content
-            if "[STORY]" in response_text and "[/STORY]" in response_text:
-                story_match = response_text.split("[STORY]")[1].split("[/STORY]")[0].strip()
-            else:
-                # If the story doesn't follow the format, use the whole text before [CHOICES]
-                if "[CHOICES]" in response_text:
-                    story_match = response_text.split("[CHOICES]")[0].strip()
-                else:
-                    raise ValueError("No [STORY] or [CHOICES] markers found in response")
+            logger.debug(f"Parsing genre response ({len(response_text)} chars): {response_text[:200]}...")
             
-            # Extra safety: Remove any [CHOICES] sections that might still be in the content
-            if "[CHOICES]" in story_match:
-                story_match = story_match.split("[CHOICES]")[0].strip()
-                
-            # Remove "[STORY]" or "[/STORY]" tags that might appear in the content itself
-            story_match = story_match.replace("[STORY]", "").replace("[/STORY]", "").strip()
-            
-            if not story_match or len(story_match) < 50:
-                raise ValueError(f"Story content too short: {len(story_match)} characters")
-            
-            # Extract choices
+            story_content = ""
             choices = []
-            if "[CHOICES]" in response_text and "[/CHOICES]" in response_text:
-                choices_section = response_text.split("[CHOICES]")[1].split("[/CHOICES]")[0].strip()
+            
+            # Clean up the response text
+            response_text = response_text.strip()
+            
+            # METHOD 1: Try the new STORY:/CHOICES: format first
+            if "STORY:" in response_text and "CHOICES:" in response_text:
+                logger.debug("Using STORY:/CHOICES: format parsing")
+                # Extract story content
+                story_start = response_text.find("STORY:") + 6
+                choices_start = response_text.find("CHOICES:")
+                story_content = response_text[story_start:choices_start].strip()
+                
+                # Extract choices section
+                choices_section = response_text[choices_start + 8:].strip()
                 choice_lines = choices_section.split("\n")
                 
-                # Parse individual choices
                 choice_count = 0
                 for line in choice_lines:
-                    if line.strip():
-                        # Remove numbers and dots from the beginning (e.g., "1. ", "2. ", etc.)
-                        choice_text = line.strip()
-                        # Try to remove common numbering patterns
-                        import re
-                        choice_text = re.sub(r'^\d+\.\s*', '', choice_text)
-                        choice_text = re.sub(r'^\d+\s+', '', choice_text)
-                        
-                        if choice_text and len(choice_text) > 5:
+                    line = line.strip()
+                    if line and (line.startswith("1.") or line.startswith("2.") or line.startswith("3.")):
+                        choice_text = line[2:].strip()  # Remove "1.", "2.", "3."
+                        if choice_text and len(choice_text) > 8:
                             choice_count += 1
                             choices.append(Choice(id=str(choice_count), text=choice_text))
-            else:
-                raise ValueError("No [CHOICES] section found in response")
+                            if choice_count >= 3:
+                                break
             
-            # Validate we have exactly 3 meaningful choices
-            if len(choices) < 3:
-                raise ValueError(f"Not enough valid choices found: {len(choices)} (need 3)")
+            # METHOD 2: Try the old [STORY]/[CHOICES] format
+            elif "[STORY]" in response_text and "[/STORY]" in response_text:
+                logger.debug("Using [STORY]/[CHOICES] format parsing")
+                story_content = response_text.split("[STORY]")[1].split("[/STORY]")[0].strip()
+                
+                if "[CHOICES]" in response_text and "[/CHOICES]" in response_text:
+                    choices_section = response_text.split("[CHOICES]")[1].split("[/CHOICES]")[0].strip()
+                    choice_lines = choices_section.split("\n")
+                    
+                    choice_count = 0
+                    for line in choice_lines:
+                        line = line.strip()
+                        if line:
+                            import re
+                            choice_text = re.sub(r'^\d+[\.\)]\s*', '', line).strip()
+                            if choice_text and len(choice_text) > 8:
+                                choice_count += 1
+                                choices.append(Choice(id=str(choice_count), text=choice_text))
+                                if choice_count >= 3:
+                                    break
             
-            # Validate choice quality - reject generic choices
-            generic_phrases = [
-                "continue your journey", "try a different approach", "reflect on your situation",
-                "proceed cautiously", "take a bold approach", "reconsider your options",
-                "focus on improving", "seek guidance", "take on a challenging"
-            ]
+            # METHOD 3: Smart fallback parsing for any response format
+            if len(choices) < 3 or not story_content:
+                logger.debug("Using smart fallback parsing")
+                import re
+                lines = response_text.split('\n')
+                
+                # Find story content (everything before numbered choices)
+                story_lines = []
+                choice_lines = []
+                found_numbered_line = False
+                
+                for i, line in enumerate(lines):
+                    line_stripped = line.strip()
+                    # Look for numbered choices
+                    if re.match(r'^\d+[\.\)]\s*', line_stripped) and len(line_stripped) > 10:
+                        if not found_numbered_line:
+                            found_numbered_line = True
+                        choice_lines.append(line_stripped)
+                    elif not found_numbered_line:
+                        # Skip common formatting markers
+                        if line_stripped and not re.match(r'^(STORY|CHOICES|\\[/?STORY\\]|\\[/?CHOICES\\]):?$', line_stripped):
+                            story_lines.append(line)
+                
+                # Extract story content if not found yet
+                if not story_content and story_lines:
+                    story_content = '\n'.join(story_lines).strip()
+                    # Clean up common formatting artifacts
+                    story_content = re.sub(r'^(STORY|\\[STORY\\]):?\s*', '', story_content, flags=re.IGNORECASE)
+                    story_content = re.sub(r'(\\[/STORY\\]|CHOICES:).*$', '', story_content, flags=re.DOTALL | re.IGNORECASE)
+                    story_content = story_content.strip()
+                
+                # Extract choices if not found yet
+                if len(choices) < 3 and choice_lines:
+                    choices = []
+                    for line in choice_lines:
+                        choice_text = re.sub(r'^\d+[\.\)]\s*', '', line).strip()
+                        if choice_text and len(choice_text) > 8:
+                            choices.append(Choice(id=str(len(choices) + 1), text=choice_text))
+                            if len(choices) >= 3:
+                                break
+                
+                # If still no choices found, try to extract any lines that look like choices
+                if len(choices) < 3:
+                    all_lines = [line.strip() for line in lines if line.strip()]
+                    for line in all_lines[-10:]:  # Look in the last 10 lines
+                        if (len(line) > 15 and 
+                            not re.match(r'^(STORY|CHOICES|\\[/?STORY\\]|\\[/?CHOICES\\]):?$', line, re.IGNORECASE) and
+                            len(choices) < 3):
+                            # Remove any leading numbers or bullets
+                            clean_line = re.sub(r'^[\d\-\*\•]\s*[\.\)]*\s*', '', line).strip()
+                            if len(clean_line) > 10:
+                                choices.append(Choice(id=str(len(choices) + 1), text=clean_line))
             
-            for choice in choices:
-                choice_lower = choice.text.lower()
-                if any(phrase in choice_lower for phrase in generic_phrases):
-                    raise ValueError(f"Generic fallback choice detected: {choice.text}")
+            # Validate story content with more lenient requirements
+            if not story_content or len(story_content) < 20:
+                logger.warning(f"Story content too short: {len(story_content)} characters")
+                # Try to extract any substantial text from the response
+                lines = [line.strip() for line in response_text.split('\n') if line.strip()]
+                potential_story = []
+                for line in lines:
+                    if (len(line) > 30 and 
+                        not re.match(r'^\d+[\.\)]\s*', line) and
+                        not re.match(r'^(STORY|CHOICES|\\[/?STORY\\]|\\[/?CHOICES\\]):?$', line, re.IGNORECASE)):
+                        potential_story.append(line)
+                
+                if potential_story:
+                    story_content = ' '.join(potential_story[:3])  # Take first few substantial lines
+                    logger.info(f"Extracted story from unformatted response: {len(story_content)} chars")
+                else:
+                    raise ValueError(f"Story content too short or missing: {len(story_content)} characters")
             
-            return story_match, choices[:3]  # Take only first 3 choices
+            # Validate choices with more lenient requirements
+            if len(choices) < 2:
+                raise ValueError(f"Not enough choices found: {len(choices)} (need at least 2)")
+            
+            # Fill in missing choices if we have fewer than 3
+            while len(choices) < 3:
+                choice_num = len(choices) + 1
+                generic_choice = f"Take action based on the current situation (Option {choice_num})"
+                choices.append(Choice(id=str(choice_num), text=generic_choice))
+                logger.info(f"Added generic choice {choice_num}")
+            
+            # Return only the first 3 valid choices
+            final_choices = choices[:3]
+            logger.info(f"Successfully parsed genre response: story={len(story_content)} chars, choices={len(final_choices)}")
+            return story_content, final_choices
             
         except Exception as e:
-            logger.warning(f"Story parsing failed: {e}")
-            logger.debug(f"Response preview: {response_text[:200]}...")
+            logger.error(f"Genre parsing failed with error: {e}")
+            logger.debug(f"Full response text: {response_text}")
             raise ValueError(f"Failed to parse story response: {e}")
     
     @staticmethod

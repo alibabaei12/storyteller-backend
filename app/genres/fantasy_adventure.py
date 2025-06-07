@@ -26,7 +26,8 @@ class FantasyAdventure(Genre):
         self,
         character_name: str,
         character_gender: str,
-        language_complexity: str
+        language_complexity: str,
+        character_origin: str = "normal"
     ) -> Tuple[str, List[Choice]]:
         """Generate a fantasy adventure story optimized for manga-style progression."""
         
@@ -36,11 +37,20 @@ class FantasyAdventure(Genre):
         # Create gender-specific pronouns
         pronouns = BaseGenre.create_gender_pronouns(character_gender)
         
+        # Import the origin profile method
+        from app.ai_service import AIService
+        
+        # Create character origin profile with fantasy-specific context
+        origin_prompt = AIService._create_character_origin_profile(character_origin, "fantasy")
+        
         system_prompt = f"""You are a master storyteller creating ENGAGING fantasy adventure stories in the style of popular manga/light novels like "That Time I Got Reincarnated as a Slime," "Overlord," and "KonoSuba."
 
 {language_prompt}
 
 CHARACTER PRONOUNS: Use {pronouns} pronouns for {character_name}.
+
+CHARACTER ORIGIN INTEGRATION:
+{origin_prompt}
 
 FANTASY ADVENTURE STORY REQUIREMENTS:
 🌟 IMMEDIATE HOOK: Start with {character_name} in a moment that shows their personality before explaining the fantasy world
@@ -92,7 +102,15 @@ FORMAT:
 [/CHOICES]
 """
 
-        user_prompt = f"""Create an engaging fantasy adventure story opening for {character_name}. Make it feel like the start of an epic quest with clear magical elements and personal stakes.
+        user_prompt = f"""Create an engaging fantasy adventure story opening for {character_name} with a {character_origin} origin. 
+
+ORIGIN INTEGRATION REQUIREMENTS:
+- Make {character_name}'s {character_origin} background central to the fantasy adventure setup
+- Show how their origin affects their approach to magic, quests, and relationships
+- Include at least one moment where their {character_origin} nature creates opportunities or challenges
+- Let their origin influence their starting situation and available choices
+
+Make it feel like the start of an epic quest with clear magical elements and personal stakes that relate to their {character_origin} background.
 
 Format your response as:
 [STORY]
@@ -134,7 +152,8 @@ Format your response as:
         character_gender: str,
         previous_content: str,
         selected_choice: str,
-        language_complexity: str
+        language_complexity: str,
+        character_origin: str = None
     ) -> Tuple[str, List[Choice]]:
         """Continue a fantasy adventure story."""
         
