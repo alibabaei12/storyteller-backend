@@ -1,0 +1,1 @@
+# Genres package for story generation implementations 

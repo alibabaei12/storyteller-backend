@@ -134,13 +134,15 @@ class StoryGame:
         self.console.print("\n[bold]Generating your story...[/bold]")
         
         try:
-            # Generate story content
+            # Generate story content  
             story_content, choices = AIService.generate_initial_story(
                 character_name=params.character_name,
+                character_gender=params.character_gender,
                 setting=params.setting,
                 tone=params.tone,
                 character_origin=params.character_origin,
-                power_system=params.power_system
+                language_complexity=params.language_complexity,
+                manga_genre="cultivation_progression" if params.setting == "cultivation" else None
             )
             
             # Create the initial node
@@ -280,6 +282,7 @@ class StoryGame:
                 # Generate story content
                 story_content, choices = AIService.continue_story(
                     character_name=self.current_story.character_name,
+                    character_gender=self.current_story.character_gender,
                     setting=self.current_story.setting,
                     tone=self.current_story.tone,
                     previous_content=self.current_node.content,

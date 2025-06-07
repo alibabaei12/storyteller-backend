@@ -166,14 +166,14 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
         cultivation_stage = None
         if params.setting == "cultivation":
             cultivation_stage = "Qi Condensation Stage (Level 1)"
+        elif params.setting == "fantasy":
+            cultivation_stage = "Novice Adventurer (Level 1)"
         elif params.setting == "academy":
-            cultivation_stage = "First Year Student"
+            cultivation_stage = "First Year Student (Rank F)"
         elif params.setting == "gamelike":
             cultivation_stage = "Level 1 Adventurer"
         elif params.setting == "apocalypse":
             cultivation_stage = "Rookie Survivor"
-        elif params.setting == "fantasy":
-            cultivation_stage = "Novice Adventurer"
         elif params.setting == "scifi":
             cultivation_stage = "Cadet" 
         elif params.setting == "modern":
@@ -190,8 +190,9 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
             setting=params.setting,
             tone=params.tone,
             character_origin=params.character_origin,
-            story_length=params.story_length,
+    
             language_complexity=params.language_complexity,
+            manga_genre=params.manga_genre,  # Add the missing manga_genre field
             power_system="auto",  # AI will decide the appropriate power system
             cultivation_stage=cultivation_stage,
             current_node_id=node.id,

@@ -1,8 +1,17 @@
 import os
 import openai
+import logging
 from typing import Dict, List, Optional, Tuple
 from dotenv import load_dotenv
 from .models import Choice
+
+# Set up logger
+logger = logging.getLogger(__name__)
+
+# Import genre implementations
+from .genres.cultivation_progression import CultivationProgression
+from .genres.fantasy_adventure import FantasyAdventure
+from .genres.academy_magic import AcademyMagic
 
 # Load environment variables
 load_dotenv()
@@ -17,6 +26,28 @@ except TypeError:
 class AIService:
     """Service for generating story content using OpenAI API."""
     
+    # Genre mapping for modular genre system
+    # 🚀 TO ADD A NEW GENRE:
+    # 1. Create a new file in app/genres/ (e.g., my_new_genre.py)
+    # 2. Create a class that inherits from Genre (from base_genre.py)
+    # 3. Implement the required methods: generate_story(), continue_story()
+    # 4. Add properties: genre_name and genre_context
+    # 5. Add your genre to this GENRE_MAP dictionary
+    # 6. That's it! The system will automatically handle everything else.
+    #
+    # Example:
+    # from .genres.my_new_genre import MyNewGenre
+    # GENRE_MAP = {
+    #     ...existing genres...
+    #     "my_new_genre": MyNewGenre(),
+    # }
+    GENRE_MAP = {
+        "cultivation_progression": CultivationProgression(),
+        "fantasy_adventure": FantasyAdventure(),
+        "academy_magic": AcademyMagic(),
+        # Add new genres here following the pattern above
+    }
+    
     @staticmethod
     def generate_initial_story(
         character_name: str,
@@ -24,8 +55,8 @@ class AIService:
         setting: str,
         tone: str,
         character_origin: str,
-        story_length: str,
-        language_complexity: str = "simple"
+        language_complexity: str = "simple",
+        manga_genre: str = None
     ) -> Tuple[str, List[Choice]]:
         """
         Generate the initial story content based on character parameters.
@@ -34,8 +65,16 @@ class AIService:
             Tuple containing story content and list of choices
         """
         try:
-            print(f"[AI] Generating initial story for {character_name} in {setting} setting")
+            logger.info(f"Generating initial story for {character_name} in {setting} setting, manga genre: {manga_genre}")
             
+            # Check if this is a manga-specific genre using dynamic mapping
+            if manga_genre and manga_genre in AIService.GENRE_MAP:
+                selected_genre = AIService.GENRE_MAP[manga_genre]
+                return selected_genre.generate_story(
+                    character_name, character_gender, language_complexity
+                )
+            
+            # Fallback to original system for non-manga genres
             # Create setting-specific prompt addition
             setting_prompt = ""
             if setting == "modern":
@@ -80,16 +119,8 @@ class AIService:
             elif tone == "philosophical":
                 tone_prompt = "This is a DEEP & THOUGHTFUL story. Focus on contemplation, life's big questions, meaningful choices, and exploring existential themes."
             
-            # Create length-specific prompt addition
-            length_prompt = ""
-            if story_length == "short":
-                length_prompt = "This should be a shorter story that could be completed in 5-8 interactions."
-            elif story_length == "medium":
-                length_prompt = "This should be a medium-length story that could be completed in 10-15 interactions."
-            elif story_length == "long":
-                length_prompt = "This should be a longer, more complex story that could extend to 20+ interactions."
-            elif story_length == "infinite":
-                length_prompt = "This should be an open-ended story that can continue indefinitely with new challenges and scenarios."
+            # Arc-based progression structure
+            structure_prompt = "STRUCTURE: Arc-based progression - stories are organized around sequential Arcs (e.g., Training Arc, Tournament Arc, Exploration Arc). Each Arc naturally lasts ~5–10 interactions, then transitions to a new Arc. No fixed end — the story evolves indefinitely based on player choices."
             
             # Create gender-specific prompt addition
             gender_prompt = ""
@@ -114,7 +145,7 @@ class AIService:
 
 {setting_prompt}
 {tone_prompt}
-{length_prompt}
+{structure_prompt}
 {gender_prompt}
 {language_prompt}
 
@@ -196,33 +227,35 @@ Format your response as follows:
             # Parse the response
             story_content, choices = AIService._parse_story_response(response_text)
             
-            print(f"[AI] Generated initial story: {len(story_content)} chars and {len(choices)} choices")
+            logger.info(f"Generated initial story: {len(story_content)} chars and {len(choices)} choices")
             
             return story_content, choices
             
+        except openai.OpenAIError as e:
+            logger.error(f"OpenAI API error generating initial story: {e}")
         except Exception as e:
-            print(f"[AI] Error generating initial story: {e}")
+            logger.error(f"Unexpected error generating initial story: {e}")
             # Provide fallback content
             return (
-                f"You, {character_name}, find yourself in a {setting} world. " 
-                f"Your journey is about to begin...",
+                f"Welcome to your adventure, {character_name}. " 
+                f"Your journey begins now, and the choices you make will shape your destiny...",
                 [
-                    Choice(id="1", text="Explore your surroundings"),
-                    Choice(id="2", text="Seek guidance from others"),
-                    Choice(id="3", text="Reflect on your abilities")
+                    Choice(id="1", text="Begin your adventure"),
+                    Choice(id="2", text="Learn more about your surroundings"),
+                    Choice(id="3", text="Consider your options carefully")
                 ]
             )
-    
+
     @staticmethod
     def continue_story(
         character_name: str,
         character_gender: str,
         setting: str,
         tone: str,
-        story_length: str,
         previous_content: str,
         selected_choice: str,
-        language_complexity: str = "simple"
+        language_complexity: str = "simple",
+        manga_genre: str = None
     ) -> Tuple[str, List[Choice]]:
         """
         Continue the story based on the selected choice.
@@ -231,8 +264,16 @@ Format your response as follows:
             Tuple containing story content and list of choices
         """
         try:
-            print(f"[AI] Continuing story based on choice: {selected_choice}")
+            logger.info(f"Continuing story based on choice: {selected_choice}, manga genre: {manga_genre}")
             
+            # Check for manga-specific continuation using dynamic mapping
+            if manga_genre and manga_genre in AIService.GENRE_MAP:
+                selected_genre = AIService.GENRE_MAP[manga_genre]
+                return selected_genre.continue_story(
+                    character_name, character_gender, previous_content, selected_choice, language_complexity
+                )
+            
+            # Fallback to original system for non-manga genres
             # Create setting-specific prompt addition
             setting_prompt = ""
             if setting == "modern":
@@ -277,16 +318,8 @@ Format your response as follows:
             elif tone == "philosophical":
                 tone_prompt = "Continue the DEEP & THOUGHTFUL story. Keep focusing on contemplation, life's big questions, and meaningful existential themes."
             
-            # Create length-specific prompt addition
-            length_prompt = ""
-            if story_length == "short":
-                length_prompt = "This should be a shorter story that could be completed in 5-8 interactions."
-            elif story_length == "medium":
-                length_prompt = "This should be a medium-length story that could be completed in 10-15 interactions."
-            elif story_length == "long":
-                length_prompt = "This should be a longer, more complex story that could extend to 20+ interactions."
-            elif story_length == "infinite":
-                length_prompt = "This should be an open-ended story that can continue indefinitely with new challenges and scenarios."
+            # Arc-based progression structure
+            structure_prompt = "STRUCTURE: Arc-based progression - stories are organized around sequential Arcs (e.g., Training Arc, Tournament Arc, Exploration Arc). Each Arc naturally lasts ~5–10 interactions, then transitions to a new Arc. No fixed end — the story evolves indefinitely based on player choices."
             
             # Create gender-specific prompt addition
             gender_prompt = ""
@@ -311,7 +344,7 @@ Format your response as follows:
 
 {setting_prompt}
 {tone_prompt}
-{length_prompt}
+{structure_prompt}
 {gender_prompt}
 {language_prompt}
 
@@ -394,23 +427,47 @@ Format your response as follows:
             # Parse the response
             story_content, choices = AIService._parse_story_response(response_text)
             
-            print(f"[AI] Generated continuation: {len(story_content)} chars and {len(choices)} choices")
+            logger.info(f"Generated continuation: {len(story_content)} chars and {len(choices)} choices")
             
             return story_content, choices
             
+        except openai.OpenAIError as e:
+            logger.error(f"OpenAI API error continuing story: {e}")
         except Exception as e:
-            print(f"[AI] Error continuing story: {e}")
-            # Provide fallback content
-            return (
-                f"As {character_name}, you decided to {selected_choice.lower()}. " 
-                f"Your journey continues...",
-                [
-                    Choice(id="1", text="Proceed cautiously"),
-                    Choice(id="2", text="Take a bold approach"),
-                    Choice(id="3", text="Reconsider your options")
+            logger.error(f"Unexpected error continuing story: {e}")
+            # Provide contextual fallback content based on selected choice
+            story_content = f"{character_name} takes a deep breath and decides to {selected_choice.lower()}. " \
+                           f"The path ahead in this {setting} world remains uncertain, but {character_name}'s " \
+                           f"determination grows stronger with each step forward..."
+            
+            # Create setting-appropriate choices
+            if setting in ["fantasy", "cultivation"]:
+                choices = [
+                    Choice(id="1", text="Focus on developing inner strength and abilities"),
+                    Choice(id="2", text="Seek guidance from wise mentors or allies"),
+                    Choice(id="3", text="Take on challenges to prove worthiness")
                 ]
-            )
-    
+            elif setting in ["scifi", "gamelike"]:
+                choices = [
+                    Choice(id="1", text="Analyze the situation using available technology"),
+                    Choice(id="2", text="Gather intelligence about current circumstances"),
+                    Choice(id="3", text="Take strategic action based on available data")
+                ]
+            elif setting in ["academy", "modern"]:
+                choices = [
+                    Choice(id="1", text="Study the situation carefully and plan ahead"),
+                    Choice(id="2", text="Reach out to friends or mentors for support"),
+                    Choice(id="3", text="Take initiative to address the challenge directly")
+                ]
+            else:
+                choices = [
+                    Choice(id="1", text="Carefully assess the current circumstances"),
+                    Choice(id="2", text="Trust instincts and take decisive action"),
+                    Choice(id="3", text="Seek additional information before proceeding")
+                ]
+            
+            return story_content, choices
+
     @staticmethod
     def _parse_story_response(response_text: str) -> Tuple[str, List[Choice]]:
         """
@@ -459,15 +516,15 @@ Format your response as follows:
             # Ensure we have at least one choice
             if not choices:
                 choices = [
-                    Choice(id="1", text="Continue your journey"),
-                    Choice(id="2", text="Try a different approach"),
-                    Choice(id="3", text="Reflect on your situation")
+                    Choice(id="1", text="Focus on improving your cultivation technique"),
+                    Choice(id="2", text="Seek guidance from a senior disciple"),
+                    Choice(id="3", text="Take on a challenging training task")
                 ]
             
             return story_match, choices
             
         except Exception as e:
-            print(f"[AI] Error parsing story response: {e}")
+            logger.warning(f"Error parsing story response: {e}")
             # Provide fallback content and choices
             return (
                 "Your adventure continues...",

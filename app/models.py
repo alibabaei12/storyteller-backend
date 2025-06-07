@@ -28,8 +28,8 @@ class Story(BaseModel):
     setting: str
     tone: str
     character_origin: str
-    story_length: str = "medium"
     language_complexity: str = "simple"
+    manga_genre: Optional[str] = None
     nodes: Dict[str, StoryNode]
     current_node_id: str
     last_updated: float = Field(default_factory=lambda: time.time())
@@ -49,8 +49,8 @@ class StoryCreationParams(BaseModel):
     setting: str = "cultivation"
     tone: str = "optimistic"
     character_origin: str = "ordinary"
-    story_length: str = "medium"  # Options: short, medium, long, infinite
     language_complexity: str = "simple"  # Options: simple, moderate, complex
+    manga_genre: Optional[str] = None
     user_id: Optional[str] = None
 
 class StoryMetadata(BaseModel):
