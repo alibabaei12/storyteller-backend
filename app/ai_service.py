@@ -145,7 +145,14 @@ class AIService:
             origin_prompt = AIService._create_character_origin_profile(character_origin, setting)
 
             # Create the system prompt
-            system_prompt = f"""You are a storytelling genius who creates BINGE-WORTHY interactive fiction that readers devour in one sitting.
+            system_prompt = f"""You are creating an engaging manga/manhwa-style interactive story using clear visual storytelling, immediate stakes, and concise, impactful dialogue. Avoid verbose narration or overly descriptive language.
+
+MANGA/MANHWA STORYTELLING RULES:
+- Style: Visual, panel-based storytelling like manga/manhwa
+- Pacing: Immediate, dynamic, visually clear scenes
+- Dialogue: Short, impactful exchanges that showcase distinct personalities
+- Visuals: Provide vivid visual descriptions - think manga panels
+- Stakes: Establish clear and urgent challenges or threats immediately
 
 {setting_prompt}
 {tone_prompt}
@@ -156,68 +163,173 @@ class AIService:
 CHARACTER ORIGIN INTEGRATION:
 {origin_prompt}
 
-STORY MASTERY RULES:
-1. CONTEXT FIRST - Give readers enough background to care about what happens
-2. INTRIGUE over action - Create mysteries, secrets, or goals that drive the plot
-3. MEANINGFUL CHOICES - Each decision shapes the story direction significantly
-4. PLOT MOMENTUM - Something important should happen or be revealed every chapter
-5. EMOTIONAL HOOKS - Make readers invested in the character's goals and relationships
+🎌 PANEL-BASED STORYTELLING STRUCTURE:
+Write exactly 6 panels that flow like manga/manhwa:
 
-WRITING APPROACH:
-- Start with a SITUATION, not an action scene
-- Establish CLEAR STAKES - what the character wants/needs
-- Create IMMEDIATE INTRIGUE - questions that need answers
-- Use CONCRETE DETAILS - specific, relatable scenarios
-- ADVANCE THE PLOT - don't just describe the same scene
-- WEAVE IN ORIGIN STORY - Let {character_name}'s origin naturally influence events, reactions, and abilities
+Panel 1 (Visual Scene Setup):
+- Concise, vivid scene setup with specific location
+- Immediate action or clear activity happening right now
 
-CHOICE REQUIREMENTS:
-1. Create 3 distinct choices that lead to DIFFERENT story paths and outcomes
-2. Each choice should unlock new plot elements, characters, or revelations
-3. Avoid combat-heavy or repetitive scenario choices
-4. Include choices that appeal to different player motivations (social, strategic, bold)
-5. Some choices should leverage {character_name}'s unique origin abilities or knowledge
+Panel 2 (Character Introduction):
+- {character_name} clearly introduced with appearance/position
+- Short dialogue or internal thought (italicize thoughts)
 
-Your goal: Make readers think "I'm hooked - this story is going somewhere interesting!" after every passage."""
+Panel 3 (Immediate Conflict):
+- Quick introduction of problem or rival character
+- Tension through dialogue or immediate stakes
+
+Panel 4 (Character Action):
+- {character_name}'s skill-related action or ability attempt
+- Brief dialogue or internal thought showing strategy
+
+Panel 5 (Unexpected Development):
+- Brief, visually striking unexpected event
+- Short reactionary dialogue from characters
+
+Panel 6 (Choice Setup):
+- Lead directly into meaningful choice moment
+- End with immediate decision needed
+
+✅ REQUIRED FOR EACH PANEL:
+- Clear visual positioning of characters
+- Concise, punchy dialogue (max 2 sentences per character)
+- Immediate, real-time action (no summaries)
+- Visual details that readers can imagine as manga panels
+- Named characters with distinct speaking styles
+
+❌ STRICTLY AVOID:
+- Passive voice or indirect narration
+- Abstract descriptions ("mysterious energy", "profound truths")
+- Overly literary language or poetic phrasing
+- Internal reflections longer than one sentence
+- Time skips or summary statements
+- Verbose descriptions longer than 2 sentences per panel
+
+🎯 DIALOGUE RULES:
+- Keep character speech under 15 words per line
+- Use distinct speaking patterns for each character
+- Include character actions in parentheses when speaking
+- Show personality through word choice and tone
+- Use italics for internal thoughts only"""
 
             # Create the user prompt  
-            user_prompt = f"""Create a COMPELLING opening that immediately hooks the reader with an intriguing situation.
+            user_prompt = f"""Create an engaging manga/manhwa-style opening scene using the 6-panel structure.
 
 Character: {character_name} with {character_origin} origin
 Setting: {setting}
 Tone: {tone}
 
-ORIGIN-DRIVEN OPENING STRATEGY:
-- Start with a situation that NATURALLY showcases {character_name}'s unique {character_origin} background
-- Show their special abilities, memories, or reputation affecting the current situation
-- Let other characters react to {character_name} based on their origin (recognition, suspicion, awe, etc.)
-- Create a scenario where their origin is both an advantage AND creates complications
-- Give them knowledge, skills, or perspectives that others don't have
+🎌 MANGA/MANHWA PANEL STRUCTURE (Follow Strictly):
 
-STORY INTEGRATION REQUIREMENTS:
-1. Make {character_name}'s {character_origin} nature CENTRAL to the opening conflict or situation
-2. Show how their origin affects their reputation, relationships, or abilities
-3. Include at least one moment where their origin gives them unique insight or capability
-4. Create tension around their origin (Do they hide it? Embrace it? Are they discovered?)
-5. Let the origin drive the plot forward, not just be mentioned
+Panel 1 (Setting & Visual Intro):
+- Visually vivid scene setup (specific, concise location)
+- Immediate action or clear activity happening right now
 
-WRITE 200-300 words that:
-1. Establish a clear, origin-influenced situation
-2. Show {character_name}'s unique abilities/knowledge from their {character_origin} background
-3. Create immediate intrigue around how their origin affects their current challenge
-4. Present meaningful choices that leverage their unique background
+Panel 2 (Character Introduction - {character_name}):
+- {character_name} clearly introduced (appearance, position, visual distinctiveness)  
+- Short dialogue or clear internal thought (italicize internal thoughts)
 
-Make me invested in {character_name} as a {character_origin} character with compelling advantages and challenges!
+Panel 3 (Immediate Conflict or Challenge):
+- Quick introduction of clear problem or rival character
+- Tension through dialogue or immediate stakes
 
-Format your response as follows:
+Panel 4 ({character_name}'s Reaction & Skill):
+- {character_name}'s skill-related action or ability attempt
+- Brief dialogue or internal thought showing strategy/intelligence
+
+Panel 5 (Unexpected Development):
+- Brief, visually striking unexpected event
+- Short reactionary dialogue from {character_name} or other characters
+
+Panel 6 (Immediate Choices):
+Provide three clear, meaningful manga/manhwa-style choices:
+- Aggressive/action-oriented option  
+- Smart, strategic, or intelligent approach
+- Risky, mysterious, or curiosity-driven choice
+
+📝 SETTING-SPECIFIC REQUIREMENTS FOR {setting.upper()}:
+""" + ("""
+🏫 ACADEMY SCENE REQUIREMENTS:
+- Panel 1: Specific trial/test location (training room, examination hall, arena)
+- Panel 2: Ali's current rank/level mentioned in dialogue
+- Panel 3: Named instructor/rival with clear challenge
+- Panel 4: Ali demonstrates specific skill or technique
+- Panel 5: Trial complication or unexpected test element
+- Panel 6: Choices affecting advancement/ranking
+""" if setting == "academy" else """
+⚡ CULTIVATION SCENE REQUIREMENTS:
+- Panel 1: Specific cultivation location (beneath Wisdom Tree, training ground, sect hall)
+- Panel 2: Ali practicing named technique or studying Qi patterns
+- Panel 3: Named master/rival/senior disciple interrupts with challenge
+- Panel 4: Ali attempts specific cultivation technique (name it clearly)
+- Panel 5: Sudden sect emergency or mysterious cultivation event
+- Panel 6: Choices affecting cultivation progress or sect standing
+
+🔥 Required Cultivation Elements:
+- Name specific techniques (e.g., "Whispering Wind Technique", "Qi Circle Formation")
+- Show current cultivation stage/rank clearly
+- Include Qi, spiritual energy, or cultivation-specific terms
+- Visual cultivation effects (glowing, energy patterns, etc.)
+""" if setting == "cultivation" else f"""
+🌍 {setting.upper()} SCENE REQUIREMENTS:
+- Panel 1: Specific location relevant to {setting} world
+- Panel 2: Ali using {character_origin} background in this setting
+- Panel 3: Setting-appropriate challenge or conflict
+- Panel 4: Ali's unique skills/knowledge applied
+- Panel 5: Unexpected development fitting the {setting} world
+- Panel 6: Choices that advance the {setting} story
+""") + f"""
+
+✅ REQUIRED ELEMENTS (Every Panel Must Have):
+- Clear visual positioning and character actions
+- Concise, punchy dialogue (under 15 words per line)
+- Visual details imaginable as manga panels
+- Named characters with distinct personalities
+- Immediate, real-time action only
+
+❌ ABSOLUTELY FORBIDDEN:
+- Passive voice or indirect narration
+- Abstract descriptions ("mysterious energy", "profound truths")  
+- Literary/poetic language longer than necessary
+- Time skips ("later", "after hours", "the next day")
+- Summary statements ("Ali had learned", "weeks of training")
+- Internal monologues longer than one sentence
+
+🎨 EXAMPLE PANEL FORMAT:
+Panel 1:
+Ali sits cross-legged beneath the massive Wisdom Tree, eyes tracing glowing Qi patterns in the air.
+
+Panel 2:  
+Ali (adjusting glasses, pencil behind ear): "If I adjust the Qi flow here, it should—"
+
+Panel 3:
+Rival Disciple (arms crossed, smirking): "Still stuck on theory, Ali? Some genius you are."
+
+🚨 RESPONSE FORMAT (Use Exactly):
 [STORY]
-(Your story text here)
+Panel 1:
+(Your panel 1 text - 1-2 sentences max)
+
+Panel 2:
+(Your panel 2 text with dialogue - 1-2 sentences max)
+
+Panel 3:
+(Your panel 3 text with conflict - 1-2 sentences max)
+
+Panel 4:
+(Your panel 4 text with Ali's action - 1-2 sentences max)
+
+Panel 5:
+(Your panel 5 text with unexpected event - 1-2 sentences max)
+
+Panel 6:
+(Brief setup for choices - 1 sentence)
 [/STORY]
 
 [CHOICES]
-1. (First choice text)
-2. (Second choice text)  
-3. (Third choice text)
+1. (Aggressive/action choice - specific to your story)
+2. (Strategic/smart choice - specific to your story)  
+3. (Risky/mysterious choice - specific to your story)
 [/CHOICES]"""
 
             # Call the OpenAI API
@@ -354,7 +466,7 @@ Format your response as follows:
             origin_prompt = AIService._create_character_origin_profile(character_origin, setting)
             
             # Create the system prompt
-            system_prompt = f"""You are a storytelling genius who creates BINGE-WORTHY interactive fiction that readers devour in one sitting.
+            system_prompt = f"""You are a light novel/manga storytelling genius who creates IMMERSIVE, DETAILED interactive fiction that hooks readers immediately.
 
 {setting_prompt}
 {tone_prompt}
@@ -365,12 +477,36 @@ Format your response as follows:
 CHARACTER ORIGIN INTEGRATION:
 {origin_prompt}
 
-STORY PROGRESSION RULES:
-1. ADVANCE THE PLOT - Each chapter should introduce new elements, characters, or revelations
-2. CONSEQUENCES MATTER - Show clear results from the previous choice 
-3. VARIETY IS KEY - Change locations, introduce new characters, reveal secrets
-4. STORY MOMENTUM - Always move toward solving mysteries or achieving goals
-5. MEANINGFUL DEVELOPMENT - Character growth or world-building in every passage
+🎯 SCENE-BASED STORYTELLING RULES:
+1. SHOW SPECIFIC SCENES - Don't summarize, show what's happening right now
+2. IMMEDIATE TENSION - Every passage needs conflict, challenge, or discovery
+3. CONCRETE DETAILS - Specific locations, characters, dialogue, and actions
+4. NO TIME SKIPS - Focus on the current moment and immediate consequences
+5. VISUAL STORYTELLING - Help readers SEE and FEEL what's happening
+
+🚫 FORBIDDEN PRACTICES:
+- Time skipping ("weeks passed", "months later", "semester ended")
+- Summarizing events ("Ali mastered the technique", "he became respected")
+- Vague descriptions ("mysterious power", "ancient knowledge")
+- Passive voice ("Ali was known for", "rumors circulated")
+- Generic scenarios (just "training" or "studying")
+
+✅ REQUIRED ELEMENTS:
+- SPECIFIC CURRENT SCENE with clear setting and action
+- IMMEDIATE STAKES that matter right now
+- CONCRETE CHARACTERS with names and personalities
+- DIALOGUE and direct character interaction
+- SENSORY DETAILS (what Ali sees, hears, feels)
+- CLEAR PROGRESSION markers (specific skills, ranks, achievements)
+
+PACING MASTERY:
+- Start with Ali in a SPECIFIC situation requiring immediate decision
+- Show the challenge/conflict happening RIGHT NOW
+- Include at least one other character Ali interacts with
+- End with a choice that affects the immediate situation
+- Make every word count toward building tension or character
+
+Your goal: Make readers think "I need to know what happens next!" after every single passage.
 
 WRITING APPROACH:
 - CHANGE SOMETHING SIGNIFICANT - location, characters, situation, or knowledge
@@ -388,7 +524,7 @@ CHOICE REQUIREMENTS:
 Your goal: Make readers think "This story keeps getting more interesting!" after every choice."""
 
             # Create the user prompt with BULLETPROOF formatting
-            user_prompt = f"""Continue the story by showing the consequences of {character_name}'s choice and advancing the plot.
+            user_prompt = f"""Continue the story by showing a SPECIFIC SCENE with immediate consequences of {character_name}'s choice.
 
 Previous content:
 {previous_content}
@@ -396,8 +532,37 @@ Previous content:
 Selected choice:
 {selected_choice}
 
-CHARACTER ORIGIN FOCUS:
-Remember that {character_name} has a {character_origin} origin. Let this background influence how they handle the consequences of their choice, how others react to them, and what unique opportunities or challenges arise.
+🎬 SCENE-BASED CONTINUATION RULES:
+Show {character_name} in a SPECIFIC location dealing with the IMMEDIATE results of their choice:
+- WHERE exactly is this happening? (specific room, area, location)
+- WHO is present? (specific named characters, not generic people)
+- WHAT is the immediate challenge or conflict they face?
+- HOW does their {character_origin} background help or hinder in this moment?
+
+🚫 ABSOLUTELY FORBIDDEN:
+- Time skipping ("hours later", "the next day", "weeks passed")
+- Summarizing ("Ali had learned", "Ali became known for")
+- Vague outcomes ("Ali grew stronger", "his reputation improved")
+- Generic descriptions ("mystical energy", "ancient power")
+- Starting with exposition or background info
+
+✅ REQUIRED ELEMENTS:
+- SPECIFIC LOCATION: Where this scene is happening
+- NAMED CHARACTERS: At least one other person Ali interacts with
+- IMMEDIATE CHALLENGE: What Ali must handle right now
+- DIALOGUE: Actual conversation between characters
+- SENSORY DETAILS: What Ali sees, hears, feels
+- CLEAR STAKES: Specific consequences for success/failure
+- PROGRESSION: One concrete skill, ability, or understanding Ali gains
+
+WRITE 250-300 words showing this ONE specific scene:
+1. The immediate result of Ali's choice happening right now
+2. A named character reacting to or causing this result
+3. A new challenge or opportunity emerging from this
+4. Clear progression (specific skill learned, rank gained, secret discovered)
+5. Dialogue and sensory details that make it vivid
+
+Make me feel like I'm watching this specific scene happen right now!
 
 🚨 ABSOLUTELY CRITICAL FORMATTING RULES 🚨
 You MUST follow this EXACT format. Any deviation will cause system failure.

@@ -63,139 +63,113 @@ class CultivationProgression(Genre):
             # Create character origin profile with cultivation-specific context
             origin_prompt = AIService._create_character_origin_profile(character_origin, "cultivation")
             
-            # Manga-specific system prompt
-            system_prompt = f"""You are creating an opening chapter for a CULTIVATION PROGRESSION manga that hooks readers immediately.
+            # Dynamic Storytelling Approach - Goals-Based Generation
+            system_prompt = f"""You are creating an engaging cultivation manga/manhwa opening scene. Focus on creative storytelling with dynamic visual flow rather than rigid structure.
 
-CRITICAL SUCCESS FACTORS:
-1. EMOTIONAL CONNECTION - Make readers care about the character personally within 3 sentences
-2. CONCRETE DETAILS - Show, don't tell through specific scenes and sensory details
-3. LOGICAL WORLD-BUILDING - Explain cultivation naturally through character experience
-4. SLOWER EMOTIONAL PACING - Build attachment before revealing power systems
-5. SPECIFIC STAKES - Clear, personal goals beyond just "getting stronger"
-
-STRUCTURE:
-- ARC-BASED PROGRESSION: Structure stories around sequential Arcs (e.g., Training Arc, Tournament Arc, Exploration Arc)
-- Each Arc naturally lasts ~5–10 interactions, then transitions to a new Arc
-- No fixed end — the story evolves indefinitely based on player choices
-
-OPENING STRUCTURE:
-- START WITH CHARACTER MOMENT: Show personality through a specific scene
-- BUILD EMOTIONAL CONNECTION: Make readers sympathize with their struggle
-- INTRODUCE WORLD NATURALLY: Cultivation system through character's perspective
-- END WITH CLEAR STAKES: Specific goal that matters to the character
+🎌 MANGA/MANHWA STORYTELLING APPROACH:
+- Create 4-7 visually sequential panels (your creative choice)
+- Each panel flows naturally to tell a compelling story
+- Use manga/manhwa pacing: dynamic, visual, emotionally engaging
+- Concise dialogue under 15 words per speech bubble
+- Clear visual context and logical panel progression
 
 CHARACTER ORIGIN INTEGRATION:
 {origin_prompt}
 
-UNIQUE WORLD-BUILDING REQUIREMENTS:
-- CREATIVE SECT NAMES: Avoid Azure/Jade/Golden - use unique names like "Thousand Stars Sect", "Iron Will Academy", "Shifting Sands Order"
-- AUTHENTIC TECHNIQUES: Avoid Cloud/Dragon - use "Shattered Earth Palm", "Whisper Step", "Molten Forge Breathing"
-- STAGE NAMES with levels (Qi Gathering 1-9 → Foundation Building 1-9 → Core Formation)
-- VISUAL QI DESCRIPTIONS (specific colors: crimson, violet, silver, etc. with unique patterns)
-- SECT HIERARCHY (Outer Disciple → Inner Disciple → Core Disciple → Elder)
-- COMPETITIVE DYNAMICS (monthly rankings, seasonal trials, rival disciples with personalities)
-- IMMEDIATE WORLD STAKES (sect wars brewing, ancient ruins discovered, demon beast invasions)
+🎯 MANDATORY STORYTELLING GOALS FOR THIS SCENE:
+1. Visually introduce {character_name}, establishing personality through dynamic action
+2. Clearly show {character_name}'s immediate cultivation goal or aspiration  
+3. Present compelling initial conflict, challenge, or intriguing event demanding action
+4. Introduce at least one supporting character (rival, master, fellow disciple) naturally
+5. Showcase at least one visually distinctive, clearly named cultivation technique
+6. End with intriguing cliffhanger or visually clear suspense that prompts curiosity
 
-CHARACTER IMMERSION REQUIREMENTS:
-- SPECIFIC APPEARANCE (not just hair/eyes - scars, height, build, distinctive clothing)
-- CONCRETE DAILY SCENES (specific training failures, exact bullying incidents, meal struggles)
-- PERSONAL EMOTIONAL STAKES (not parents' death - maybe protecting a younger friend, proving a teacher wrong, earning enough to buy medicine)
-- UNIQUE PERSONALITY MOMENTS (how they react to mockery, what small things bring them joy)
-- ORIGIN-DRIVEN ABILITIES: Let {character_name}'s {character_origin} background directly affect their cultivation style and capabilities
+🔥 CULTIVATION WORLD REQUIREMENTS:
+- CREATIVE SECT NAMES: "Thousand Stars Sect", "Iron Will Academy", "Shifting Sands Order"
+- SPECIFIC TECHNIQUES: "Shattered Earth Palm", "Whisper Step", "Molten Forge Breathing"  
+- CLEAR STAGES: Qi Gathering 1-9 → Foundation Building → Core Formation
+- VISUAL QI: Specific colors (crimson spirals, violet mist, silver threads) with unique effects
+- SECT HIERARCHY: Outer → Inner → Core Disciple → Elder shown naturally
+- CHARACTER MOTIVATIONS: Fresh, specific goals beyond generic "get stronger"
+
+✅ CREATIVE STORYTELLING RULES:
+- YOU decide optimal number of panels (4-7) for best story flow
+- Each panel adds meaningful story progression, avoiding redundancy
+- Dialogue reveals distinct character personalities and motivations
+- Visual descriptions help readers imagine manga panels clearly
+- Logical continuity between panels with creative surprises
+
+❌ STRICTLY AVOID:
+- Predictable storytelling clichés (generic rival encounters, basic training scenes)
+- Abstract descriptions ("mysterious power" without specifics)
+- Generic sect names (Azure/Jade/Golden/Cloud/Sky/Heaven)
+- Forced panel structures that limit creativity
+- Dead parents motivation (overused trope)
 
 {gender_prompt}
 {language_prompt}
 
-PACING RULES:
-- Start with CHARACTER MOMENT (show personality first)
-- Add ONE world detail at a time through character's eyes
-- Build emotional investment BEFORE explaining power systems
-- End with clear personal stakes, not just power choices
+🚀 CREATIVE FREEDOM:
+Let your storytelling instincts guide the scene structure. Create panels that flow naturally and build engaging narrative tension. Surprise both yourself and the reader with creative developments that feel authentic to cultivation manga/manhwa."""
 
-AVOID:
-- Generic sect names (Azure/Jade/Golden/Cloud/Sky/Heaven anything)
-- Dead parents motivation (overused)
-- Starting with power level explanations
-- Exposition dumps about the world
-- Mysterious heritage/bloodline reveals
+            # User prompt for dynamic cultivation scene generation
+            user_prompt = f"""Create an engaging cultivation manga/manhwa opening scene featuring {character_name} with {character_origin} origin.
 
-Your goal: Create an opening that makes readers think "I'm already invested in this character and want to see them succeed!\""""
+🎯 YOUR CREATIVE MISSION:
+Create a compelling opening scene that accomplishes these storytelling goals through 4-7 dynamic panels (you choose the optimal number for best narrative flow):
 
-            # User prompt for cultivation progression
-            user_prompt = f"""Create an opening chapter for a cultivation progression story featuring {character_name}.
+📚 MANDATORY STORYTELLING GOALS:
+1. **Character Introduction**: Visually introduce {character_name}, establishing their personality through a dynamic cultivation action or moment
+2. **Cultivation Aspiration**: Clearly show {character_name}'s immediate cultivation goal, challenge, or what they're striving for
+3. **Compelling Conflict**: Present an intriguing conflict, challenge, or event that demands immediate attention or curiosity
+4. **Supporting Character**: Introduce at least one other character naturally (rival, master, fellow disciple, sect member)
+5. **Technique Showcase**: Demonstrate at least one clearly named, visually distinctive cultivation technique with specific qi effects
+6. **Suspenseful Ending**: End with a cliffhanger, mystery, or visually clear tension that makes readers eager for more
 
-CHARACTER SETUP:
-{character_name} has a {character_origin} origin in a cultivation world where spiritual power determines everything. Use this origin to create a SPECIFIC backstory and clear motivation for wanting to get stronger that directly relates to their {character_origin} background.
+🌟 CULTIVATION WORLD ELEMENTS TO WEAVE IN:
+- **Creative Sect**: Use imaginative sect name (avoid Azure/Jade/Golden - try "Thousand Stars Sect", "Shifting Sands Order")
+- **Specific Techniques**: Named techniques like "Ember Palm", "Whisper Step", "Iron Will Breathing"
+- **Clear Progression**: Show {character_name}'s current stage (Qi Gathering 3, Foundation Building 1, etc.)
+- **Visual Qi**: Specific colors and effects (crimson spirals, violet mist, silver threads)
+- **Sect Hierarchy**: Natural inclusion of ranks (Outer/Inner/Core Disciple, Elder)
+- **Fresh Motivation**: Give {character_name} a specific, compelling reason for cultivation beyond generic "get stronger"
 
-WORLD-BUILDING REQUIREMENTS:
-1. Define SPECIFIC cultivation stages (e.g., Qi Gathering 1-9 → Foundation Building → Core Formation)
-2. Establish sect hierarchy (Outer Disciples → Inner Disciples → Core Disciples → Elders)
-3. Give logical reasons for {character_name}'s current situation
-4. Show where {character_name} fits in the power structure (current stage, sect rank)
-5. Introduce competitive dynamics (rival disciples, ranking competitions, sect politics)
+🎨 CREATIVE STORYTELLING APPROACH:
+- **Panel Flow**: Create 4-7 panels that flow naturally like a real manga chapter
+- **Visual Clarity**: Each panel should be imaginable as a clear manga panel with specific character positioning
+- **Dialogue Style**: Concise speech bubbles under 15 words that reveal character personality
+- **Pacing**: Build narrative tension naturally, avoiding predictable formulaic progression
+- **Surprises**: Include creative elements that feel fresh and unexpected while staying true to cultivation genre
 
-STORY STRUCTURE (SLOWER EMOTIONAL PACING):
-- Start with a SPECIFIC SCENE showing {character_name}'s personality (not weakness first)
-- Build EMOTIONAL CONNECTION through their daily struggles and small moments
-- Gradually introduce ONE cultivation concept at a time through their experience
-- Give them a FRESH, SPECIFIC motivation (not generic "prove worth" or dead parents)
-- Include at least ONE named technique they're trying to learn
-- Build to the major choice naturally through story events
+❌ AVOID THESE CLICHÉS:
+- Generic rival encounters that feel forced
+- Predictable "mysterious master appears" scenarios  
+- Basic training montages without personality
+- Abstract cultivation descriptions without specifics
+- Overly familiar sect politics without fresh angles
 
-DYNAMIC CHOICE GENERATION:
-Based on the story you've written, create 3 meaningful choices that:
-- Flow naturally from the story events and character's situation
-- Offer genuinely different paths forward (not just different ways to do the same thing)
-- Match the character's current power level and circumstances
-- Appeal to different motivations (bold vs careful, social vs solo, etc.)
-- Lead to different story developments in future chapters
-
-CHOICE VARIETY REQUIREMENTS:
-Create 3 choices that are COMPLETELY DIFFERENT in approach and motivation:
-
-CHOICE APPROACHES (pick 3 DIFFERENT types for variety):
-- EXPLORATION: Investigate mysteries, explore locations, discover secrets
-- SOCIAL: Form alliances, build relationships, help others
-- RISK-TAKING: Attempt dangerous techniques, take bold actions
-- STRATEGIC: Gather intelligence, plan carefully, observe politics
-- RULE-BREAKING: Defy authority, break restrictions, rebel
-- DIPLOMATIC: Mediate conflicts, negotiate, find peaceful solutions
-- TRAINING: Improve skills, practice techniques, strengthen weaknesses
-- MYSTERIOUS: Follow clues, investigate strange phenomena
-- BOLD: Volunteer for danger, make dramatic gestures
-- PROTECTIVE: Defend others, guard secrets, prevent harm
-
-AVOID REPETITIVE PATTERNS - Don't use the same choice types or structure!
-
-WRITE 350-400 words that:
-1. Start with a CHARACTER MOMENT showing {character_name}'s {character_origin} nature in action
-2. Give them a FRESH, SPECIFIC motivation that stems from their {character_origin} background
-3. Include at least ONE named technique they're learning that relates to their origin
-4. Show how other characters react to {character_name} based on their {character_origin} nature
-5. Show visual qi descriptions with specific colors and effects influenced by their origin
-6. Hint at IMMEDIATE world stakes (demon beast attacks, sect wars, ancient ruins discovered)
-7. Build to the path choices through natural story progression
-8. Make reader think "I care about this {character_origin} character and want them to succeed!"
-
-FRESH MOTIVATION EXAMPLES for orphaned characters:
-- "Earn enough spirit stones to buy medicine for a sickly younger disciple he protects"
-- "Become strong enough to find and rescue his missing sister" 
-- "Prove a beloved teacher wrong who said he'd never amount to anything"
-- "Master cultivation to help defend the sect from demon beast attacks that orphaned him"
-- "Rise high enough to change the sect's cruel treatment of weak disciples"
-
-Include MANGA ELEMENTS: Clear power levels, potential rivals, visual descriptions, technique names!
-
-Format:
+🚨 FLEXIBLE RESPONSE FORMAT:
 [STORY]
-(Your story here)
+Panel 1:
+(Your creative scene opening)
+
+Panel 2:
+(Continue the story flow naturally)
+
+[Continue with as many panels as needed for optimal storytelling - 4 to 7 total]
+
+Final Panel:
+(End with compelling setup for choices)
 [/STORY]
 
 [CHOICES]
-1. (First dynamic choice based on your story)
-2. (Second dynamic choice based on your story)
-3. (Third dynamic choice based on your story)
-[/CHOICES]"""
+1. (Aggressive choice naturally arising from your scene - minimum 12 words with specific details)
+2. (Strategic choice based on the situation you created - minimum 12 words with specific details)
+3. (Risky/mysterious choice offering uncertain outcomes - minimum 12 words with specific details)
+[/CHOICES]
+
+🚀 CREATIVE FREEDOM: 
+Let your storytelling instincts guide you! Create a scene that feels authentic, engaging, and makes readers excited to see what happens next. Surprise us with creative cultivation scenarios while maintaining manga/manhwa storytelling quality."""
 
             # Generate content with retry logic
             return BaseGenre.generate_story_with_retry(system_prompt, user_prompt, character_name)
@@ -249,105 +223,148 @@ Format:
             elif language_complexity == "complex":
                 language_prompt = "LANGUAGE: Use rich language with detailed cultivation concepts."
             
-            system_prompt = f"""You are continuing a CULTIVATION PROGRESSION manga story. Focus on logical progression and meaningful character development.
+            system_prompt = f"""You are continuing a cultivation manga/manhwa story with dynamic storytelling that builds meaningfully from the previous scene. Focus on creative narrative flow while maintaining character consistency.
 
-CONTINUATION CORE PRINCIPLES:
-1. LOGICAL CONSEQUENCES - Show realistic results of their path choice
-2. SLOWER PACING - One significant development per chapter, don't rush
-3. VISIBLE PROGRESSION - Show tangible power-ups, new techniques, stage advancement
-4. RIVALRY DYNAMICS - Include competitive relationships, jealous disciples, sect politics
-5. WORLD CONSISTENCY - Maintain established cultivation rules and social structures
-6. PATH-SPECIFIC CONTENT - Different paths should feel genuinely different
-7. ESCALATING STAKES - Gradually introduce bigger threats and challenges
+🎌 DYNAMIC CONTINUATION APPROACH:
+- Create 4-7 panels (your choice) that naturally continue the story
+- Build logically from the previous choice while adding creative story development
+- Maintain character personalities and established world elements
+- Use manga/manhwa pacing: visual, engaging, emotionally compelling
 
-STRUCTURE:
-- ARC-BASED PROGRESSION: Structure stories around sequential Arcs (e.g., Training Arc, Tournament Arc, Exploration Arc)
-- Each Arc naturally lasts ~5–10 interactions, then transitions to a new Arc
-- No fixed end — the story evolves indefinitely based on player choices
+📋 NARRATIVE COHESION REQUIREMENTS:
+- First panel MUST show logical consequence of the previous choice
+- Reference previous events naturally within the story flow
+- Character actions and dialogue must match established personalities
+- Each panel should add meaningful story progression
 
-PATH-SPECIFIC STORYTELLING:
-- SECT PATH: Focus on trials, hierarchy, competition with other disciples
-- MASTER PATH: Focus on personal training, secret techniques, one-on-one growth
-- ACADEMY PATH: Focus on classes, academic competition, student relationships
-- INDEPENDENT PATH: Focus on exploration, self-discovery, unique challenges
+🗣️ CHARACTER-DRIVEN STORYTELLING:
+- Dialogue under 15 words that reveals distinct character personalities
+- {character_name} speaks/thinks in a way that reflects their {character_origin} background
+- Supporting characters have consistent, memorable speech patterns
+- Avoid generic dialogue - make each character voice unique
 
-PACING REQUIREMENTS:
-- Don't jump to legendary masters or ancient secrets immediately
-- Build relationships and skills gradually over multiple interactions
-- Show the character earning their progress through effort
-- Let readers understand the cultivation system through experience
+🎯 CREATIVE CONTINUATION GOALS:
+1. **Choice Consequence**: Show immediate, logical result of the previous choice
+2. **Character Development**: Advance {character_name}'s cultivation journey meaningfully  
+3. **Story Progression**: Add one significant plot development or revelation
+4. **Relationship Dynamics**: Develop relationships with supporting characters naturally
+5. **Technique Advancement**: Showcase cultivation progress through named techniques
+6. **Engaging Cliffhanger**: End with compelling setup for next meaningful decision
 
-CULTIVATION PROGRESSION ELEMENTS:
-- Clear STAGE ADVANCEMENT (show when MC moves from Qi Gathering 3 → 4, etc.)
-- NAMED TECHNIQUES that characters learn (Flowing River Palm, Crane Step, etc.)
-- Rival relationships that drive competition and growth
-- VISUAL QI DESCRIPTIONS (silver qi, crackling energy, glowing auras)
-- Concrete obstacles that match the character's current level
-- Hints at larger threats beyond immediate training (sect conflicts, ancient enemies)
+🔥 CULTIVATION STORY ELEMENTS:
+- Clear cultivation advancement (technique mastery, stage progression, qi improvement)
+- Visual qi effects with specific colors and patterns (crimson spirals, violet mist, silver threads)
+- Sect hierarchy and politics shown naturally in story flow
+- Character motivations that feel authentic and specific to their background
+
+🚀 CREATIVE STORYTELLING APPROACH:
+- Choose optimal number of panels (4-7) for best narrative flow
+- Each panel adds meaningful story value, avoiding predictable filler
+- Surprise elements that feel natural and enhance the cultivation journey
+- Visual descriptions that help readers imagine clear manga panels
+
+✅ STORYTELLING QUALITY STANDARDS:
+- Logical progression from previous choice to new story developments
+- Character dialogue that reveals personality and advances relationships
+- Named cultivation techniques with specific visual qi effects
+- Sect world-building woven naturally into the narrative flow
+
+🚫 AVOID CREATIVE LIMITATIONS:
+- Predictable story formulas that feel mechanical or paint-by-numbers
+- Random character appearances without logical narrative setup
+- Generic cultivation scenarios without fresh angles or creativity
+- Forced conflicts that don't arise naturally from established story flow
 
 {gender_prompt}
-{language_prompt}
+{language_prompt}"""
 
-AVOID:
-- Rushing to high-level content too quickly
-- Skipping logical steps in progression
-- Introducing overpowered mentors without proper setup
-- Repetitive "mysterious dark forces" plots
+            user_prompt = f"""Continue this cultivation manga/manhwa story with creative storytelling that builds meaningfully from the player's choice.
 
-Your goal: Create compelling progression that feels earned and logical within the chosen path."""
-
-            user_prompt = f"""Continue the cultivation progression story, showing the logical consequences of {character_name}'s path choice.
-
-Previous story:
+📖 PREVIOUS SCENE:
 {previous_content}
 
-Selected choice:
+⚡ PLAYER'S CHOSEN ACTION:
 {selected_choice}
 
-CONTINUATION APPROACH:
-Analyze the choice {character_name} made and develop the story along that specific path. Each path should feel unique:
+🎯 YOUR CREATIVE CONTINUATION MISSION:
+Create a compelling continuation scene (4-7 panels of your choice) that accomplishes these storytelling goals:
 
-- SECT PATH: Show trials, meeting other disciples, learning sect rules and hierarchy
-- MASTER PATH: Show the search for or training with a personal mentor
-- ACADEMY PATH: Show entrance procedures, classes, academic and social dynamics
-- INDEPENDENT PATH: Show solo exploration, self-discovery, unique challenges
+📚 MANDATORY STORYTELLING GOALS:
+1. **Choice Consequence**: Show the immediate, logical result of the chosen action: "{selected_choice}"
+2. **Character Growth**: Demonstrate {character_name}'s cultivation advancement or personal development
+3. **Story Advancement**: Add meaningful plot progression that builds from established elements
+4. **Character Interaction**: Develop relationships with supporting characters authentically
+5. **Technique Showcase**: Feature at least one named cultivation technique with visual qi effects
+6. **Compelling Setup**: End with an engaging situation that leads to meaningful player choices
 
-PACING REQUIREMENTS:
-1. ONE major development this chapter (don't rush through multiple stages)
-2. Show logical, step-by-step progression appropriate to their current level
-3. Introduce path-specific characters and challenges gradually
-4. Build anticipation for the next logical step in their journey
+🌟 NARRATIVE COHERENCE REQUIREMENTS:
+- First panel must logically show the consequence of the specific choice made
+- All character actions must match established personalities and motivations
+- New developments must feel like natural story progression, not random events
+- Reference previous scene elements appropriately within the story flow
 
-CHARACTER DEVELOPMENT:
-- Show {character_name} learning and adapting to their chosen path
-- Display realistic challenges and small victories
-- Demonstrate growing understanding of cultivation principles
-- Create believable relationships with new characters
+🎨 CREATIVE STORYTELLING APPROACH:
+- Choose the optimal number of panels (4-7) for best narrative flow
+- Each panel should add meaningful value to the story progression
+- Include creative elements that surprise while staying true to cultivation genre
+- Visual descriptions should help readers imagine clear manga panels
 
-WRITE 300-350 words that:
-1. Show realistic consequences of their path choice
-2. Introduce appropriate characters (masters, rivals, fellow disciples) for their chosen path
-3. Include ONE tangible progression marker (new technique learned, stage advancement, ability gained)
-4. Present one significant challenge or learning opportunity
-5. Add competitive dynamics (rivals, rankings, sect politics)
-6. Use VISUAL descriptions (qi colors, energy effects, physical manifestations)
-7. Build toward the next logical step in their progression
-8. Hint at larger stakes or conflicts beyond immediate training
+🔥 CULTIVATION ELEMENTS TO INCLUDE:
+- Named cultivation techniques with specific visual qi effects
+- Clear indication of {character_name}'s current cultivation stage/progress
+- Sect hierarchy, politics, or relationships shown naturally
+- Creative sect elements that avoid generic Azure/Jade/Golden names
 
-Focus on MANGA ELEMENTS: visible power-ups, named techniques, rivalry dynamics, visual descriptions!
+🗣️ DIALOGUE REQUIREMENTS:
+- Each character has distinct speech patterns
+- {character_name}: Reflects {character_origin} background in word choice
+- Rivals: Confident, challenging, competitive language
+- Masters: Wise but concise, technique-focused speech
+- Fellow disciples: Casual, worried, or encouraging based on relationship
 
-Format:
+🚫 STRICTLY FORBIDDEN (Do NOT do these):
+- Introducing random, unexplained enemies or sudden antagonists
+- Actions or attacks that don't logically match previous panel outcomes  
+- Characters suddenly changing personality or allegiance without clear explanation
+- Generic or vague choices ("specific to your panels")
+- New characters appearing without logical introduction
+- Events that contradict established story elements
+- Hana or other rivals suddenly becoming hostile without narrative justification
+
+🧩 NARRATIVE COHESION (MANDATORY):
+- Every panel must clearly follow the logical progression of the previous panel and chapter
+- Explicit continuity required—no sudden unexplained narrative jumps
+- All character motivations must be clear and consistent with previous chapters
+- If characters change behavior, explicitly show why in the narrative
+
+❌ AVOID PREDICTABLE PATTERNS:
+- Forced panel structures that limit creative storytelling
+- Generic cultivation scenarios without fresh angles
+- Random character personality changes without explanation
+- Mechanical story progression that feels paint-by-numbers
+
+🚨 FLEXIBLE RESPONSE FORMAT:
 [STORY]
-(Your continuation here)
+Panel 1:
+(Show consequence of "{selected_choice}")
+
+Panel 2:
+(Continue story flow naturally)
+
+[Continue with optimal number of panels for your story - 4 to 7 total]
+
+Final Panel:
+(End with compelling setup for meaningful choices)
 [/STORY]
 
 [CHOICES]
-1. [First specific choice based on your story - must be detailed and actionable]
-2. [Second specific choice based on your story - must be detailed and actionable]
-3. [Third specific choice based on your story - must be detailed and actionable]
+1. (AGGRESSIVE choice arising naturally from your scene - minimum 12 words with specific details)
+2. (STRATEGIC choice based on the situation you created - minimum 12 words with specific details)
+3. (RISKY choice offering uncertain outcomes specific to your story - minimum 12 words with specific details)
 [/CHOICES]
 
-CRITICAL: Each choice must be SPECIFIC to your story content, not generic templates. Use concrete actions, people, places, and objects from your story. Each choice should be at least 12 words long and lead to different story directions."""
+🚀 CREATIVE FREEDOM:
+Let your storytelling instincts guide the continuation! Build meaningfully from the previous choice while adding creative cultivation elements that make readers excited for the next development."""
 
             # Generate content with retry logic
             return BaseGenre.generate_story_with_retry(system_prompt, user_prompt, character_name)
