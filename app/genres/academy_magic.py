@@ -1,5 +1,5 @@
 """
-Academy Magic genre implementation for magic school stories.
+Academy Magic genre implementation for magical school stories.
 """
 from typing import List, Tuple
 import openai
@@ -10,9 +10,8 @@ from ..base_genre import BaseGenre, Genre
 # Set up logger
 logger = logging.getLogger(__name__)
 
-
 class AcademyMagic(Genre):
-    """Academy magic story generator for magic school progression stories."""
+    """Academy magic story generator for magical school narratives."""
     
     @property
     def genre_name(self) -> str:
@@ -20,19 +19,15 @@ class AcademyMagic(Genre):
     
     @property
     def genre_context(self) -> str:
-        return "magical academy environment"
+        return "magical academy realm"
     
     def generate_story(
         self,
         character_name: str,
         character_gender: str,
-        language_complexity: str,
         character_origin: str = "normal"
     ) -> Tuple[str, List[Choice]]:
-        """Generate an academy magic story optimized for school progression."""
-        
-        # Create language complexity prompt addition
-        language_prompt = BaseGenre.create_language_prompt(language_complexity)
+        """Generate an academy magic story opening."""
         
         # Create gender-specific pronouns
         pronouns = BaseGenre.create_gender_pronouns(character_gender)
@@ -40,89 +35,70 @@ class AcademyMagic(Genre):
         # Import the origin profile method
         from app.ai_service import AIService
         
-        # Create character origin profile with academy-specific context
+        # Create character origin profile
         origin_prompt = AIService._create_character_origin_profile(character_origin, "academy")
         
-        system_prompt = f"""You are creating an engaging magic academy story in the style of popular manga/light novels like "The Irregular at Magic High School" and "Little Witch Academia."
+        system_prompt = f"""You are creating an engaging magical academy manga/manhwa opening scene.
 
-{language_prompt}
+Use {pronouns} pronouns for {character_name}.
 
-CHARACTER PRONOUNS: Use {pronouns} pronouns for {character_name}.
-
-CHARACTER ORIGIN INTEGRATION:
 {origin_prompt}
 
-ACADEMY MAGIC STORY REQUIREMENTS:
-🎓 SCHOOL IMMERSION: Create a vivid magic academy with unique systems, not generic "magic school"
-✨ MAGIC PROGRESSION: Establish clear magical ranking/grading systems with advancement potential
-🎯 ACADEMY STAKES: Give {character_name} compelling academic goals (rankings, competitions, proving worth)
-🏫 LIVING SCHOOL: Include specific classes, professors, dormitories, and academy traditions
-👥 SCHOOL DYNAMICS: Create rivalries, friendships, and academic social hierarchies
+MAGICAL ACADEMY REQUIREMENTS:
+🏫 Setting: Magical school with students, teachers, classes, dormitories, competitions
+🎯 Structure: Create 4-6 panels that flow like manga/manhwa
+💬 Dialogue: Characters must speak with distinct personalities (under 15 words per line)
+🧠 Inner thoughts: Show {character_name}'s emotions and motivations (use italics)
+📚 Magic: Include specific named spells or magical subjects with visual effects
+👨‍🎓 School elements: Classes, rankings, rivalries, professors, competitions
 
-STRUCTURE:
-- ARC-BASED PROGRESSION: Structure stories around sequential Arcs (e.g., Training Arc, Tournament Arc, Exploration Arc)
-- Each Arc naturally lasts ~5–10 interactions, then transitions to a new Arc
-- No fixed end — the story evolves indefinitely based on player choices
-
-ENGAGEMENT REQUIREMENTS:
-- STUDENT CONNECTION: Make readers relate to {character_name}'s academic struggles within the first paragraph
-- PROGRESSION SYSTEM: Show clear paths for magical and academic advancement
-- COMPETITIVE EDGE: Present ranking systems, tournaments, or academic competitions
-- VISUAL MAGIC: Use rich descriptions of spells, magical techniques, and academy architecture
-- PERSONAL STAKES: Present challenges that matter to {character_name}'s future at the academy
-
-CHOICE VARIETY REQUIREMENTS:
-Generate 3 DISTINCTLY DIFFERENT choices using these approach types:
-- Academic: Study harder, research subjects, master techniques
-- Social: Build friendships, handle rivalries, join groups
-- Risk-taking: Break rules, explore forbidden areas
-- Strategic: Plan for competitions, gather information
-- Magical: Practice spells, experiment with power
-- Protective: Help struggling classmates, prevent bullying
-- Mysterious: Investigate academy secrets, follow clues
-- Competitive: Challenge rivals, prove abilities
-- Diplomatic: Mediate conflicts, form alliances
-- Cautious: Observe situations, avoid trouble
-
-Each choice must reference specific academy elements and lead to completely different scenarios.
-
-CRITICAL: NO template or repetitive choices. Each choice should feel fresh and academy-specific.
-
-Generate an academy opening that makes readers think: "This magic school is fascinating and I want to see {character_name} rise through the ranks!"
+ESSENTIAL ELEMENTS:
+- Specific academy location (classroom, training hall, dormitory, library)
+- Named magical subjects or spells ("Elemental Theory", "Light Weaving", etc.)
+- Clear indication of {character_name}'s magical rank/class standing
+- Visual magical effects (spell casting, magical auras, etc.)
+- At least one other character who speaks (classmate, rival, professor)
+- {character_name}'s inner thoughts showing personality
 
 FORMAT:
 [STORY]
-(Your story here)
+Panel 1:
+(Scene setup with academy location)
+
+Panel 2:
+(Character introduction with dialogue or inner thought)
+
+Panel 3:
+(School challenge or competition appears)
+
+Panel 4:
+(Magic demonstration or class activity)
+
+Panel 5:
+(Consequence or reaction)
+
+Panel 6 (optional):
+(Setup for choices)
 [/STORY]
 
 [CHOICES]
-1. (First dynamic choice based on your story)
-2. (Second dynamic choice based on your story)
-3. (Third dynamic choice based on your story)
-[/CHOICES]
-"""
-
-        user_prompt = f"""Create an engaging magic academy story opening for {character_name} with a {character_origin} origin.
-
-ORIGIN INTEGRATION REQUIREMENTS:
-- Make {character_name}'s {character_origin} background central to their academy experience
-- Show how their origin affects their magical abilities, academic standing, and relationships with classmates
-- Include at least one moment where their {character_origin} nature creates academic advantages or challenges
-- Let their origin influence their reputation and starting position at the academy
-
-Make it feel like the start of an academy adventure with clear magical progression and social dynamics that relate to their {character_origin} background.
-
-Format your response as:
-[STORY]
-(400-500 words of story content)
-[/STORY]
-
-[CHOICES]  
-1. (First choice)
-2. (Second choice)
-3. (Third choice)
+1. (Academic/studious choice - 12+ words)
+2. (Social/competitive choice - 12+ words)  
+3. (Bold/risky choice - 12+ words)
 [/CHOICES]"""
-        
+
+        user_prompt = f"""Create a magical academy manga opening for {character_name} with {character_origin} origin.
+
+Requirements:
+- Show {character_name} in a specific academy location
+- Include named magical subject or spell with visual effects
+- Add dialogue from {character_name} and at least one other character
+- Show {character_name}'s academic rank or magical abilities
+- Create school challenge or competition scenario
+- End with meaningful academic/social choices
+
+Make it engaging and magical like a real school magic manga chapter opening."""
+
         try:
             logger.info(f"Generating academy magic story for {character_name}")
             
@@ -130,22 +106,21 @@ Format your response as:
             return BaseGenre.generate_story_with_retry(system_prompt, user_prompt, character_name)
             
         except openai.OpenAIError as e:
-            logger.error(f"OpenAI API error generating academy magic story: {e}")
+            logger.error(f"OpenAI API error: {e}")
         except Exception as e:
-            logger.error(f"Unexpected error generating academy magic story: {e}")
-            # Academy magic fallback
-            return BaseGenre.create_fallback_story(
-                character_name,
-                f"{character_name} nervously clutched their acceptance letter to Arcanum Academy, the most prestigious magic school in the realm. "
-                f"Despite being from a non-magical family, they had somehow manifested rare abilities that caught the academy's attention. "
-                f"Now, standing in the grand entrance hall surrounded by students from powerful magical bloodlines, {character_name} realized they would need to prove themselves worthy of being here. "
-                f"The first-year placement trials were about to begin, and rumor had it that those who failed would be expelled immediately...",
-                [
-                    Choice(id="1", text="Focus on studying magic theory to prepare for trials"),
-                    Choice(id="2", text="Try to make allies among other first-year students"),
-                    Choice(id="3", text="Quietly observe the competition to learn their weaknesses")
-                ]
-            )
+            logger.error(f"Unexpected error: {e}")
+            
+        # Simple fallback
+        return BaseGenre.create_fallback_story(
+            character_name,
+            f"{character_name} walked through the halls of Mystral Academy, nervously clutching their spell books. "
+            f"As a {character_origin} student in the first-year class, they faced their first major magical examination.",
+            [
+                Choice(id="1", text="Study harder in the library to improve your magical theory knowledge"),
+                Choice(id="2", text="Practice spells with classmates to build teamwork and friendship"),
+                Choice(id="3", text="Attempt to learn advanced magic beyond your current year level")
+            ]
+        )
 
     def continue_story(
         self,
@@ -153,74 +128,50 @@ Format your response as:
         character_gender: str,
         previous_content: str,
         selected_choice: str,
-        language_complexity: str,
         character_origin: str = None
     ) -> Tuple[str, List[Choice]]:
         """Continue an academy magic story."""
         
-        # Create language complexity prompt addition
-        language_prompt = BaseGenre.create_language_prompt(language_complexity)
-        
         # Create gender-specific pronouns
         pronouns = BaseGenre.create_gender_pronouns(character_gender)
         
-        system_prompt = f"""You are continuing an engaging magic academy story in the style of popular manga/light novels.
+        system_prompt = f"""You are continuing a magical academy manga/manhwa story.
 
-{language_prompt}
+Use {pronouns} pronouns for {character_name}.
 
-CHARACTER PRONOUNS: Use {pronouns} pronouns for {character_name}.
+CONTINUATION REQUIREMENTS:
+- Start with immediate consequence of the previous choice
+- Create 3-5 panels showing what happens next
+- Include dialogue and inner thoughts
+- Show academic progress or new challenges
+- Advance the school story meaningfully
+- End with new choices
 
-ACADEMY MAGIC CONTINUATION REQUIREMENTS:
-🎯 ACADEMY PROGRESS: Show advancement in classes, rankings, or magical abilities
-🌟 RAISE STAKES: Introduce academy competitions, threats, or mysteries
-✨ MAGICAL GROWTH: Demonstrate {character_name}'s developing powers or knowledge
-👥 RELATIONSHIP DYNAMICS: Develop friendships, rivalries, or mentorships
-🏫 SCHOOL DEPTH: Add new academy locations, subjects, or traditions
-
-STRUCTURE:
-- ARC-BASED PROGRESSION: Structure stories around sequential Arcs (e.g., Training Arc, Tournament Arc, Exploration Arc)
-- Each Arc naturally lasts ~5–10 interactions, then transitions to a new Arc
-- No fixed end — the story evolves indefinitely based on player choices
-
-STORYTELLING EXCELLENCE:
-- Show immediate consequences of the previous choice
-- Advance {character_name}'s academy standing or abilities
-- Create moments of magical discovery or academic challenge
-- Include interactions with classmates, teachers, or rivals
-- Build toward the next important academy milestone
-
-CHOICE VARIETY REQUIREMENTS:
-Generate 3 DISTINCTLY DIFFERENT choices using these approach types:
-- Academic: Study, research, master subjects
-- Social: Build friendships, handle rivalries, join groups
-- Risk-taking: Break rules, explore forbidden areas
-- Strategic: Plan for competitions, gather information
-- Magical: Practice spells, experiment with power
-- Protective: Help struggling classmates, prevent bullying
-- Mysterious: Investigate academy secrets, follow clues
-- Competitive: Challenge rivals, prove abilities
-- Diplomatic: Mediate conflicts, form alliances
-- Cautious: Observe situations, avoid trouble
-
-Each choice must reference specific academy elements and lead to completely different scenarios.
-
-CRITICAL: NO template or repetitive choices. Each choice should feel fresh and academy-specific.
-
-Continue the academy story in a way that makes readers excited to see {character_name}'s next move!
+ACADEMY ELEMENTS:
+- Named spells with visual magical effects
+- School locations and characters (classmates, professors)
+- Clear progression in magical abilities or school rank
+- Character growth or academic challenges
 
 FORMAT:
 [STORY]
-(Your story here)
+Panel 1:
+(Immediate result of previous choice)
+
+Panel 2-4:
+(School development with dialogue and magic)
+
+Final Panel:
+(Setup for next choices)
 [/STORY]
 
 [CHOICES]
-1. (First dynamic choice based on your story)
-2. (Second dynamic choice based on your story)
-3. (Third dynamic choice based on your story)
-[/CHOICES]
-"""
+1. (Choice based on current school situation)
+2. (Alternative academic approach)
+3. (Social/risky option)
+[/CHOICES]"""
 
-        user_prompt = f"""Continue this magic academy story:
+        user_prompt = f"""Continue the magical academy story:
 
 PREVIOUS STORY:
 {previous_content}
@@ -228,30 +179,18 @@ PREVIOUS STORY:
 CHOSEN ACTION:
 {selected_choice}
 
-Show the consequences of this choice and advance the story toward the next exciting academy challenge.
+Show what happens next with:
+- Immediate consequence of {character_name}'s choice
+- Character dialogue and reactions
+- Magical spells or academy elements
+- School progression
+- Meaningful choices for what to do next"""
 
-Format your response as:
-[STORY]
-(300-400 words of story content)
-[/STORY]
-
-[CHOICES]  
-1. (First choice)
-2. (Second choice)
-3. (Third choice)
-[/CHOICES]"""
-        
         try:
             logger.info(f"Continuing academy magic story for {character_name}")
             
-            # Generate content with retry logic
             return BaseGenre.generate_story_with_retry(system_prompt, user_prompt, character_name)
             
-        except openai.OpenAIError as e:
-            logger.error(f"OpenAI API error continuing academy magic story: {e}")
         except Exception as e:
-            logger.error(f"Unexpected error continuing academy magic story: {e}")
-                        # Contextual fallback based on the selected choice
-            return BaseGenre.create_contextual_fallback(
-                character_name, selected_choice, self.genre_context
-            ) 
+            logger.error(f"Error continuing academy magic story: {e}")
+            return BaseGenre.create_contextual_fallback(character_name, selected_choice, self.genre_context) 

@@ -141,7 +141,7 @@ class StoryGame:
                 setting=params.setting,
                 tone=params.tone,
                 character_origin=params.character_origin,
-                language_complexity=params.language_complexity,
+
                 manga_genre="cultivation_progression" if params.setting == "cultivation" else None
             )
             
@@ -287,7 +287,7 @@ class StoryGame:
                     tone=self.current_story.tone,
                     previous_content=self.current_node.content,
                     selected_choice=selected_choice.text,
-                    language_complexity=getattr(self.current_story, 'language_complexity', 'simple'),
+    
                     manga_genre=getattr(self.current_story, 'manga_genre', None),
                     character_origin=getattr(self.current_story, 'character_origin', 'normal')
                 )

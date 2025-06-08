@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class FantasyAdventure(Genre):
-    """Fantasy adventure story generator optimized for manga-style epic quests."""
+    """Fantasy adventure story generator for epic quest narratives."""
     
     @property
     def genre_name(self) -> str:
@@ -26,13 +26,9 @@ class FantasyAdventure(Genre):
         self,
         character_name: str,
         character_gender: str,
-        language_complexity: str,
         character_origin: str = "normal"
     ) -> Tuple[str, List[Choice]]:
-        """Generate a fantasy adventure story optimized for manga-style progression."""
-        
-        # Create language complexity prompt addition
-        language_prompt = BaseGenre.create_language_prompt(language_complexity)
+        """Generate a fantasy adventure story opening."""
         
         # Create gender-specific pronouns
         pronouns = BaseGenre.create_gender_pronouns(character_gender)
@@ -40,89 +36,70 @@ class FantasyAdventure(Genre):
         # Import the origin profile method
         from app.ai_service import AIService
         
-        # Create character origin profile with fantasy-specific context
+        # Create character origin profile
         origin_prompt = AIService._create_character_origin_profile(character_origin, "fantasy")
         
-        system_prompt = f"""You are a master storyteller creating ENGAGING fantasy adventure stories in the style of popular manga/light novels like "That Time I Got Reincarnated as a Slime," "Overlord," and "KonoSuba."
+        system_prompt = f"""You are creating an engaging fantasy adventure manga/manhwa opening scene.
 
-{language_prompt}
+Use {pronouns} pronouns for {character_name}.
 
-CHARACTER PRONOUNS: Use {pronouns} pronouns for {character_name}.
-
-CHARACTER ORIGIN INTEGRATION:
 {origin_prompt}
 
-FANTASY ADVENTURE STORY REQUIREMENTS:
-🌟 IMMEDIATE HOOK: Start with {character_name} in a moment that shows their personality before explaining the fantasy world
-🏰 WORLD IMMERSION: Create a vivid fantasy setting with unique magical elements, not generic "kingdom" or "village"
-✨ CLEAR MAGIC SYSTEM: Establish how magic/powers work in this world with specific examples
-🎯 PERSONAL STAKES: Give {character_name} a compelling reason to adventure (save someone, find truth, fulfill promise)
-🌍 LIVING WORLD: Include specific locations, factions, or conflicts that feel real and lived-in
+FANTASY ADVENTURE REQUIREMENTS:
+🏰 Setting: Magical fantasy world with wizards, magical creatures, enchanted locations
+🎯 Structure: Create 4-6 panels that flow like manga/manhwa
+💬 Dialogue: Characters must speak with distinct personalities (under 15 words per line)
+🧠 Inner thoughts: Show {character_name}'s emotions and motivations (use italics)
+✨ Magic: Include specific named spells or magical abilities with visual effects
+🗺️ Quest elements: Adventure hooks, mysteries, or challenges to overcome
 
-STRUCTURE:
-- ARC-BASED PROGRESSION: Structure stories around sequential Arcs (e.g., Training Arc, Tournament Arc, Exploration Arc)
-- Each Arc naturally lasts ~5–10 interactions, then transitions to a new Arc
-- No fixed end — the story evolves indefinitely based on player choices
-
-ENGAGEMENT REQUIREMENTS:
-- EMOTIONAL OPENING: Make readers care about {character_name} within the first paragraph
-- ADVENTURE SCALE: Balance intimate character moments with epic adventure possibilities
-- CLEAR PROGRESSION: Show how {character_name} can grow stronger/more capable
-- VISUAL STORYTELLING: Use rich descriptions that feel cinematic and manga-like
-- IMMEDIATE CONFLICT: Present a challenge that matters to {character_name} personally
-
-CHOICE VARIETY REQUIREMENTS:
-Generate 3 DISTINCTLY DIFFERENT choices using these approach types:
-- Exploration: Discover new locations, investigate mysteries
-- Social: Build alliances, help NPCs, negotiate
-- Combat: Face dangers head-on, protect others
-- Strategic: Plan carefully, gather information
-- Magical: Use or learn magic, experiment with powers
-- Diplomatic: Resolve conflicts peacefully
-- Risk-taking: Take bold actions, attempt difficult feats
-- Protective: Help others, prevent harm
-- Mysterious: Follow clues, investigate secrets
-- Cautious: Observe and plan before acting
-
-Each choice must reference specific adventure elements and lead to completely different scenarios.
-
-CRITICAL: NO template or repetitive choices. Each choice should feel fresh and adventure-specific.
-
-Generate a fantasy adventure opening that makes readers think: "This world is fascinating and I want to see {character_name} explore it!"
+ESSENTIAL ELEMENTS:
+- Specific magical location (enchanted forest, wizard tower, mystical city)
+- Named magical spells or abilities ("Flame Burst", "Wind Walk", etc.)
+- Clear indication of {character_name}'s magical abilities/experience
+- Visual magical effects (glowing auras, elemental energies, etc.)
+- At least one other character who speaks
+- {character_name}'s inner thoughts showing personality
 
 FORMAT:
 [STORY]
-(Your story here)
+Panel 1:
+(Scene setup with magical location)
+
+Panel 2:
+(Character introduction with dialogue or inner thought)
+
+Panel 3:
+(Adventure hook or challenge appears)
+
+Panel 4:
+(Magic demonstration or action)
+
+Panel 5:
+(Consequence or reaction)
+
+Panel 6 (optional):
+(Setup for choices)
 [/STORY]
 
 [CHOICES]
-1. (First dynamic choice based on your story)
-2. (Second dynamic choice based on your story) 
-3. (Third dynamic choice based on your story)
-[/CHOICES]
-"""
-
-        user_prompt = f"""Create an engaging fantasy adventure story opening for {character_name} with a {character_origin} origin. 
-
-ORIGIN INTEGRATION REQUIREMENTS:
-- Make {character_name}'s {character_origin} background central to the fantasy adventure setup
-- Show how their origin affects their approach to magic, quests, and relationships
-- Include at least one moment where their {character_origin} nature creates opportunities or challenges
-- Let their origin influence their starting situation and available choices
-
-Make it feel like the start of an epic quest with clear magical elements and personal stakes that relate to their {character_origin} background.
-
-Format your response as:
-[STORY]
-(400-500 words of story content)
-[/STORY]
-
-[CHOICES]  
-1. (First choice)
-2. (Second choice)
-3. (Third choice)
+1. (Adventurous/bold choice - 12+ words)
+2. (Cautious/strategic choice - 12+ words)  
+3. (Magical/mysterious choice - 12+ words)
 [/CHOICES]"""
-        
+
+        user_prompt = f"""Create a fantasy adventure manga opening for {character_name} with {character_origin} origin.
+
+Requirements:
+- Show {character_name} in a magical fantasy location
+- Include named magical spell or ability with visual effects
+- Add dialogue from {character_name} and at least one other character
+- Show {character_name}'s magical experience level
+- Create adventure hook or quest challenge
+- End with meaningful adventure choices
+
+Make it engaging and magical like a real fantasy manga chapter opening."""
+
         try:
             logger.info(f"Generating fantasy adventure story for {character_name}")
             
@@ -130,21 +107,21 @@ Format your response as:
             return BaseGenre.generate_story_with_retry(system_prompt, user_prompt, character_name)
             
         except openai.OpenAIError as e:
-            logger.error(f"OpenAI API error generating fantasy adventure story: {e}")
+            logger.error(f"OpenAI API error: {e}")
         except Exception as e:
-            logger.error(f"Unexpected error generating fantasy adventure story: {e}")
-            # Fantasy adventure fallback
-            return BaseGenre.create_fallback_story(
-                character_name,
-                f"{character_name} stood at the edge of the mystical Whispering Woods, clutching an ancient map that promised to lead to the Crystal of Eloria. "
-                f"The village elder had entrusted them with this quest to save their homeland from the encroaching Shadow Plague. "
-                f"As magical butterflies danced around them, {character_name} realized this journey would test not just their courage, but their very soul...",
-                [
-                    Choice(id="1", text="Follow the magical butterflies deeper into the forest"),
-                    Choice(id="2", text="Return to the village to gather more allies"),
-                    Choice(id="3", text="Set up camp and study the ancient map carefully")
-                ]
-            )
+            logger.error(f"Unexpected error: {e}")
+            
+        # Simple fallback
+        return BaseGenre.create_fallback_story(
+            character_name,
+            f"{character_name} stood at the edge of the Whispering Woods, clutching an ancient map that promised to lead to magical treasures. "
+            f"As someone with a {character_origin} background, they faced the choice of how to begin their magical adventure.",
+            [
+                Choice(id="1", text="Enter the magical forest following the ancient map's path"),
+                Choice(id="2", text="Seek out a local guide who knows the forest's dangers"),
+                Choice(id="3", text="Use your magical abilities to reveal hidden paths ahead")
+            ]
+        )
 
     def continue_story(
         self,
@@ -152,74 +129,50 @@ Format your response as:
         character_gender: str,
         previous_content: str,
         selected_choice: str,
-        language_complexity: str,
         character_origin: str = None
     ) -> Tuple[str, List[Choice]]:
         """Continue a fantasy adventure story."""
         
-        # Create language complexity prompt addition
-        language_prompt = BaseGenre.create_language_prompt(language_complexity)
-        
         # Create gender-specific pronouns
         pronouns = BaseGenre.create_gender_pronouns(character_gender)
         
-        system_prompt = f"""You are continuing an engaging fantasy adventure story in the style of popular manga/light novels.
+        system_prompt = f"""You are continuing a fantasy adventure manga/manhwa story.
 
-{language_prompt}
+Use {pronouns} pronouns for {character_name}.
 
-CHARACTER PRONOUNS: Use {pronouns} pronouns for {character_name}.
+CONTINUATION REQUIREMENTS:
+- Start with immediate consequence of the previous choice
+- Create 3-5 panels showing what happens next
+- Include dialogue and inner thoughts
+- Show magical progress or new challenges
+- Advance the adventure meaningfully
+- End with new choices
 
-FANTASY ADVENTURE CONTINUATION REQUIREMENTS:
-🎯 ADVENTURE PROGRESS: Show advancement in quest, new locations, or magical discoveries
-🌟 RAISE STAKES: Introduce new challenges, allies, enemies, or mysteries
-✨ MAGICAL GROWTH: Demonstrate {character_name}'s developing abilities or knowledge
-🏰 WORLD EXPANSION: Add new fantasy locations, creatures, or lore
-👥 CHARACTER DYNAMICS: Develop relationships with allies, enemies, or mystical beings
-
-STRUCTURE:
-- ARC-BASED PROGRESSION: Structure stories around sequential Arcs (e.g., Training Arc, Tournament Arc, Exploration Arc)
-- Each Arc naturally lasts ~5–10 interactions, then transitions to a new Arc
-- No fixed end — the story evolves indefinitely based on player choices
-
-STORYTELLING EXCELLENCE:
-- Show immediate consequences of the previous choice
-- Advance {character_name}'s quest or magical abilities
-- Create moments of wonder, discovery, or heroism
-- Include interactions with fantasy creatures, magic users, or quest-givers
-- Build toward the next important adventure milestone
-
-CHOICE VARIETY REQUIREMENTS:
-Generate 3 DISTINCTLY DIFFERENT choices using these approach types:
-- Exploration: Discover new locations, investigate mysteries
-- Social: Build alliances, help NPCs, negotiate
-- Combat: Face dangers head-on, protect others
-- Strategic: Plan carefully, gather information
-- Magical: Use or learn magic, experiment with powers
-- Diplomatic: Resolve conflicts peacefully
-- Risk-taking: Take bold actions, attempt difficult feats
-- Protective: Help others, prevent harm
-- Mysterious: Follow clues, investigate secrets
-- Cautious: Observe and plan before acting
-
-Each choice must reference specific adventure elements and lead to completely different scenarios.
-
-CRITICAL: NO template or repetitive choices. Each choice should feel fresh and adventure-specific.
-
-Continue the fantasy adventure in a way that makes readers excited to see {character_name}'s next move!
+FANTASY ELEMENTS:
+- Named spells with visual magical effects
+- Fantasy locations and creatures
+- Clear progression in magical abilities or quest
+- Character growth or challenges
 
 FORMAT:
 [STORY]
-(Your story here)
+Panel 1:
+(Immediate result of previous choice)
+
+Panel 2-4:
+(Adventure development with dialogue and magic)
+
+Final Panel:
+(Setup for next choices)
 [/STORY]
 
 [CHOICES]
-1. (First dynamic choice based on your story)
-2. (Second dynamic choice based on your story)
-3. (Third dynamic choice based on your story)
-[/CHOICES]
-"""
+1. (Choice based on current adventure situation)
+2. (Alternative magical approach)
+3. (Bold/risky option)
+[/CHOICES]"""
 
-        user_prompt = f"""Continue this fantasy adventure story:
+        user_prompt = f"""Continue the fantasy adventure story:
 
 PREVIOUS STORY:
 {previous_content}
@@ -227,30 +180,18 @@ PREVIOUS STORY:
 CHOSEN ACTION:
 {selected_choice}
 
-Show the consequences of this choice and advance the story toward the next exciting decision point.
+Show what happens next with:
+- Immediate consequence of {character_name}'s choice
+- Character dialogue and reactions
+- Magical spells or fantasy elements
+- Adventure progression
+- Meaningful choices for what to do next"""
 
-Format your response as:
-[STORY]
-(300-400 words of story content)
-[/STORY]
-
-[CHOICES]  
-1. (First choice)
-2. (Second choice)
-3. (Third choice)
-[/CHOICES]"""
-        
         try:
             logger.info(f"Continuing fantasy adventure story for {character_name}")
             
-            # Generate content with retry logic
             return BaseGenre.generate_story_with_retry(system_prompt, user_prompt, character_name)
             
-        except openai.OpenAIError as e:
-            logger.error(f"OpenAI API error continuing fantasy adventure story: {e}")
         except Exception as e:
-            logger.error(f"Unexpected error continuing fantasy adventure story: {e}")
-            # Contextual fallback based on the selected choice
-            return BaseGenre.create_contextual_fallback(
-                character_name, selected_choice, self.genre_context
-            ) 
+            logger.error(f"Error continuing fantasy adventure story: {e}")
+            return BaseGenre.create_contextual_fallback(character_name, selected_choice, self.genre_context) 

@@ -193,8 +193,6 @@ def create_new_story():
             setting=data.get('setting', 'cultivation'),
             tone=data.get('tone', 'shonen'),
             character_origin=data.get('character_origin', 'weak'),
-
-            language_complexity=data.get('language_complexity', 'simple'),
             manga_genre=data.get('manga_genre', None),
             user_id=g.user_id  # Add the authenticated user's ID
         )
@@ -206,7 +204,6 @@ def create_new_story():
             setting=params.setting,
             tone=params.tone,
             character_origin=params.character_origin,
-            language_complexity=params.language_complexity,
             manga_genre=params.manga_genre
         )
         
@@ -303,7 +300,7 @@ def make_choice(story_id, choice_id):
             tone=story.tone,
             previous_content=current_node.content,
             selected_choice=selected_choice.text,
-            language_complexity=getattr(story, 'language_complexity', 'simple'),
+
             manga_genre=manga_genre_value,
             character_origin=getattr(story, 'character_origin', 'normal')
         )

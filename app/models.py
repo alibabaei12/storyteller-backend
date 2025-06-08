@@ -28,7 +28,6 @@ class Story(BaseModel):
     setting: str
     tone: str
     character_origin: str
-    language_complexity: str = "simple"
     manga_genre: Optional[str] = None
     nodes: Dict[str, StoryNode]
     current_node_id: str
@@ -49,7 +48,6 @@ class StoryCreationParams(BaseModel):
     setting: str = "cultivation"
     tone: str = "optimistic"
     character_origin: str = "ordinary"
-    language_complexity: str = "simple"  # Options: simple, moderate, complex
     manga_genre: Optional[str] = None
     user_id: Optional[str] = None
 

@@ -191,7 +191,7 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
             tone=params.tone,
             character_origin=params.character_origin,
     
-            language_complexity=params.language_complexity,
+
             manga_genre=params.manga_genre,  # Add the missing manga_genre field
             power_system="auto",  # AI will decide the appropriate power system
             cultivation_stage=cultivation_stage,

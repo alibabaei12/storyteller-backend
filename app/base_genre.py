@@ -15,16 +15,7 @@ logger = logging.getLogger(__name__)
 class BaseGenre:
     """Base class for all story genres with shared functionality."""
     
-    @staticmethod
-    def create_language_prompt(language_complexity: str) -> str:
-        """Create language complexity prompt based on user preference."""
-        if language_complexity == "simple":
-            return "Use simple, clear language that is easy to understand. Avoid complex vocabulary or long sentences."
-        elif language_complexity == "moderate":
-            return "Use moderate language complexity with some advanced vocabulary, but keep it accessible."
-        elif language_complexity == "complex":
-            return "Use rich, sophisticated language with advanced vocabulary and complex sentence structures."
-        return ""
+
     
     @staticmethod
     def create_gender_pronouns(character_gender: str) -> str:
@@ -318,7 +309,7 @@ class Genre(ABC):
         self,
         character_name: str,
         character_gender: str,
-        language_complexity: str
+        character_origin: str = "normal"
     ) -> Tuple[str, List[Choice]]:
         """Generate an initial story for this genre."""
         pass
@@ -330,7 +321,7 @@ class Genre(ABC):
         character_gender: str,
         previous_content: str,
         selected_choice: str,
-        language_complexity: str
+        character_origin: str = "normal"
     ) -> Tuple[str, List[Choice]]:
         """Continue a story for this genre based on the selected choice."""
         pass

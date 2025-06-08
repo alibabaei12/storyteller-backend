@@ -183,3 +183,533 @@
 2025-06-07 16:33:00,572 - werkzeug - INFO -  * Restarting with stat
 2025-06-07 16:33:28,396 - werkzeug - INFO -  * Restarting with stat
 2025-06-07 16:33:46,290 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:47:20,013 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-07 21:47:20,013 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-07 21:47:20,013 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:48:32,141 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:48:42,953 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:48:56,653 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:48:58,385 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:49:24,161 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:49:34,969 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:49:36,815 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:49:38,410 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:49:48,089 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 21:50:16,976 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:01:10,490 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:01:20,303 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:01:35,097 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:01:54,031 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:02:17,892 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:04:31,586 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:04:39,529 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:04:44,321 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:09:49,514 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:15:18,185 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:15:26,062 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:15:43,758 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:16:42,379 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:16:53,172 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:16:58,895 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:17:17,621 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:17:25,422 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:17:31,150 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:17:32,904 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:17:44,553 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:18:01,424 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:22:46,704 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:23:01,562 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:23:08,147 - app.ai_service - INFO - Generating initial story for Ali in cultivation setting, manga genre: cultivation_progression
+2025-06-07 22:23:08,147 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 22:23:10,383 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:23:10,389 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (1168 chars):
+2025-06-07 22:23:10,389 - app.base_genre - INFO - ============================================================
+2025-06-07 22:23:10,389 - app.base_genre - INFO - [STORY]
+Panel 1:
+(We open to a rocky training ground in the Thousand Stars Sect. Ali, a young disciple with a determined expression, struggles against a wooden dummy. He's panting, sweat glistening on his brow.)
+
+Ali's Thoughts: "I won't give up... I have to become stronger."
+
+Panel 2:
+(A group of sneering disciples, led by a rival named Jin, approaches. Jin, a Core Disciple, looks down at Ali with disdain.)
+
+Jin: "Hah! Still stuck at Qi Gathering? You're wasting your time, weakling."
+
+Panel 3:
+(Ali stands tall, meeting Jin's gaze with unwavering determination.)
+
+Ali: "I may be weak now, but I'll rise above you one day."
+
+Panel 4:
+(Suddenly, a commotion erupts as a powerful aura sweeps through the sect. A figure shrouded in violet mist descends, catching everyone's attention.)
+
+Mysterious Figure: "I am Master Lin of the Thousand Stars Sect. Who among you will prove worthy of my teaching?"
+
+[CHOICES]
+1. Ali steps forward, determined to seize the opportunity to learn from Master Lin.
+2. Ali observes the other disciples, strategizing how to stand out among the crowd.
+3. Ali hesitates, unsure if he's ready to face the challenges Master Lin might present.
+2025-06-07 22:23:10,389 - app.base_genre - INFO - ============================================================
+2025-06-07 22:23:10,391 - app.base_genre - INFO - Successfully parsed genre response: story=904 chars, choices=3
+2025-06-07 22:24:53,757 - app.ai_service - INFO - Generating initial story for Ali in cultivation setting, manga genre: cultivation_progression
+2025-06-07 22:24:53,757 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 22:24:57,183 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:24:57,188 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (1878 chars):
+2025-06-07 22:24:57,188 - app.base_genre - INFO - ============================================================
+2025-06-07 22:24:57,188 - app.base_genre - INFO - [STORY]
+Panel 1:
+(We see Ali, a slender young man with a determined expression, surrounded by mocking disciples in the Thousand Stars Sect's training grounds. They sneer at his weak Qi Gathering 2 level.)
+Rival 1: "Hah! The weakest in the sect dares to train here?"
+Rival 2: "Pathetic. You'll never reach Foundation Building, let alone Core Formation."
+
+Panel 2:
+(Ali closes his eyes, focusing on a shimmering crimson spiral of qi around his hand, attempting the forbidden "Shattered Earth Palm" technique. The sect elders watch with concern in the distance.)
+Ali's Inner Thought: "This technique... if I fail, it could destroy me. But if I hesitate now, I lose everything."
+
+Panel 3:
+(The ground trembles as Ali unleashes the technique, sending shockwaves through the training grounds. The rivals look astonished, sensing the power unleashed.)
+Rival 1: "No way... he's actually using it?"
+Rival 2: "This is dangerous! He might lose control!"
+
+Panel 4:
+(As the dust settles, Ali stands, exhausted but triumphant, the shattered earth around him a testament to his determination. A mysterious figure approaches, intrigued by Ali's display of power.)
+Master: "Impressive, Ali. But remember, true strength isn't just about power—it's about control and wisdom."
+
+Final Panel:
+(Suddenly, a dark violet mist envelops the area, emanating from a secluded part of the training grounds. The atmosphere crackles with energy, hinting at a hidden danger lurking nearby.)
+[/STORY]
+
+[CHOICES]
+1. Ali steps forward, determined to master the "Shattered Earth Palm" despite the risks, ready to push his limits further.
+2. Seeking guidance, Ali approaches the mysterious figure who praised his control, hoping to learn more about harnessing his potential.
+3. Ignoring the warning signs, Ali boldly ventures towards the violet mist, curiosity and ambition driving him towards the unknown.
+[/CHOICES]
+2025-06-07 22:24:57,189 - app.base_genre - INFO - ============================================================
+2025-06-07 22:24:57,189 - app.base_genre - INFO - Successfully parsed genre response: story=1448 chars, choices=3
+2025-06-07 22:25:40,572 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:26:02,475 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:26:20,388 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:26:35,250 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:26:51,039 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:27:05,834 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:27:07,547 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:27:19,189 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:27:25,837 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:28:57,052 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:29:25,075 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:29:34,340 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:29:46,197 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:29:54,943 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:30:02,744 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:30:12,350 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:30:34,062 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:30:41,861 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:30:48,462 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:31:13,746 - app.ai_service - INFO - Generating initial story for Ali in cultivation setting, manga genre: cultivation_progression
+2025-06-07 22:31:13,746 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 22:31:19,751 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:31:19,754 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (1484 chars):
+2025-06-07 22:31:19,754 - app.base_genre - INFO - ============================================================
+2025-06-07 22:31:19,754 - app.base_genre - INFO - [STORY]
+Panel 1:
+In the Thousand Stars Sect courtyard, Ali, a slender disciple with anxious eyes, struggles against fierce winds, training his "Whisper Step" technique.
+
+Panel 2:
+Sect members watch, sneering, "Ali's weak Qi must be like a whisper too!" His heart races as doubts cloud his thoughts.
+
+Panel 3:
+A sudden gust disrupts Ali's concentration, causing him to stumble. A voice taunts, "Can't even manage a breeze, huh?"
+
+Panel 4:
+Master Lei approaches, observing Ali's plight. "Persevere, Ali. True strength lies in resilience," his words carrying both wisdom and encouragement.
+
+Panel 5:
+As Ali refocuses, a crimson spiral of qi surrounds his feet, stabilizing him. Whispers spread among onlookers, surprised by the unexpected display of progress.
+
+Panel 6:
+A fellow disciple, Mei, approaches Ali with a warm smile. "You're closer than you think. Trust in your Whisper Step," she reassures, offering a glimmer of hope.
+
+Final Panel:
+With determination in his eyes, Ali gazes towards the distant mountains, his next goal clear. The challenge of mastering his technique now lay ahead, beckoning him to unlock his hidden potential.
+
+[/STORY]
+
+[CHOICES]
+1. Ali chooses to confront his loudest critic, challenging them to a duel to prove his progress.
+2. Ali decides to seek out Master Lei for additional guidance on advancing his Whisper Step technique.
+3. Ali risks exploring forbidden grounds in search of a hidden artifact rumored to enhance his cultivation speed.
+
+[/CHOICES]
+2025-06-07 22:31:19,754 - app.base_genre - INFO - ============================================================
+2025-06-07 22:31:19,754 - app.base_genre - INFO - Successfully parsed genre response: story=1129 chars, choices=3
+2025-06-07 22:35:49,319 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:35:53,065 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:35:58,662 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:36:05,256 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:36:25,944 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:36:33,736 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:36:40,385 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:37:11,144 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:37:25,633 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:38:02,592 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:38:37,750 - app.ai_service - INFO - Generating initial story for Ali in cultivation_progression
+2025-06-07 22:38:37,750 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 22:38:40,592 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:38:40,618 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (1351 chars):
+2025-06-07 22:38:40,618 - app.base_genre - INFO - ============================================================
+2025-06-07 22:38:40,618 - app.base_genre - INFO - [STORY]
+Panel 1:
+In the Thousand Stars Sect courtyard, Ali, with downcast eyes, struggles to manifest even a wisp of qi.
+
+Panel 2:
+Rivals sneer, "Look at weak Ali, can't even gather qi properly! Pathetic."
+
+Panel 3:
+Ali clenches his fists, determination flashing in his eyes, "I'll prove them wrong. I must master the Shattered Earth Palm."
+
+Panel 4:
+A mysterious figure approaches, revealing himself as Master Tian, "Ali, to master that technique, you must first understand the earth's essence."
+
+Panel 5:
+Ali gazes at the crimson spirals forming around his hands, attempting the Shattered Earth Palm with newfound understanding.
+
+Panel 6:
+Fellow disciples gasp in awe as earth tremors beneath Ali's feet, "He's really doing it! The earth obeys him!"
+
+Final Panel:
+As Ali's control wavers, the earth rumbles dangerously, threatening to overwhelm him, leaving readers wondering if he can harness the power or face its destructive force.
+[/STORY]
+
+[CHOICES]
+1. Ali decides to push through, channeling more qi to stabilize the technique, risking potential backlash for greater control.
+2. Remembering Master Tian's advice, Ali focuses on the earth's harmony, adjusting his stance and breathing to regain balance.
+3. Sensing the earth's anger, Ali makes a split-second choice to release the technique, sacrificing control to avoid catastrophe.
+[/CHOICES]
+2025-06-07 22:38:40,618 - app.base_genre - INFO - ============================================================
+2025-06-07 22:38:40,618 - app.base_genre - INFO - Successfully parsed genre response: story=928 chars, choices=3
+2025-06-07 22:40:01,272 - app.ai_service - INFO - Generating initial story for Ali in cultivation_progression
+2025-06-07 22:40:01,272 - app.genres.cultivation_progression - INFO - Generating cultivation progression story for Ali
+2025-06-07 22:40:01,272 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 22:40:04,971 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:40:05,000 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (800 chars):
+2025-06-07 22:40:05,000 - app.base_genre - INFO - ============================================================
+2025-06-07 22:40:05,000 - app.base_genre - INFO - [STORY]
+Panel 1:
+In the towering cliffs of the Crimson Serpent Sect, Ali trains under the scarlet moonlight.
+
+Panel 2:
+Ali gazes at the distant elders, their power awe-inspiring. "One day, I'll reach that level," he vows silently.
+
+Panel 3:
+"Sect rules require a duel," the elder announces. "Prove your worth, Ali."
+
+Panel 4:
+Ali focuses, channeling his qi into the "Burning Fist" technique. Crimson spirals envelop his fist.
+
+Panel 5:
+The elder smirks. "Not bad for a weakling." Ali's heart races, his spirit burning with determination.
+
+Panel 6:
+*Do I charge head-on, strategize, or unleash the forbidden technique?*
+
+[/STORY]
+
+[CHOICES]
+1. "I'll charge with all I have!"  
+2. "I'll analyze and strike at the right moment."  
+3. "I'll risk it all with the forbidden 'Crimson Tempest'."  
+[/CHOICES]
+2025-06-07 22:40:05,000 - app.base_genre - INFO - ============================================================
+2025-06-07 22:40:05,001 - app.base_genre - INFO - Successfully parsed genre response: story=610 chars, choices=3
+2025-06-07 22:41:36,066 - app.ai_service - INFO - Generating initial story for Ali in fantasy_adventure
+2025-06-07 22:41:36,067 - app.genres.fantasy_adventure - INFO - Generating fantasy adventure story for Ali
+2025-06-07 22:41:36,067 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 22:41:39,692 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:41:39,719 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (901 chars):
+2025-06-07 22:41:39,719 - app.base_genre - INFO - ============================================================
+2025-06-07 22:41:39,719 - app.base_genre - INFO - [STORY]
+Panel 1:
+(Deep within the Whispering Woods, a mystical forest shrouded in mist and mystery.)
+
+Panel 2:
+*Lost again... If only my magic was stronger,* Ali thinks.
+Ali: "Hello? Is anyone there?"
+
+Panel 3:
+(A mischievous sprite materializes before Ali, holding a glowing orb.)
+Sprite: "Seek the Crystal of Lumina to prove your worth, young wizard."
+
+Panel 4:
+(Ali concentrates, casting his feeble spell.)
+Ali: "Astral Light!"
+(But only a dim spark flickers from his fingertips.)
+
+Panel 5:
+Sprite: "Haha! You are as weak as they say. The Crystal awaits... if you dare."
+
+Panel 6:
+(Moments before a choice...)
+[/STORY]
+
+[CHOICES]
+1. (Adventurous/bold choice - "I'll face any challenge to prove my strength!")
+2. (Cautious/strategic choice - "I must prepare and train before risking failure.")
+3. (Magical/mysterious choice - "I'll seek guidance from the ancient spirits of this forest.")
+[/CHOICES]
+2025-06-07 22:41:39,719 - app.base_genre - INFO - ============================================================
+2025-06-07 22:41:39,719 - app.base_genre - INFO - Successfully parsed genre response: story=604 chars, choices=3
+2025-06-07 22:41:53,004 - app.ai_service - INFO - Generating initial story for Ali in academy_magic
+2025-06-07 22:41:53,005 - app.genres.academy_magic - INFO - Generating academy magic story for Ali
+2025-06-07 22:41:53,005 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 22:41:55,018 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:41:55,041 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (1015 chars):
+2025-06-07 22:41:55,041 - app.base_genre - INFO - ============================================================
+2025-06-07 22:41:55,041 - app.base_genre - INFO - [STORY]
+Panel 1:
+(Inside the dimly lit classroom at the Ethereal Academy of Magic, books and floating orbs fill the air.)
+
+Panel 2:
+Ali: *I need to improve, no matter what. I won't be the weakest forever.*
+Classmate: "Ali, you're hopeless. Can't even cast a simple Light Orb spell?"
+
+Panel 3:
+(Announcement echoes through the room: "The annual Elemental Showdown begins tomorrow!")
+
+Panel 4:
+Professor: "Today's lesson is Light Weaving. Show me what you've got, Ali."
+Ali: *I must focus. Show them I'm not a lost cause.*
+
+Panel 5:
+(As Ali struggles to weave light threads, the threads flicker and fade.)
+Classmate: "Pathetic. You'll be at the bottom of the ranks again."
+
+Panel 6:
+(Ali stands at a crossroads, faced with choices for the upcoming competition.)
+
+[/STORY]
+
+[CHOICES]
+1. "I'll hit the books and perfect Light Weaving for the competition."
+2. "I'll challenge my classmates and prove my worth in the Elemental Showdown."
+3. "I'll seek out a forbidden spell to gain an edge in the competition."
+[/CHOICES]
+2025-06-07 22:41:55,042 - app.base_genre - INFO - ============================================================
+2025-06-07 22:41:55,042 - app.base_genre - INFO - Successfully parsed genre response: story=751 chars, choices=3
+2025-06-07 22:42:15,578 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-07 22:42:15,578 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-07 22:42:15,578 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 22:57:29,895 - app.ai_service - INFO - Generating initial story for Ali in cultivation_progression
+2025-06-07 22:57:29,896 - app.genres.cultivation_progression - INFO - Generating cultivation progression story for Ali
+2025-06-07 22:57:29,896 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 22:57:32,111 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:57:32,137 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (926 chars):
+2025-06-07 22:57:32,137 - app.base_genre - INFO - ============================================================
+2025-06-07 22:57:32,137 - app.base_genre - INFO - [STORY]
+Panel 1:
+In the ancient halls of the Shadow Phoenix Sect, Ali meditates under a full moon.
+
+Panel 2:
+Ali (inner thought): *Once a prodigy, now a fallen disciple at the Novice Initiate stage.*
+Elder Zhen: "Ali, your Ember Palm lacks fire. Show me your resolve."
+
+Panel 3:
+A shadowy figure emerges from the darkness, sneering at Ali's weakened state.
+
+Panel 4:
+Ali channels his qi, unleashing the "Blazing Phoenix Fist" technique, crimson spirals engulfing his hand.
+
+Panel 5:
+The shadowy figure mocks, "Is that all, fallen one?" Ali grits his teeth, eager to prove himself.
+
+Panel 6:
+Elder Zhen watches, offering three paths:
+[/STORY]
+
+[CHOICES]
+1. "I'll face the challenge head-on with my Whisper Step technique!" (Aggressive choice)
+2. "I'll analyze and strategize, using my Silver Thread Defense skill." (Strategic choice)
+3. "I'll tap into forbidden techniques for power, risking my soul." (Risky choice)
+[/CHOICES]
+2025-06-07 22:57:32,137 - app.base_genre - INFO - ============================================================
+2025-06-07 22:57:32,137 - app.base_genre - INFO - Successfully parsed genre response: story=624 chars, choices=3
+2025-06-07 22:57:47,346 - app.ai_service - INFO - Generating initial story for Ali in cultivation_progression
+2025-06-07 22:57:47,346 - app.genres.cultivation_progression - INFO - Generating cultivation progression story for Ali
+2025-06-07 22:57:47,346 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 22:57:49,279 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:57:49,300 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (938 chars):
+2025-06-07 22:57:49,301 - app.base_genre - INFO - ============================================================
+2025-06-07 22:57:49,301 - app.base_genre - INFO - [STORY]
+Panel 1:
+In the grand hall of the Celestial Phoenix Sect, crimson banners flutter in the breeze.
+
+Panel 2:
+Ali, with silver threads of qi swirling around him, thinks, *My talents will shine here.*
+
+Elder Lin, with a stern expression, says, "Ali, show us your Ember Palm technique."
+
+Panel 3:
+A fierce wind kicks up as Ali's eyes narrow, sensing the pressure of the challenge.
+
+Panel 4:
+Ali thrusts his palm forward, unleashing a burst of crimson flames with his Ember Palm technique.
+
+Panel 5:
+The flames envelop a wooden dummy, reducing it to ashes, as Elder Lin nods in approval.
+
+Panel 6:
+*Choices...* Ali ponders, *Do I showcase Whisper Step or push my limits further?*
+[/STORY]
+
+[CHOICES]
+1. "Elder Lin, allow me to demonstrate the Whisper Step technique next."
+2. "I will attempt the advanced Crimson Phoenix Fist to impress the elders."
+3. "I shall challenge the Sect Master to a spar to test my true potential."
+[/CHOICES]
+2025-06-07 22:57:49,301 - app.base_genre - INFO - ============================================================
+2025-06-07 22:57:49,301 - app.base_genre - INFO - Successfully parsed genre response: story=673 chars, choices=3
+2025-06-07 23:03:55,723 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:12:56,114 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:13:27,108 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:22:47,437 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:22:50,212 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:22:53,099 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:22:55,736 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:23:06,399 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:23:13,075 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:23:14,699 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:23:34,825 - app.ai_service - INFO - Generating initial story for Ali in cultivation_progression
+2025-06-07 23:23:34,825 - app.genres.cultivation_progression - INFO - Generating cultivation progression story for Ali
+2025-06-07 23:23:34,825 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 23:23:36,451 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:23:38,117 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 23:23:38,136 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (2047 chars):
+2025-06-07 23:23:38,136 - app.base_genre - INFO - ============================================================
+2025-06-07 23:23:38,136 - app.base_genre - INFO - [STORY]
+Panel 1:
+Setting: A misty mountain peak overlooking a vast valley.
+Action: Ali, a young disciple with a timid demeanor, struggles to meditate as his fellow sect members practice advanced cultivation techniques around him.
+
+Panel 2:
+Character Focus: Ali looks frustrated, clenching his fists as he tries to sense the qi around him. 
+Dialogue (Ali): "Why can't I feel the qi like everyone else?"
+
+Panel 3:
+Engaging Conflict: Suddenly, a fierce wind picks up, causing chaos among the disciples. A mysterious figure appears, manipulating the wind with ease.
+Dialogue (Mysterious Figure): "Who dares disturb my meditation with their weak presence?"
+
+Panel 4:
+Visual Cultivation Showcase: The mysterious figure performs the Windstorm Dance technique, swirling blue and silver qi around them, creating a powerful cyclone.
+Cultivation Technique: Windstorm Dance - Manipulates the wind qi to create destructive vortexes.
+Qi Description: The qi appears as swirling patterns of blue and silver, crackling with energy.
+
+Panel 5:
+Believable Character Interactions: The sect leader steps forward, attempting to calm the situation.
+Dialogue (Sect Leader): "We apologize for the intrusion, honored guest. Please forgive our ignorance."
+
+Panel 6:
+Clear Consequences & Progression: The mysterious figure turns to Ali, intrigued by his lack of qi sensitivity.
+Dialogue (Mysterious Figure): "You, boy. Your weakness intrigues me. Come with me."
+
+Panel 7:
+Intriguing Ending: The mysterious figure leads Ali towards a hidden cave entrance, sparking curiosity about what lies within.
+Narration: "Ali's journey towards true cultivation begins with an unexpected twist..."
+
+[/STORY]
+
+[CHOICES]
+1. Ali hesitantly follows the mysterious figure into the cave, eager to learn more about his unique cultivation path.
+2. Ali politely declines the invitation, choosing to focus on improving his qi sensitivity with the sect members.
+3. Ali cautiously observes the mysterious figure from a distance, trying to decipher their intentions before making a decision.
+[/CHOICES]
+2025-06-07 23:23:38,136 - app.base_genre - INFO - ============================================================
+2025-06-07 23:23:38,136 - app.base_genre - INFO - Successfully parsed genre response: story=1647 chars, choices=3
+2025-06-07 23:36:23,669 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:36:59,724 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:37:13,544 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:37:15,298 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:37:17,857 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:37:41,553 - werkzeug - INFO -  * Restarting with stat
+2025-06-07 23:37:51,911 - app.ai_service - INFO - Generating initial story for Ali in cultivation_progression
+2025-06-07 23:37:51,911 - app.genres.cultivation_progression - INFO - Generating cultivation progression story for Ali
+2025-06-07 23:37:51,911 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 23:37:55,070 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 23:37:55,093 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (1931 chars):
+2025-06-07 23:37:55,093 - app.base_genre - INFO - ============================================================
+2025-06-07 23:37:55,093 - app.base_genre - INFO - [STORY]
+Panel 1:
+In the misty woods of Qingyun Peak, Ali, a young disciple with minimal qi sensitivity, diligently practices his basic cultivation technique under the soft glow of the morning sun.
+
+Panel 2:
+Suddenly, a wild gust of wind sweeps through the forest, causing the trees to sway violently, challenging Ali's concentration.
+
+Panel 3:
+Struggling against the force of the wind, Ali's eyes narrow in determination as he channels his qi, attempting to stabilize his footing.
+
+Panel 4:
+With a burst of colorful qi energy swirling around him, Ali successfully counters the wind's strength, showcasing his developing control over his cultivation technique.
+
+Panel 5:
+As the wind dies down, a mysterious figure emerges from the shadows, clad in a cloak woven with intricate symbols, observing Ali's progress with keen interest.
+
+Panel 6:
+The figure reveals himself as Master Yun, a renowned cultivator known for his unorthodox techniques and enigmatic nature, offering Ali a chance to train under his tutelage.
+
+Panel 7:
+Master Yun challenges Ali to a test of qi manipulation, tasking him with harmonizing the natural energy of the forest with his own qi in a display of balance and control.
+
+Panel 8:
+As Ali contemplates his next move, the vibrant colors of his qi glow brighter, reflecting his determination to rise above his weaknesses and prove his worth in the world of cultivation.
+
+[/STORY]
+
+[CHOICES]
+1. Ali decides to focus on studying the intricate symbols on Master Yun's cloak, hoping to gain insight into the unique cultivation techniques he possesses.
+2. Ignoring the distractions around him, Ali chooses to meditate and commune with the surrounding nature, seeking to understand the essence of qi on a deeper level.
+3. Feeling a surge of competitive spirit, Ali challenges Master Yun to a friendly sparring match, eager to test his skills and learn from the experienced cultivator in a more dynamic way.
+[/CHOICES]
+2025-06-07 23:37:55,093 - app.base_genre - INFO - ============================================================
+2025-06-07 23:37:55,094 - app.base_genre - INFO - Successfully parsed genre response: story=1381 chars, choices=3
+2025-06-07 23:37:55,094 - app.ai_service - INFO - Continuing story for Ali in cultivation_progression
+2025-06-07 23:37:55,094 - app.genres.cultivation_progression - INFO - Continuing cultivation story for Ali
+2025-06-07 23:37:55,094 - app.base_genre - INFO - Generating story for Ali
+2025-06-07 23:37:58,277 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 23:37:58,279 - app.base_genre - INFO - 🎭 GENRE GPT RESPONSE (2381 chars):
+2025-06-07 23:37:58,279 - app.base_genre - INFO - ============================================================
+2025-06-07 23:37:58,279 - app.base_genre - INFO - [STORY]
+Panel 1:
+Ali gazes intently at the symbols adorning Master Yun's cloak, each intricate line pulsating with a faint, ethereal glow. As he studies them, a surge of curiosity and determination ignites within him.
+
+Panel 2:
+In a moment of clarity, Ali begins to recognize the patterns within the symbols, each one representing a different aspect of qi manipulation and cultivation. His eyes widen with newfound understanding.
+
+Panel 3:
+As he delves deeper into the meaning behind the symbols, Ali feels a resonance with his own qi, as if the knowledge contained within the cloak is seeping into his very being, enhancing his connection to the spiritual energy.
+
+Panel 4:
+A surge of energy courses through Ali's veins, and the colors of his qi intensify, blending with the hues of the surrounding nature. The air crackles with anticipation as he prepares to demonstrate his newfound insights.
+
+Panel 5:
+Master Yun observes Ali's progress with a hint of approval in his eyes, acknowledging the young disciple's perceptiveness and dedication to unraveling the mysteries of cultivation.
+
+Panel 6:
+With a graceful movement, Ali channels his qi in a harmonious dance, the symbols on Master Yun's cloak seeming to come alive as they mirror his movements, creating a mesmerizing display of synchronized energy.
+
+Panel 7:
+The forest around them responds to Ali's control, the leaves rustling in harmony with his movements, the very air vibrating with the power of his qi manipulation. Master Yun nods in silent acknowledgment.
+
+Panel 8:
+A sense of accomplishment fills Ali's heart as he completes the display, a newfound confidence radiating from him. Master Yun's enigmatic smile hints at the challenges and revelations that await in their training together.
+
+[CHOICES]
+1. Ali decides to seek out Master Yun's guidance to further unlock the potential of the symbols and delve deeper into their meaning, eager to master the unique cultivation techniques they represent.
+2. Feeling emboldened by his successful display, Ali asks Master Yun about the next step in his training, curious to explore the boundaries of his newfound understanding and push his limits further.
+3. Intrigued by the connection he feels with the symbols, Ali chooses to meditate in the forest, focusing on internalizing the energy he has harnessed and seeking enlightenment in the tranquility of nature.
+[/CHOICES]
+2025-06-07 23:37:58,279 - app.base_genre - INFO - ============================================================
+2025-06-07 23:37:58,280 - app.base_genre - INFO - Successfully parsed genre response: story=1757 chars, choices=3
