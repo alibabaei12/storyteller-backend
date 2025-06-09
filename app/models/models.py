@@ -1,14 +1,39 @@
-from pydantic import BaseModel, Field
-from typing import Dict, List, Optional
+from pydantic import BaseModel, Field, validator
+from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 from uuid import uuid4
-from dataclasses import dataclass
 import time
 
 class Choice(BaseModel):
     """A choice that the user can make in the story."""
     id: str
     text: str
+
+class Character(BaseModel):
+    """A character in the story with relationship to the protagonist."""
+    name: str
+    relationship: str  # e.g., Ally, Enemy, Rival, Mentor
+    sect: Optional[str] = None  # e.g., Azure Cloud Sect
+    role: Optional[str] = None  # e.g., Outer Disciple, Elder
+
+class StoryMemory(BaseModel):
+    """Memory system for storing and retrieving story context and state."""
+    character_name: str
+    character_gender: str = "unspecified"
+    character_origin: str = "ordinary"
+    setting: str
+    story_nodes: List[str] = Field(default_factory=list)  # IDs of nodes in chronological order
+    character_traits: Dict[str, Any] = Field(default_factory=dict)
+    locations: Dict[str, Any] = Field(default_factory=dict)
+    supporting_characters: Dict[str, Any] = Field(default_factory=dict)
+    important_items: Dict[str, Any] = Field(default_factory=dict)
+    story_day: int = 1  # Day in the story timeline
+    cultivation_stage: Optional[str] = None
+    current_arc: Optional[str] = None
+    big_story_goal: Optional[str] = None  # Main character's long-term goal (e.g., revenge, immortality, reclaim power)
+    characters: List[Character] = Field(default_factory=list)  # List of characters with relationships
+    current_arc_goal: Optional[str] = None  # Current story arc goal
+    arc_history: List[str] = Field(default_factory=list)  # List of completed story arcs
 
 class StoryNode(BaseModel):
     """A single node in the story with content and choices."""
@@ -40,6 +65,10 @@ class Story(BaseModel):
     # Public sharing
     share_token: Optional[str] = None
     is_shareable: bool = False
+    # Story memory system
+    memory: Optional[StoryMemory] = None
+    # Main character's long-term goal
+    big_story_goal: Optional[str] = None
 
 class StoryCreationParams(BaseModel):
     """Parameters for creating a new story."""
@@ -61,43 +90,28 @@ class StoryMetadata(BaseModel):
     cultivation_stage: Optional[str] = None
     user_id: Optional[str] = None
 
-class UserUsage:
+class UserUsage(BaseModel):
     """Tracks a user's API usage."""
+    user_id: str
+    story_continuations_used: int = 0
+    story_continuations_limit: int = 25  # Free tier limit
+    stories_created_this_month: int = 0
+    stories_created_limit: int = 5  # Free tier limit
+    last_reset_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     
-    def __init__(
-        self,
-        user_id: str,
-        story_continuations_used: int = 0,
-        story_continuations_limit: int = 25,  # Free tier limit
-        stories_created_this_month: int = 0,
-        stories_created_limit: int = 5,  # Free tier limit
-        last_reset_date: Optional[datetime] = None
-    ):
-        self.user_id = user_id
-        self.story_continuations_used = story_continuations_used
-        self.story_continuations_limit = story_continuations_limit
-        self.stories_created_this_month = stories_created_this_month
-        self.stories_created_limit = stories_created_limit
-        self.last_reset_date = last_reset_date or datetime.now(timezone.utc)
-    
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
         return {
             "user_id": self.user_id,
             "story_continuations_used": self.story_continuations_used,
             "story_continuations_limit": self.story_continuations_limit,
-            "stories_created_this_month": getattr(self, 'stories_created_this_month', 0),
-            "stories_created_limit": getattr(self, 'stories_created_limit', 5),
-            "last_reset_date": (
-                self.last_reset_date.isoformat() 
-                if self.last_reset_date and hasattr(self.last_reset_date, 'isoformat') 
-                else str(self.last_reset_date) if self.last_reset_date 
-                else None
-            )
+            "stories_created_this_month": self.stories_created_this_month,
+            "stories_created_limit": self.stories_created_limit,
+            "last_reset_date": self.last_reset_date.isoformat() if self.last_reset_date else None
         }
     
     @classmethod
-    def from_dict(cls, data: Dict) -> 'UserUsage':
+    def from_dict(cls, data: Dict[str, Any]) -> 'UserUsage':
         """Create from dictionary."""
         last_reset_data = data.get("last_reset_date")
         last_reset = None
@@ -113,6 +127,8 @@ class UserUsage:
                 last_reset = last_reset_data
             else:
                 last_reset = datetime.now(timezone.utc)
+        else:
+            last_reset = datetime.now(timezone.utc)
         
         return cls(
             user_id=data.get("user_id", ""),
@@ -136,8 +152,8 @@ class UserUsage:
         """Get the number of remaining story continuations."""
         return max(0, self.story_continuations_limit - self.story_continuations_used)
 
-@dataclass
-class Feedback:
+class Feedback(BaseModel):
+    """User feedback model."""
     id: str
     user_id: str
     feedback_type: str  # 'bug', 'feature', 'general'
@@ -146,8 +162,8 @@ class Feedback:
     status: str = "open"  # 'open', 'resolved', 'spam'
     created_at: str = ""
     
-@dataclass 
-class FeedbackRequest:
+class FeedbackRequest(BaseModel):
+    """Request model for submitting feedback."""
     feedback_type: str
     message: str
     contact_email: str = "" 

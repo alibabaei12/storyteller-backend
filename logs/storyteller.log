@@ -1,0 +1,1276 @@
+2025-06-08 15:19:29,830 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 1 of 3. Reason: timed out
+2025-06-08 15:19:33,762 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 2 of 3. Reason: timed out
+2025-06-08 15:19:35,911 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 3 of 3. Reason: [Errno 64] Host is down
+2025-06-08 15:19:35,912 - google.auth._default - WARNING - Authentication failed using Compute Engine authentication due to unavailable metadata server.
+2025-06-08 15:19:35,912 - app.services.firebase_service - ERROR - Error initializing: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+2025-06-08 15:19:35,912 - app.services.firebase_service - ERROR - Make sure Firebase Admin SDK is properly configured
+2025-06-08 15:19:35,912 - app.services.firebase_service - ERROR - GOOGLE_APPLICATION_CREDENTIALS: None
+2025-06-08 15:19:35,912 - app.services.firebase_service - ERROR - File exists: False
+2025-06-08 15:23:32,579 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:24:31,136 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:27:08,614 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:28:48,206 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:29:05,327 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:29:40,726 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:34:33,840 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:35:32,295 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:37:41,265 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:37:41,400 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:37:41,400 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:37:41,404 - root - INFO - Starting StoryTeller API development server...
+2025-06-08 15:37:41,404 - root - INFO - API will be available at http://localhost:8000
+2025-06-08 15:37:43,732 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.0.0.243:8000
+2025-06-08 15:37:43,732 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 15:37:43,755 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 15:37:44,156 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:37:44,252 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:37:44,252 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:37:44,255 - root - INFO - Starting StoryTeller API development server...
+2025-06-08 15:37:44,255 - root - INFO - API will be available at http://localhost:8000
+2025-06-08 15:37:44,257 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 15:37:44,265 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 15:37:56,873 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:38:17,269 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:38:37,445 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:39:18,791 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:40:13,294 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:40:24,217 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:42:43,416 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:42:43,511 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:42:43,511 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:42:43,515 - root - INFO - Starting StoryTeller API development server...
+2025-06-08 15:42:43,515 - root - INFO - API will be available at http://localhost:8000
+2025-06-08 15:42:43,524 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-08 15:42:43,524 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 15:42:43,524 - werkzeug - INFO -  * Restarting with stat
+2025-06-08 15:42:43,925 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:42:43,992 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:42:43,993 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:42:43,996 - root - INFO - Starting StoryTeller API development server...
+2025-06-08 15:42:43,996 - root - INFO - API will be available at http://localhost:8000
+2025-06-08 15:42:43,998 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 15:42:44,006 - werkzeug - INFO -  * Debugger PIN: 143-601-283
+2025-06-08 15:42:49,389 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:42:49,458 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:42:49,458 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:42:49,461 - root - INFO - Starting StoryTeller API development server...
+2025-06-08 15:42:49,461 - root - INFO - API will be available at http://localhost:8000
+2025-06-08 15:42:49,467 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-08 15:42:49,467 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 15:42:49,468 - werkzeug - INFO -  * Restarting with stat
+2025-06-08 15:42:49,872 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:42:49,939 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:42:49,940 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:42:49,943 - root - INFO - Starting StoryTeller API development server...
+2025-06-08 15:42:49,943 - root - INFO - API will be available at http://localhost:8000
+2025-06-08 15:42:49,945 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 15:42:49,950 - werkzeug - INFO -  * Debugger PIN: 143-601-283
+2025-06-08 15:42:57,342 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:42:57] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 15:42:57,344 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:42:57] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 15:42:57,346 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:42:57] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 15:42:57,348 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:42:57] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 15:43:16,316 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:16] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 15:43:16,317 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:16] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 15:43:16,319 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:16] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 15:43:16,321 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:16] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 15:43:17,281 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:17] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 15:43:17,283 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:17] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 15:43:28,087 - app.services.firebase_service - INFO - Retrieved 8 stories
+2025-06-08 15:43:28,088 - app.storage.storage - INFO - Retrieved 8 stories
+2025-06-08 15:43:28,090 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:28] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 15:43:28,094 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 15:43:28,227 - app.services.firebase_service - INFO - Retrieved 3 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 15:43:28,227 - app.storage.storage - INFO - Retrieved 3 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 15:43:28,518 - app.services.ai_service_simple - INFO - Using cultivation_progression genre for initial story
+2025-06-08 15:43:28,519 - app.services.ai_service_simple - ERROR - Error generating initial story: No module named 'app.ai_service'
+2025-06-08 15:43:28,693 - app.services.firebase_service - INFO - Saved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:28,693 - app.storage.storage - INFO - Saved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:28,693 - app.storage.storage - INFO - Created new story: story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:28,987 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 15:43:29,385 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:29] "POST /api/stories HTTP/1.1" 200 -
+2025-06-08 15:43:29,591 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:29,592 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:29,593 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:29] "OPTIONS /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 15:43:29,750 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:29,751 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:29,753 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:29] "OPTIONS /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 15:43:29,818 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:29,819 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:29,821 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:29] "GET /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 15:43:29,919 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:29,919 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:43:29,920 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:43:29] "GET /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 15:46:53,458 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:46:53,585 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:46:53,585 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:46:53,590 - root - INFO - Starting StoryTeller API server...
+2025-06-08 15:46:53,590 - root - INFO - Host: 0.0.0.0
+2025-06-08 15:46:53,590 - root - INFO - Port: 5001
+2025-06-08 15:46:53,590 - root - INFO - Debug mode: True
+2025-06-08 15:46:53,598 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-08 15:46:53,598 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 15:46:53,603 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 15:46:53,994 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:46:54,084 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:46:54,084 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:46:54,088 - root - INFO - Starting StoryTeller API server...
+2025-06-08 15:46:54,088 - root - INFO - Host: 0.0.0.0
+2025-06-08 15:46:54,088 - root - INFO - Port: 5001
+2025-06-08 15:46:54,088 - root - INFO - Debug mode: True
+2025-06-08 15:46:54,089 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 15:46:54,099 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 15:47:05,468 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:47:05,469 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:47:05,470 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:47:05,471 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:47:05,472 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:05] "OPTIONS /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 15:47:05,473 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:05] "OPTIONS /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 15:47:05,684 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:47:05,685 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:47:05,686 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:05] "GET /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 15:47:05,809 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:47:05,810 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 15:47:05,811 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:05] "GET /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 15:47:07,495 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:07] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 15:47:07,497 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:07] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 15:47:07,499 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:07] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 15:47:17,802 - app.services.firebase_service - INFO - Retrieved 9 stories
+2025-06-08 15:47:17,804 - app.storage.storage - INFO - Retrieved 9 stories
+2025-06-08 15:47:17,805 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:17] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 15:47:17,808 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 15:47:17,992 - app.services.firebase_service - INFO - Retrieved 4 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 15:47:17,995 - app.storage.storage - INFO - Retrieved 4 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 15:47:18,323 - app.services.ai_service_simple - INFO - Using cultivation_progression genre for initial story
+2025-06-08 15:47:18,323 - app.services.ai_service_simple - ERROR - Error generating initial story: No module named 'app.ai_service'
+2025-06-08 15:47:18,496 - app.services.firebase_service - INFO - Saved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:18,496 - app.storage.storage - INFO - Saved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:18,496 - app.storage.storage - INFO - Created new story: story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:18,842 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 15:47:19,377 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:19] "POST /api/stories HTTP/1.1" 200 -
+2025-06-08 15:47:19,574 - app.services.firebase_service - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:19,574 - app.storage.storage - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:19,575 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:19] "OPTIONS /api/stories/story_1749422838_9de66469 HTTP/1.1" 200 -
+2025-06-08 15:47:19,789 - app.services.firebase_service - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:19,790 - app.storage.storage - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:19,792 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:19] "OPTIONS /api/stories/story_1749422838_9de66469 HTTP/1.1" 200 -
+2025-06-08 15:47:19,909 - app.services.firebase_service - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:19,910 - app.storage.storage - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:19,911 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:19] "GET /api/stories/story_1749422838_9de66469 HTTP/1.1" 200 -
+2025-06-08 15:47:20,024 - app.services.firebase_service - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:20,025 - app.storage.storage - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 15:47:20,026 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:47:20] "GET /api/stories/story_1749422838_9de66469 HTTP/1.1" 200 -
+2025-06-08 15:52:28,375 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/api.py', reloading
+2025-06-08 15:52:30,791 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 15:52:31,394 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:52:31,529 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:52:31,529 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:52:31,533 - root - INFO - Starting StoryTeller API server...
+2025-06-08 15:52:31,533 - root - INFO - Host: 0.0.0.0
+2025-06-08 15:52:31,533 - root - INFO - Port: 5001
+2025-06-08 15:52:31,533 - root - INFO - Debug mode: True
+2025-06-08 15:52:31,536 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 15:52:31,543 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 15:52:37,358 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/api.py', reloading
+2025-06-08 15:52:37,667 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 15:52:38,034 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:52:38,121 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:52:38,121 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:52:38,125 - root - INFO - Starting StoryTeller API server...
+2025-06-08 15:52:38,125 - root - INFO - Host: 0.0.0.0
+2025-06-08 15:52:38,125 - root - INFO - Port: 5001
+2025-06-08 15:52:38,125 - root - INFO - Debug mode: True
+2025-06-08 15:52:38,127 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 15:52:38,133 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 15:52:51,543 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/models/cultivation_progression.py', reloading
+2025-06-08 15:52:51,557 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/models/cultivation_progression.py', reloading
+2025-06-08 15:52:52,306 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 15:52:52,821 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:56:08,094 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:59:09,805 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:59:09,969 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:59:09,969 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:59:09,973 - root - INFO - Starting StoryTeller API server...
+2025-06-08 15:59:09,974 - root - INFO - Host: 0.0.0.0
+2025-06-08 15:59:09,974 - root - INFO - Port: 5001
+2025-06-08 15:59:09,974 - root - INFO - Debug mode: True
+2025-06-08 15:59:09,981 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-08 15:59:09,981 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 15:59:09,985 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 15:59:10,390 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 15:59:10,482 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 15:59:10,482 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 15:59:10,486 - root - INFO - Starting StoryTeller API server...
+2025-06-08 15:59:10,486 - root - INFO - Host: 0.0.0.0
+2025-06-08 15:59:10,486 - root - INFO - Port: 5001
+2025-06-08 15:59:10,486 - root - INFO - Debug mode: True
+2025-06-08 15:59:10,487 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 15:59:10,494 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 15:59:12,966 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:59:12] "GET /status HTTP/1.1" 200 -
+2025-06-08 15:59:19,297 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:59:19] "[31m[1mPOST /stories HTTP/1.1[0m" 401 -
+2025-06-08 15:59:33,558 - app.auth - INFO - Authentication successful for user: test-user-123
+2025-06-08 15:59:33,558 - app.auth - INFO - Authentication successful for user: test-user-123
+2025-06-08 15:59:33,997 - app.services.firebase_service - INFO - Retrieved 0 stories for user test-user-123
+2025-06-08 15:59:33,997 - app.storage.storage - INFO - Retrieved 0 stories for user test-user-123
+2025-06-08 15:59:34,412 - app.services.usage_service - INFO - Created new usage record
+2025-06-08 15:59:34,412 - app.services.ai_service - INFO - Using cultivation_progression genre for initial story
+2025-06-08 15:59:34,412 - app.models.cultivation_progression - INFO - Generating cultivation progression story for Ali
+2025-06-08 15:59:34,412 - app.models.base_genre - INFO - Generating story for Ali
+2025-06-08 15:59:37,445 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 15:59:37,451 - app.models.base_genre - INFO - 🎭 GENRE GPT RESPONSE (1868 chars):
+2025-06-08 15:59:37,451 - app.models.base_genre - INFO - ============================================================
+2025-06-08 15:59:37,451 - app.models.base_genre - INFO - [STORY]
+Panel 1:
+Setting: A desolate village surrounded by misty mountains. Ali, a young man with a determined expression, is seen struggling to lift heavy buckets of water, his muscles straining.
+Narration: "In the remote village of Mistwood, Ali toiled under the weight of his meager existence."
+
+Panel 2:
+Ali overhears villagers gossiping about a nearby cultivation school rumored to accept even the weakest disciples. Determination flashes in Ali's eyes.
+
+Panel 3:
+Scene transition: Ali embarks on a treacherous journey through the misty mountains, determined to reach the cultivation school.
+
+Panel 4:
+Ali arrives at the entrance of the school, facing a formidable gatekeeper. The gatekeeper eyes Ali skeptically.
+
+Panel 5:
+Conflict: The gatekeeper challenges Ali to prove his worth by crossing a narrow rope bridge over a chasm filled with roaring waterfalls below.
+
+Panel 6:
+Ali, trembling with fear, steadies himself and starts crossing the bridge, showcasing his determination and resilience.
+
+Panel 7:
+Cultivation Technique: As Ali reaches the middle of the bridge, he channels his Qi, using the "Flowing River Step" technique. His Qi manifests as shimmering blue patterns around his feet, aiding his balance.
+
+Panel 8:
+Consequence: Ali successfully crosses the bridge, impressing the gatekeeper. The gatekeeper welcomes him inside the school, intrigued by Ali's potential.
+
+[CHOICES]
+1. Ali decides to explore the school grounds and observe other disciples, hoping to learn from their techniques and experiences.
+2. Feeling emboldened by his success, Ali seeks out the headmaster to request special training, eager to accelerate his cultivation progress.
+3. Overhearing whispers about a forbidden cave with ancient cultivation secrets, Ali decides to sneak away from the school in search of the cave, driven by curiosity and the desire for power.
+[/CHOICES]
+2025-06-08 15:59:37,451 - app.models.base_genre - INFO - ============================================================
+2025-06-08 15:59:37,452 - app.models.base_genre - INFO - Successfully parsed genre response: story=1386 chars, choices=3
+2025-06-08 15:59:37,581 - app.services.firebase_service - INFO - Saved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:37,581 - app.storage.storage - INFO - Saved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:37,581 - app.storage.storage - INFO - Created new story: story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:37,825 - app.services.usage_service - INFO - Updated usage for user: test-user-123
+2025-06-08 15:59:38,189 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:59:38] "POST /stories HTTP/1.1" 200 -
+2025-06-08 15:59:45,578 - app.auth - INFO - Authentication successful for user: test-user-123
+2025-06-08 15:59:45,578 - app.auth - INFO - Authentication successful for user: test-user-123
+2025-06-08 15:59:45,686 - app.services.firebase_service - INFO - Retrieved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:45,686 - app.storage.storage - INFO - Retrieved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:46,025 - app.services.usage_service - INFO - Updated usage for user: test-user-123
+2025-06-08 15:59:46,136 - app.services.firebase_service - INFO - Retrieved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:46,137 - app.storage.storage - INFO - Retrieved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:46,256 - app.services.firebase_service - INFO - Saved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:46,256 - app.storage.storage - INFO - Saved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:46,256 - app.storage.storage - INFO - Saved choice 1 for node initial in story story_1749423577_b6b87171
+2025-06-08 15:59:46,257 - app.services.ai_service - INFO - Using cultivation_progression genre for story continuation
+2025-06-08 15:59:46,257 - app.models.cultivation_progression - INFO - Continuing cultivation progression story for Ali
+2025-06-08 15:59:46,257 - app.models.base_genre - INFO - Generating story for Ali
+2025-06-08 15:59:49,427 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 15:59:49,428 - app.models.base_genre - INFO - 🎭 GENRE GPT RESPONSE (2098 chars):
+2025-06-08 15:59:49,429 - app.models.base_genre - INFO - ============================================================
+2025-06-08 15:59:49,429 - app.models.base_genre - INFO - [STORY]
+Panel 1:
+Setting: Inside the cultivation school, Ali observes a group of disciples sparring in the courtyard. He watches with keen interest, noting their techniques and movements.
+Panel 2:
+As Ali continues to observe, he notices a disciple effortlessly using the "Thunder Palm" technique, unleashing crackling bolts of lightning with each strike.
+Panel 3:
+Character Development: Ali's eyes widen with awe and determination, realizing the vast potential of cultivation techniques. He resolves to push his limits and learn new techniques.
+Panel 4:
+Fresh Challenge: Suddenly, a senior disciple approaches Ali, a smirk playing on his lips. "You there, new kid. Let's see if you can handle a simple sparring match," he challenges, eyes gleaming with mischief.
+Panel 5:
+Conflict: Ali accepts the challenge, bracing himself as the senior disciple unleashes a flurry of powerful strikes, each one sending shockwaves through the air.
+Panel 6:
+Cultivation Technique: Drawing upon his determination, Ali focuses his Qi and activates the "Steel Body Refinement" technique. His Qi forms a protective barrier around him, absorbing the impact of the senior disciple's attacks.
+Panel 7:
+Emotional Journey: Ali grits his teeth, feeling the strain of the powerful strikes but standing his ground with unwavering resolve, determination shining in his eyes.
+Panel 8:
+Consequence: Impressed by Ali's resilience and determination, the senior disciple nods in approval. "Not bad, kid. Keep honing your skills," he acknowledges before walking away, leaving Ali with a newfound sense of confidence and purpose.
+[/STORY]
+
+[CHOICES]
+1. Encouraged by the senior disciple's words, Ali seeks out a secluded training ground to practice the "Steel Body Refinement" technique further.
+2. Intrigued by the "Thunder Palm" technique, Ali approaches the disciple who demonstrated it, hoping to learn more about mastering lightning-based techniques.
+3. Feeling a newfound determination, Ali decides to explore the school library to research ancient cultivation texts in search of new techniques to enhance his skills.
+[/CHOICES]
+2025-06-08 15:59:49,429 - app.models.base_genre - INFO - ============================================================
+2025-06-08 15:59:49,429 - app.models.base_genre - INFO - Successfully parsed genre response: story=1585 chars, choices=3
+2025-06-08 15:59:49,522 - app.services.firebase_service - INFO - Retrieved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:49,522 - app.storage.storage - INFO - Retrieved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:49,654 - app.services.firebase_service - INFO - Saved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:49,654 - app.storage.storage - INFO - Saved story story_1749423577_b6b87171: Ali's Cultivation Story
+2025-06-08 15:59:49,654 - app.storage.storage - INFO - Added node node_3009496327 to story story_1749423577_b6b87171
+2025-06-08 15:59:49,845 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 15:59:49] "POST /stories/story_1749423577_b6b87171/choices/1 HTTP/1.1" 200 -
+2025-06-08 16:01:39,293 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:01:39,403 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:01:39,403 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:01:39,407 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:01:39,407 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:01:39,407 - root - INFO - Port: 5001
+2025-06-08 16:01:39,407 - root - INFO - Debug mode: True
+2025-06-08 16:01:39,413 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-08 16:01:39,413 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 16:01:39,417 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:01:39,790 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:01:39,879 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:01:39,879 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:01:39,883 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:01:39,883 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:01:39,883 - root - INFO - Port: 5001
+2025-06-08 16:01:39,883 - root - INFO - Debug mode: True
+2025-06-08 16:01:39,884 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:01:39,891 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:01:47,748 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:47] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 16:01:47,750 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:47] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 16:01:47,754 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:47] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 16:01:47,755 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:47] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 16:01:51,291 - app.services.firebase_service - INFO - Retrieved 11 stories
+2025-06-08 16:01:51,296 - app.storage.storage - INFO - Retrieved 11 stories
+2025-06-08 16:01:51,296 - app.services.firebase_service - INFO - Retrieved 11 stories
+2025-06-08 16:01:51,297 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:51] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 16:01:51,298 - app.storage.storage - INFO - Retrieved 11 stories
+2025-06-08 16:01:51,299 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:51] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 16:01:51,489 - app.services.firebase_service - INFO - Retrieved 5 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:51,490 - app.storage.storage - INFO - Retrieved 5 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:51,491 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:51] "GET /api/stories HTTP/1.1" 200 -
+2025-06-08 16:01:51,704 - app.services.firebase_service - INFO - Retrieved 5 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:51,705 - app.storage.storage - INFO - Retrieved 5 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:51,706 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:51] "GET /api/stories HTTP/1.1" 200 -
+2025-06-08 16:01:55,398 - app.services.firebase_service - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 16:01:55,398 - app.storage.storage - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 16:01:55,399 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:55] "OPTIONS /api/stories/story_1749422838_9de66469 HTTP/1.1" 200 -
+2025-06-08 16:01:55,401 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:55,608 - app.services.firebase_service - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 16:01:55,608 - app.storage.storage - INFO - Retrieved story story_1749422838_9de66469: Ali's Cultivation Story
+2025-06-08 16:01:55,753 - app.services.firebase_service - INFO - Deleted story story_1749422838_9de66469
+2025-06-08 16:01:55,753 - app.storage.storage - INFO - Deleted story story_1749422838_9de66469
+2025-06-08 16:01:56,108 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:56,108 - app.services.usage_service - INFO - Decremented stories created for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2: 4
+2025-06-08 16:01:56,109 - root - INFO - [API] Decremented usage count for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:56,109 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:56] "DELETE /api/stories/story_1749422838_9de66469 HTTP/1.1" 200 -
+2025-06-08 16:01:57,448 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 16:01:57,448 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 16:01:57,449 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:57] "OPTIONS /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 16:01:57,459 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:57,733 - app.services.firebase_service - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 16:01:57,734 - app.storage.storage - INFO - Retrieved story story_1749422608_3c16ff2b: Ali's Cultivation Story
+2025-06-08 16:01:57,864 - app.services.firebase_service - INFO - Deleted story story_1749422608_3c16ff2b
+2025-06-08 16:01:57,864 - app.storage.storage - INFO - Deleted story story_1749422608_3c16ff2b
+2025-06-08 16:01:58,264 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:58,265 - app.services.usage_service - INFO - Decremented stories created for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2: 3
+2025-06-08 16:01:58,265 - root - INFO - [API] Decremented usage count for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:58,266 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:58] "DELETE /api/stories/story_1749422608_3c16ff2b HTTP/1.1" 200 -
+2025-06-08 16:01:59,639 - app.services.firebase_service - INFO - Retrieved story story_1749410338_d6e9bafd: Ali's Cultivation Story
+2025-06-08 16:01:59,639 - app.storage.storage - INFO - Retrieved story story_1749410338_d6e9bafd: Ali's Cultivation Story
+2025-06-08 16:01:59,640 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:01:59] "OPTIONS /api/stories/story_1749410338_d6e9bafd HTTP/1.1" 200 -
+2025-06-08 16:01:59,660 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:01:59,875 - app.services.firebase_service - INFO - Retrieved story story_1749410338_d6e9bafd: Ali's Cultivation Story
+2025-06-08 16:01:59,875 - app.storage.storage - INFO - Retrieved story story_1749410338_d6e9bafd: Ali's Cultivation Story
+2025-06-08 16:02:00,018 - app.services.firebase_service - INFO - Deleted story story_1749410338_d6e9bafd
+2025-06-08 16:02:00,019 - app.storage.storage - INFO - Deleted story story_1749410338_d6e9bafd
+2025-06-08 16:02:00,377 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:00,377 - app.services.usage_service - INFO - Decremented stories created for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2: 2
+2025-06-08 16:02:00,377 - root - INFO - [API] Decremented usage count for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:00,378 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:00] "DELETE /api/stories/story_1749410338_d6e9bafd HTTP/1.1" 200 -
+2025-06-08 16:02:01,872 - app.services.firebase_service - INFO - Retrieved story story_1749408785_87b24ce6: Ali's Cultivation Story
+2025-06-08 16:02:01,873 - app.storage.storage - INFO - Retrieved story story_1749408785_87b24ce6: Ali's Cultivation Story
+2025-06-08 16:02:01,874 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:01] "OPTIONS /api/stories/story_1749408785_87b24ce6 HTTP/1.1" 200 -
+2025-06-08 16:02:01,877 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:02,095 - app.services.firebase_service - INFO - Retrieved story story_1749408785_87b24ce6: Ali's Cultivation Story
+2025-06-08 16:02:02,096 - app.storage.storage - INFO - Retrieved story story_1749408785_87b24ce6: Ali's Cultivation Story
+2025-06-08 16:02:02,224 - app.services.firebase_service - INFO - Deleted story story_1749408785_87b24ce6
+2025-06-08 16:02:02,224 - app.storage.storage - INFO - Deleted story story_1749408785_87b24ce6
+2025-06-08 16:02:02,569 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:02,570 - app.services.usage_service - INFO - Decremented stories created for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2: 1
+2025-06-08 16:02:02,570 - root - INFO - [API] Decremented usage count for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:02,571 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:02] "DELETE /api/stories/story_1749408785_87b24ce6 HTTP/1.1" 200 -
+2025-06-08 16:02:04,224 - app.services.firebase_service - INFO - Retrieved story story_1749405427_33a55291: Ali's Cultivation Story
+2025-06-08 16:02:04,225 - app.storage.storage - INFO - Retrieved story story_1749405427_33a55291: Ali's Cultivation Story
+2025-06-08 16:02:04,226 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:04] "OPTIONS /api/stories/story_1749405427_33a55291 HTTP/1.1" 200 -
+2025-06-08 16:02:04,229 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:04,451 - app.services.firebase_service - INFO - Retrieved story story_1749405427_33a55291: Ali's Cultivation Story
+2025-06-08 16:02:04,451 - app.storage.storage - INFO - Retrieved story story_1749405427_33a55291: Ali's Cultivation Story
+2025-06-08 16:02:04,577 - app.services.firebase_service - INFO - Deleted story story_1749405427_33a55291
+2025-06-08 16:02:04,578 - app.storage.storage - INFO - Deleted story story_1749405427_33a55291
+2025-06-08 16:02:04,918 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:04,918 - app.services.usage_service - INFO - Decremented stories created for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2: 0
+2025-06-08 16:02:04,919 - root - INFO - [API] Decremented usage count for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:04,920 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:04] "DELETE /api/stories/story_1749405427_33a55291 HTTP/1.1" 200 -
+2025-06-08 16:02:17,865 - app.services.firebase_service - INFO - Retrieved 6 stories
+2025-06-08 16:02:17,867 - app.storage.storage - INFO - Retrieved 6 stories
+2025-06-08 16:02:17,868 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:17] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 16:02:17,872 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:18,053 - app.services.firebase_service - INFO - Retrieved 0 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:18,054 - app.storage.storage - INFO - Retrieved 0 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:18,386 - app.services.ai_service - INFO - Using cultivation_progression genre for initial story
+2025-06-08 16:02:18,386 - app.models.cultivation_progression - INFO - Generating cultivation progression story for Ali
+2025-06-08 16:02:18,387 - app.models.base_genre - INFO - Generating story for Ali
+2025-06-08 16:02:21,597 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 16:02:21,603 - app.models.base_genre - INFO - 🎭 GENRE GPT RESPONSE (1768 chars):
+2025-06-08 16:02:21,604 - app.models.base_genre - INFO - ============================================================
+2025-06-08 16:02:21,604 - app.models.base_genre - INFO - [STORY]
+Panel 1:
+A sprawling ancient forest bathed in golden sunlight. Ali, a young man with determination in his eyes, stands at the edge, feeling a surge of energy from the vibrant surroundings.
+
+Panel 2:
+Ali closes his eyes, focusing his Qi. A shimmering wave of emerald green Qi flows around him, intertwining with the flora around, showcasing his connection to nature.
+
+Panel 3:
+A sudden rustling alerts Ali as a massive, shadowy figure emerges from the dense foliage. It's a colossal beast with glowing red eyes, its fur crackling with lightning Qi.
+
+Panel 4:
+Ali readies himself, his expression calm yet resolute. The beast charges, its lightning-infused claws aimed at him.
+
+Panel 5:
+Ali swiftly dodges the beast's attack, showcasing his agility and quick thinking. His movements are fluid, his Qi responding to his every command.
+
+Panel 6:
+As Ali lands a counterattack, a new technique emerges. "Heaven's Dance: Storm Fist!" A surge of azure Qi engulfs his fist, delivering a powerful blow that sends the beast staggering back.
+
+Panel 7:
+The beast roars in pain, but Ali remains composed. "I must understand its Qi to overcome it," he mutters, analyzing the lightning Qi patterns around the beast.
+
+Panel 8:
+With a newfound insight, Ali channels his own Qi in harmony with the lightning Qi, creating a dazzling fusion. The beast's eyes widen in surprise as Ali's technique overwhelms its defenses.
+
+[CHOICES]
+1. Channel the lightning Qi into a defensive shield, seeking to absorb and redirect the beast's attacks.
+2. Utilize the forest's energy to enhance your speed and agility, aiming to outmaneuver the beast with swift strikes.
+3. Dive deeper into the beast's Qi patterns, attempting to unravel its source and weakness to exploit in the battle.
+[/CHOICES]
+2025-06-08 16:02:21,604 - app.models.base_genre - INFO - ============================================================
+2025-06-08 16:02:21,606 - app.models.base_genre - INFO - Successfully parsed genre response: story=1409 chars, choices=3
+2025-06-08 16:02:21,724 - app.services.firebase_service - INFO - Saved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:21,724 - app.storage.storage - INFO - Saved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:21,725 - app.storage.storage - INFO - Created new story: story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:22,124 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:22,656 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:22] "POST /api/stories HTTP/1.1" 200 -
+2025-06-08 16:02:22,847 - app.services.firebase_service - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:22,847 - app.storage.storage - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:22,848 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:22] "OPTIONS /api/stories/story_1749423741_9cdc5997 HTTP/1.1" 200 -
+2025-06-08 16:02:23,072 - app.services.firebase_service - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:23,073 - app.storage.storage - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:23,075 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:23] "OPTIONS /api/stories/story_1749423741_9cdc5997 HTTP/1.1" 200 -
+2025-06-08 16:02:23,077 - app.services.firebase_service - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:23,077 - app.storage.storage - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:23,078 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:23] "GET /api/stories/story_1749423741_9cdc5997 HTTP/1.1" 200 -
+2025-06-08 16:02:23,175 - app.services.firebase_service - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:23,175 - app.storage.storage - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:23,176 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:23] "GET /api/stories/story_1749423741_9cdc5997 HTTP/1.1" 200 -
+2025-06-08 16:02:29,123 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:29] "OPTIONS /api/stories/story_1749423741_9cdc5997/choices/1 HTTP/1.1" 200 -
+2025-06-08 16:02:29,125 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:29,221 - app.services.firebase_service - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:29,222 - app.storage.storage - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:29,825 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 16:02:29,937 - app.services.firebase_service - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:29,937 - app.storage.storage - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:30,300 - app.services.firebase_service - INFO - Saved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:30,300 - app.storage.storage - INFO - Saved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:30,301 - app.storage.storage - INFO - Saved choice 1 for node initial in story story_1749423741_9cdc5997
+2025-06-08 16:02:30,301 - app.services.ai_service - INFO - Using cultivation_progression genre for story continuation
+2025-06-08 16:02:30,301 - app.models.cultivation_progression - INFO - Continuing cultivation progression story for Ali
+2025-06-08 16:02:30,301 - app.models.base_genre - INFO - Generating story for Ali
+2025-06-08 16:02:33,454 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 16:02:33,459 - app.models.base_genre - INFO - 🎭 GENRE GPT RESPONSE (1792 chars):
+2025-06-08 16:02:33,459 - app.models.base_genre - INFO - ============================================================
+2025-06-08 16:02:33,460 - app.models.base_genre - INFO - [STORY]
+Panel 1:
+Ali concentrates, drawing in the crackling lightning Qi surrounding the beast. His aura shimmers as he forms a glowing shield in front of him, ready to absorb the incoming attack.
+Panel 2:
+The beast lashes out with a barrage of lightning strikes, each one crashing against Ali's shield. The shield vibrates with each impact, but Ali stands firm, determination etched on his face.
+Panel 3:
+As the last lightning strike hits the shield, Ali channels the absorbed energy through his veins. His eyes glow with determination as he redirects the energy back towards the beast.
+Panel 4:
+The redirected lightning surges towards the beast, enveloping it in a blinding flash of light. The creature howls in pain, its fur singed and smoking from the overwhelming power.
+Panel 5:
+Ali takes a step forward, his confidence growing. "I can control the power of lightning," he realizes, feeling a surge of exhilaration at this newfound ability.
+Panel 6:
+The beast, weakened but not defeated, glares at Ali with newfound respect. "You are unlike any cultivator I have faced," it growls, a hint of admiration in its tone.
+Panel 7:
+Ali nods, acknowledging the beast's words. "We must coexist in this world, finding balance between us," he replies, extending a hand towards the beast in a gesture of peace.
+Panel 8:
+The beast hesitates, then gently touches Ali's outstretched hand with its massive paw. A bond of understanding forms between them, a connection that transcends mere conflict.
+[/STORY]
+
+[CHOICES]
+1. Offer to teach the beast about cultivation techniques, fostering a new alliance.
+2. Meditate together with the beast to deepen the understanding of each other's Qi.
+3. Propose a joint exploration of the forest to uncover hidden secrets about their intertwined destinies.
+[/CHOICES]
+2025-06-08 16:02:33,460 - app.models.base_genre - INFO - ============================================================
+2025-06-08 16:02:33,460 - app.models.base_genre - INFO - Successfully parsed genre response: story=1479 chars, choices=3
+2025-06-08 16:02:33,547 - app.services.firebase_service - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:33,548 - app.storage.storage - INFO - Retrieved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:33,882 - app.services.firebase_service - INFO - Saved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:33,882 - app.storage.storage - INFO - Saved story story_1749423741_9cdc5997: Ali's Cultivation Story
+2025-06-08 16:02:33,882 - app.storage.storage - INFO - Added node node_2461549984 to story story_1749423741_9cdc5997
+2025-06-08 16:02:34,295 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:02:34] "POST /api/stories/story_1749423741_9cdc5997/choices/1 HTTP/1.1" 200 -
+2025-06-08 16:12:07,720 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/academy_magic.py', reloading
+2025-06-08 16:12:07,721 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/academy_magic.py', reloading
+2025-06-08 16:12:10,723 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:12:11,339 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:12:11,466 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:12:11,466 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:12:11,470 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:12:11,470 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:12:11,470 - root - INFO - Port: 5001
+2025-06-08 16:12:11,470 - root - INFO - Debug mode: True
+2025-06-08 16:12:11,473 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:12:11,481 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:14:27,568 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/models/academy_magic.py', reloading
+2025-06-08 16:14:27,568 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/academy_magic.py', reloading
+2025-06-08 16:14:28,565 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:14:29,157 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:19:30,441 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:22:15,756 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:22:15,907 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:22:15,908 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:22:15,911 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:22:15,911 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:22:15,911 - root - INFO - Port: 5001
+2025-06-08 16:22:15,911 - root - INFO - Debug mode: True
+2025-06-08 16:22:15,917 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-08 16:22:15,917 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 16:22:15,923 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:22:16,304 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:22:16,395 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:22:16,395 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:22:16,400 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:22:16,400 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:22:16,400 - root - INFO - Port: 5001
+2025-06-08 16:22:16,400 - root - INFO - Debug mode: True
+2025-06-08 16:22:16,402 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:22:16,409 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:22:27,312 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:22:27,402 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:22:27,402 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:22:27,405 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:22:27,405 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:22:27,405 - root - INFO - Port: 5001
+2025-06-08 16:22:27,405 - root - INFO - Debug mode: True
+2025-06-08 16:22:27,411 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-08 16:22:27,411 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 16:22:27,413 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:22:27,780 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:22:27,871 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:22:27,871 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:22:27,875 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:22:27,875 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:22:27,875 - root - INFO - Port: 5001
+2025-06-08 16:22:27,875 - root - INFO - Debug mode: True
+2025-06-08 16:22:27,877 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:22:27,884 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:22:29,259 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 16:22:29] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 16:26:06,931 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service_old.py', reloading
+2025-06-08 16:26:07,601 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:26:08,150 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:48:57,524 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:48:57,622 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:48:57,622 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:48:57,641 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:48:57,641 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:48:57,641 - root - INFO - Port: 5001
+2025-06-08 16:48:57,642 - root - INFO - Debug mode: True
+2025-06-08 16:48:57,648 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-08 16:48:57,648 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 16:48:57,653 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:48:58,014 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:48:58,072 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:48:58,072 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:48:58,090 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:48:58,090 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:48:58,090 - root - INFO - Port: 5001
+2025-06-08 16:48:58,090 - root - INFO - Debug mode: True
+2025-06-08 16:48:58,092 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:48:58,100 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:50:22,841 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/models/models.py', reloading
+2025-06-08 16:50:23,782 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:50:24,380 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:50:24,478 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:50:24,478 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:50:24,505 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:50:24,505 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:50:24,505 - root - INFO - Port: 5001
+2025-06-08 16:50:24,506 - root - INFO - Debug mode: True
+2025-06-08 16:50:24,510 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:50:24,518 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:50:32,135 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/models/models.py', reloading
+2025-06-08 16:50:32,138 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/models/models.py', reloading
+2025-06-08 16:50:32,636 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:50:33,078 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:50:33,167 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:50:33,167 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:50:33,171 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:50:33,171 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:50:33,171 - root - INFO - Port: 5001
+2025-06-08 16:50:33,171 - root - INFO - Debug mode: True
+2025-06-08 16:50:33,173 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:50:33,180 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:51:08,514 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/models/models.py', reloading
+2025-06-08 16:51:08,523 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/models/models.py', reloading
+2025-06-08 16:51:09,466 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:51:09,904 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:51:09,965 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:51:09,965 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:51:09,982 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:51:09,982 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:51:09,982 - root - INFO - Port: 5001
+2025-06-08 16:51:09,982 - root - INFO - Debug mode: True
+2025-06-08 16:51:09,984 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:51:09,991 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:51:23,390 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/story_planner.py', reloading
+2025-06-08 16:51:23,390 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/story_planner.py', reloading
+2025-06-08 16:51:24,165 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:51:24,651 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:51:24,908 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:51:24,908 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:51:24,937 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:51:24,938 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:51:24,938 - root - INFO - Port: 5001
+2025-06-08 16:51:24,938 - root - INFO - Debug mode: True
+2025-06-08 16:51:24,942 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:51:24,950 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:56:15,605 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/story_planner.py', reloading
+2025-06-08 16:56:16,117 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:56:16,699 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:56:16,790 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:56:16,790 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:56:16,807 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:56:16,807 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:56:16,807 - root - INFO - Port: 5001
+2025-06-08 16:56:16,807 - root - INFO - Debug mode: True
+2025-06-08 16:56:16,810 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:56:16,817 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:56:46,388 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 16:56:46,398 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 16:56:47,109 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:56:47,649 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:56:47,734 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:56:47,734 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:56:47,752 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:56:47,752 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:56:47,752 - root - INFO - Port: 5001
+2025-06-08 16:56:47,752 - root - INFO - Debug mode: True
+2025-06-08 16:56:47,755 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:56:47,761 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 16:56:55,413 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 16:56:55,881 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 16:56:56,411 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 16:56:56,499 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 16:56:56,500 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 16:56:56,519 - root - INFO - Starting StoryTeller API server...
+2025-06-08 16:56:56,519 - root - INFO - Host: 0.0.0.0
+2025-06-08 16:56:56,519 - root - INFO - Port: 5001
+2025-06-08 16:56:56,519 - root - INFO - Debug mode: True
+2025-06-08 16:56:56,521 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 16:56:56,528 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 17:00:06,885 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/ai_service_temp.py', reloading
+2025-06-08 17:00:06,885 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/ai_service_temp.py', reloading
+2025-06-08 17:00:07,005 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 17:00:07,620 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 17:00:07,714 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 17:00:07,714 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 17:00:07,733 - root - INFO - Starting StoryTeller API server...
+2025-06-08 17:00:07,733 - root - INFO - Host: 0.0.0.0
+2025-06-08 17:00:07,733 - root - INFO - Port: 5001
+2025-06-08 17:00:07,733 - root - INFO - Debug mode: True
+2025-06-08 17:00:07,736 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 17:00:07,743 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 17:01:53,446 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 17:01:53,584 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 17:01:53,978 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 17:01:54,040 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 17:01:54,040 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 17:01:54,058 - root - INFO - Starting StoryTeller API server...
+2025-06-08 17:01:54,058 - root - INFO - Host: 0.0.0.0
+2025-06-08 17:01:54,058 - root - INFO - Port: 5001
+2025-06-08 17:01:54,058 - root - INFO - Debug mode: True
+2025-06-08 17:01:54,060 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 17:01:54,066 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 17:05:00,551 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/story_planner.py', reloading
+2025-06-08 17:05:01,618 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 17:05:02,192 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 17:05:02,286 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 17:05:02,286 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 17:05:02,306 - root - INFO - Starting StoryTeller API server...
+2025-06-08 17:05:02,306 - root - INFO - Host: 0.0.0.0
+2025-06-08 17:05:02,306 - root - INFO - Port: 5001
+2025-06-08 17:05:02,306 - root - INFO - Debug mode: True
+2025-06-08 17:05:02,309 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 17:05:02,317 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 17:08:39,330 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/cultivation_progression.py', reloading
+2025-06-08 17:08:40,021 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 17:08:40,687 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 17:08:40,788 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 17:08:40,788 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 17:08:40,807 - root - INFO - Starting StoryTeller API server...
+2025-06-08 17:08:40,807 - root - INFO - Host: 0.0.0.0
+2025-06-08 17:08:40,807 - root - INFO - Port: 5001
+2025-06-08 17:08:40,807 - root - INFO - Debug mode: True
+2025-06-08 17:08:40,810 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 17:08:40,819 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 17:11:33,044 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/fantasy_adventure.py', reloading
+2025-06-08 17:11:33,170 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 17:11:33,981 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 17:11:34,084 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 17:11:34,084 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 17:11:34,104 - root - INFO - Starting StoryTeller API server...
+2025-06-08 17:11:34,104 - root - INFO - Host: 0.0.0.0
+2025-06-08 17:11:34,104 - root - INFO - Port: 5001
+2025-06-08 17:11:34,104 - root - INFO - Debug mode: True
+2025-06-08 17:11:34,107 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 17:11:34,115 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 17:12:38,477 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/fantasy_adventure.py', reloading
+2025-06-08 17:12:38,591 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 17:12:39,092 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 17:12:39,155 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 17:12:39,155 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 17:12:39,175 - root - INFO - Starting StoryTeller API server...
+2025-06-08 17:12:39,175 - root - INFO - Host: 0.0.0.0
+2025-06-08 17:12:39,175 - root - INFO - Port: 5001
+2025-06-08 17:12:39,175 - root - INFO - Debug mode: True
+2025-06-08 17:12:39,177 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 17:12:39,183 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 17:12:47,459 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/.!72795!academy_magic.py', reloading
+2025-06-08 17:12:47,459 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/.!72795!academy_magic.py', reloading
+2025-06-08 17:12:47,459 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/.!72795!academy_magic.py', reloading
+2025-06-08 17:12:47,459 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/academy_magic.py', reloading
+2025-06-08 17:12:48,328 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 17:12:48,805 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:30:54,539 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:30:54,918 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:30:54,918 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:30:54,922 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:30:54,922 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:30:54,922 - root - INFO - Port: 5001
+2025-06-08 20:30:54,922 - root - INFO - Debug mode: True
+2025-06-08 20:30:54,934 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-08 20:30:54,934 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 20:30:54,939 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:30:55,342 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:30:55,413 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:30:55,413 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:30:55,416 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:30:55,416 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:30:55,416 - root - INFO - Port: 5001
+2025-06-08 20:30:55,416 - root - INFO - Debug mode: True
+2025-06-08 20:30:55,418 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:30:55,427 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:31:00,198 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:00] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 20:31:00,199 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:00] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 20:31:00,201 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:00] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 20:31:00,202 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:00] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 20:31:03,662 - app.services.firebase_service - INFO - Retrieved 7 stories
+2025-06-08 20:31:03,664 - app.storage.storage - INFO - Retrieved 7 stories
+2025-06-08 20:31:03,665 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:03] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 20:31:03,759 - app.services.firebase_service - INFO - Retrieved 7 stories
+2025-06-08 20:31:03,759 - app.storage.storage - INFO - Retrieved 7 stories
+2025-06-08 20:31:03,760 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:03] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 20:31:03,824 - app.services.firebase_service - INFO - Retrieved 1 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:31:03,825 - app.storage.storage - INFO - Retrieved 1 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:31:03,826 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:03] "GET /api/stories HTTP/1.1" 200 -
+2025-06-08 20:31:03,955 - app.services.firebase_service - INFO - Retrieved 1 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:31:03,955 - app.storage.storage - INFO - Retrieved 1 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:31:03,956 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:03] "GET /api/stories HTTP/1.1" 200 -
+2025-06-08 20:31:20,303 - app.services.firebase_service - INFO - Retrieved 7 stories
+2025-06-08 20:31:20,303 - app.storage.storage - INFO - Retrieved 7 stories
+2025-06-08 20:31:20,304 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:20] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 20:31:20,308 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:31:20,447 - app.services.firebase_service - INFO - Retrieved 1 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:31:20,448 - app.storage.storage - INFO - Retrieved 1 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:31:20,677 - app.services.ai_service - INFO - Generated big story goal: Unite the fractured martial clans under one rule.
+2025-06-08 20:31:20,678 - app.services.ai_service - INFO - Using cultivation_progression genre for initial story
+2025-06-08 20:31:20,678 - app.services.story_planner - INFO - Generated new arc goal: 'Survive assassination attempts from rival clans.' for theme: 'unite_martial_clans'
+2025-06-08 20:31:20,678 - app.genres.cultivation_progression - ERROR - Error generating initial arc goal: "CultivationProgression" object has no field "initial_arc_goal"
+2025-06-08 20:31:20,678 - app.services.ai_service - ERROR - Error generating initial story: "CultivationProgression" object has no field "initial_arc_goal"
+2025-06-08 20:31:20,679 - app.services.story_planner - INFO - Generated new arc goal: 'Gain the title of Core Disciple.' for theme: 'revenge'
+2025-06-08 20:31:20,679 - app.storage.storage - INFO - Initialized memory with big goal: 'Revenge on the Sect Leader who betrayed their family.' and arc goal: 'Gain the title of Core Disciple.'
+2025-06-08 20:31:20,815 - app.services.firebase_service - INFO - Saved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:20,815 - app.storage.storage - INFO - Saved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:20,815 - app.storage.storage - INFO - Created new story: story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:21,061 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:31:21,388 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:21] "POST /api/stories HTTP/1.1" 200 -
+2025-06-08 20:31:21,572 - app.services.firebase_service - INFO - Retrieved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:21,572 - app.storage.storage - INFO - Retrieved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:21,574 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:21] "OPTIONS /api/stories/story_1749439880_9d598f64 HTTP/1.1" 200 -
+2025-06-08 20:31:21,585 - app.services.firebase_service - INFO - Retrieved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:21,586 - app.storage.storage - INFO - Retrieved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:21,587 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:21] "OPTIONS /api/stories/story_1749439880_9d598f64 HTTP/1.1" 200 -
+2025-06-08 20:31:21,674 - app.services.firebase_service - INFO - Retrieved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:21,675 - app.storage.storage - INFO - Retrieved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:21,676 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:21] "GET /api/stories/story_1749439880_9d598f64 HTTP/1.1" 200 -
+2025-06-08 20:31:21,776 - app.services.firebase_service - INFO - Retrieved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:21,777 - app.storage.storage - INFO - Retrieved story story_1749439880_9d598f64: Ali's Cultivation Story
+2025-06-08 20:31:21,778 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:31:21] "GET /api/stories/story_1749439880_9d598f64 HTTP/1.1" 200 -
+2025-06-08 20:35:08,080 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/cultivation_progression.py', reloading
+2025-06-08 20:35:10,481 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:35:11,064 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:35:11,179 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:35:11,179 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:35:11,182 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:35:11,182 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:35:11,182 - root - INFO - Port: 5001
+2025-06-08 20:35:11,182 - root - INFO - Debug mode: True
+2025-06-08 20:35:11,185 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:35:11,195 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:35:20,488 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/cultivation_progression.py', reloading
+2025-06-08 20:35:20,491 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/cultivation_progression.py', reloading
+2025-06-08 20:35:21,328 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:35:21,859 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:35:21,958 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:35:21,958 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:35:21,962 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:35:21,962 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:35:21,962 - root - INFO - Port: 5001
+2025-06-08 20:35:21,962 - root - INFO - Debug mode: True
+2025-06-08 20:35:21,964 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:35:21,971 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:35:30,785 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/storage/storage.py', reloading
+2025-06-08 20:35:30,795 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/storage/storage.py', reloading
+2025-06-08 20:35:31,103 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:35:31,555 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:35:31,635 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:35:31,635 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:35:31,638 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:35:31,638 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:35:31,638 - root - INFO - Port: 5001
+2025-06-08 20:35:31,638 - root - INFO - Debug mode: True
+2025-06-08 20:35:31,640 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:35:31,647 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:35:45,196 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 20:35:45,207 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 20:35:45,816 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:35:46,204 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:35:46,281 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:35:46,281 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:35:46,284 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:35:46,284 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:35:46,284 - root - INFO - Port: 5001
+2025-06-08 20:35:46,284 - root - INFO - Debug mode: True
+2025-06-08 20:35:46,286 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:35:46,292 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:35:57,645 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 20:35:58,453 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:35:58,816 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:35:58,889 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:35:58,890 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:35:58,893 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:35:58,893 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:35:58,893 - root - INFO - Port: 5001
+2025-06-08 20:35:58,893 - root - INFO - Debug mode: True
+2025-06-08 20:35:58,895 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:35:58,901 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:37:31,184 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:31] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 20:37:31,185 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:31] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 20:37:31,189 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:31] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 20:37:31,191 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:31] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 20:37:42,021 - app.services.firebase_service - INFO - Retrieved 8 stories
+2025-06-08 20:37:42,022 - app.storage.storage - INFO - Retrieved 8 stories
+2025-06-08 20:37:42,023 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:42] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 20:37:42,027 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:37:42,184 - app.services.firebase_service - INFO - Retrieved 2 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:37:42,184 - app.storage.storage - INFO - Retrieved 2 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:37:42,531 - app.services.ai_service - INFO - Generated big story goal: Recover the legendary artifact sealed by ancient cultivators.
+2025-06-08 20:37:42,531 - app.services.ai_service - ERROR - Error generating initial story: "CultivationProgression" object has no field "initial_arc_goal"
+2025-06-08 20:37:42,532 - app.storage.storage - ERROR - Error initializing arc goal: "CultivationProgression" object has no field "initial_arc_goal"
+2025-06-08 20:37:42,532 - app.storage.storage - INFO - Set fallback arc goal: Survive the sect's brutal outer disciple training.
+2025-06-08 20:37:42,731 - app.services.firebase_service - INFO - Saved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:42,731 - app.storage.storage - INFO - Saved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:42,731 - app.storage.storage - INFO - Created new story: story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:43,085 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:37:43,520 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:43] "POST /api/stories HTTP/1.1" 200 -
+2025-06-08 20:37:43,734 - app.services.firebase_service - INFO - Retrieved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:43,735 - app.storage.storage - INFO - Retrieved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:43,736 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:43] "OPTIONS /api/stories/story_1749440262_0ff29d30 HTTP/1.1" 200 -
+2025-06-08 20:37:43,938 - app.services.firebase_service - INFO - Retrieved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:43,940 - app.storage.storage - INFO - Retrieved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:43,941 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:43] "OPTIONS /api/stories/story_1749440262_0ff29d30 HTTP/1.1" 200 -
+2025-06-08 20:37:43,950 - app.services.firebase_service - INFO - Retrieved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:43,951 - app.storage.storage - INFO - Retrieved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:43,952 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:43] "GET /api/stories/story_1749440262_0ff29d30 HTTP/1.1" 200 -
+2025-06-08 20:37:44,064 - app.services.firebase_service - INFO - Retrieved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:44,064 - app.storage.storage - INFO - Retrieved story story_1749440262_0ff29d30: Ali's Cultivation Story
+2025-06-08 20:37:44,065 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:37:44] "GET /api/stories/story_1749440262_0ff29d30 HTTP/1.1" 200 -
+2025-06-08 20:40:19,305 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/cultivation_progression.py', reloading
+2025-06-08 20:40:22,000 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:40:22,580 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:40:22,683 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:40:22,683 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:40:22,687 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:40:22,687 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:40:22,687 - root - INFO - Port: 5001
+2025-06-08 20:40:22,687 - root - INFO - Debug mode: True
+2025-06-08 20:40:22,689 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:40:22,696 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:40:30,717 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/genres/cultivation_progression.py', reloading
+2025-06-08 20:40:30,829 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:40:31,227 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:40:31,303 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:40:31,303 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:40:31,306 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:40:31,307 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:40:31,307 - root - INFO - Port: 5001
+2025-06-08 20:40:31,307 - root - INFO - Debug mode: True
+2025-06-08 20:40:31,308 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:40:31,315 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:40:48,511 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 20:40:49,501 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:40:49,865 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:40:49,938 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:40:49,938 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:40:49,941 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:40:49,941 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:40:49,941 - root - INFO - Port: 5001
+2025-06-08 20:40:49,941 - root - INFO - Debug mode: True
+2025-06-08 20:40:49,943 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:40:49,950 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:41:03,946 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 20:41:04,127 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:41:04,645 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:41:04,729 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:41:04,729 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:41:04,732 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:41:04,732 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:41:04,732 - root - INFO - Port: 5001
+2025-06-08 20:41:04,732 - root - INFO - Debug mode: True
+2025-06-08 20:41:04,734 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:41:04,740 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:41:13,353 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/services/ai_service.py', reloading
+2025-06-08 20:41:13,875 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:41:14,415 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:41:14,509 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:41:14,509 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:41:14,512 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:41:14,512 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:41:14,512 - root - INFO - Port: 5001
+2025-06-08 20:41:14,512 - root - INFO - Debug mode: True
+2025-06-08 20:41:14,514 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:41:14,520 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:41:24,124 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/api.py', reloading
+2025-06-08 20:41:24,665 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:41:25,211 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:41:25,301 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:41:25,302 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:41:25,305 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:41:25,305 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:41:25,305 - root - INFO - Port: 5001
+2025-06-08 20:41:25,305 - root - INFO - Debug mode: True
+2025-06-08 20:41:25,307 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:41:25,314 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:41:47,382 - werkzeug - INFO -  * Detected change in '/Users/alibabaei/Projects/storyTeller/storyteller-python/app/storage/storage.py', reloading
+2025-06-08 20:41:47,562 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-06-08 20:41:48,073 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-08 20:41:48,333 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-08 20:41:48,333 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-08 20:41:48,336 - root - INFO - Starting StoryTeller API server...
+2025-06-08 20:41:48,336 - root - INFO - Host: 0.0.0.0
+2025-06-08 20:41:48,336 - root - INFO - Port: 5001
+2025-06-08 20:41:48,336 - root - INFO - Debug mode: True
+2025-06-08 20:41:48,338 - werkzeug - WARNING -  * Debugger is active!
+2025-06-08 20:41:48,345 - werkzeug - INFO -  * Debugger PIN: 770-745-223
+2025-06-08 20:42:30,861 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:30] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 20:42:30,864 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:30] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-08 20:42:30,865 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:30] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 20:42:30,867 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:30] "GET /api/status HTTP/1.1" 200 -
+2025-06-08 20:42:42,237 - app.services.firebase_service - INFO - Retrieved 9 stories
+2025-06-08 20:42:42,237 - app.storage.storage - INFO - Retrieved 9 stories
+2025-06-08 20:42:42,238 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:42] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 20:42:42,241 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:42:42,403 - app.services.firebase_service - INFO - Retrieved 3 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:42:42,403 - app.storage.storage - INFO - Retrieved 3 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:42:42,741 - app.services.ai_service - INFO - Generated big story goal: Seek immortality and uncover ancient cultivation secrets.
+2025-06-08 20:42:42,742 - app.services.ai_service - INFO - Using cultivation_progression genre for initial story
+2025-06-08 20:42:42,742 - app.services.story_planner - INFO - Generated new arc goal: 'Find and decode ancient cultivation manuals.' for theme: 'immortality'
+2025-06-08 20:42:42,742 - app.genres.cultivation_progression - INFO - Generated initial arc goal: Find and decode ancient cultivation manuals.
+2025-06-08 20:42:42,743 - app.genres.cultivation_progression - INFO - Generating cultivation progression story for Ali
+2025-06-08 20:42:42,743 - app.models.base_genre - INFO - Generating story for Ali
+2025-06-08 20:42:46,654 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 20:42:46,664 - app.models.base_genre - INFO - 🎭 GENRE GPT RESPONSE (2755 chars):
+2025-06-08 20:42:46,665 - app.models.base_genre - INFO - ============================================================
+2025-06-08 20:42:46,665 - app.models.base_genre - INFO - [STORY]
+Panel 1:
+Setting: A dense forest with ancient trees and glowing flora.
+Action: Ali, a young man with determined eyes and a mysterious aura, examines a glowing plant emitting blue qi.
+
+Panel 2:
+Action: Ali carefully plucks a leaf from the glowing plant, absorbing its essence. His eyes widen as he senses the energy flowing within him.
+Dialogue (Ali): "This plant's qi is potent. It resonates with ancient power."
+
+Panel 3:
+Setting: A clearing in the forest with a serene pond reflecting the moonlight.
+Action: A shadowy figure emerges, cloaked in darkness, wielding a sword crackling with dark qi.
+Dialogue (Shadowy Figure): "You dare disturb the harmony of this sacred forest, intruder!"
+
+Panel 4:
+Conflict: The Shadowy Figure attacks Ali with swift, powerful strikes, aiming to test his strength and determination.
+Action: Ali dodges the attacks, showcasing his agility and quick reflexes.
+Dialogue (Ali): "I seek only to understand this world's cultivation. I mean no harm."
+
+Panel 5:
+Action: Ali counterattacks with a burst of qi-infused energy, his own sword glowing with a bright, golden light.
+Cultivation Technique: Radiant Sunstrike - A technique that channels solar energy into a devastating sword attack.
+Dialogue (Ali): "Radiant Sunstrike!"
+
+Panel 6:
+Action: The Radiant Sunstrike clashes with the Shadowy Figure's dark qi, creating a dazzling explosion of contrasting energies.
+Consequence: The Shadowy Figure is momentarily stunned by Ali's unexpected power.
+Dialogue (Shadowy Figure): "Impressive, you possess the light's strength within you."
+
+Panel 7:
+Action: The Shadowy Figure reveals himself as a guardian spirit of the forest, impressed by Ali's respect for nature and his determination to learn cultivation.
+Dialogue (Guardian Spirit): "You have passed the trial. I shall guide you in your cultivation journey, Seeker of ancient secrets."
+Reward: Guardian Spirit offers to teach Ali a forbidden technique - Celestial Harmony, a technique that balances light and dark qi for harmonious cultivation.
+
+Panel 8:
+Ending:
+Ali bows respectfully to the Guardian Spirit, accepting his guidance and the knowledge of Celestial Harmony.
+Intriguing Ending: The Guardian Spirit leads Ali deeper into the forest, hinting at the hidden wonders and challenges awaiting him.
+[/STORY]
+
+[CHOICES]
+1. Accept the Guardian Spirit's offer and begin training in Celestial Harmony, seeking to balance light and dark energies within yourself.
+2. Express gratitude to the Guardian Spirit but request to explore the forest alone, eager to uncover cultivation secrets independently.
+3. Question the Guardian Spirit about the origins of the glowing plant and its significance, hoping to gain more insights into the world's cultivation mysteries.
+[/CHOICES]
+2025-06-08 20:42:46,665 - app.models.base_genre - INFO - ============================================================
+2025-06-08 20:42:46,666 - app.models.base_genre - INFO - Successfully parsed genre response: story=2278 chars, choices=3
+2025-06-08 20:42:46,666 - app.storage.storage - INFO - Using provided arc goal: Find and decode ancient cultivation manuals.
+2025-06-08 20:42:46,667 - app.storage.storage - INFO - Initialized memory with big goal: 'Recover the legendary artifact sealed by ancient cultivators.' and arc goal: 'Find and decode ancient cultivation manuals.'
+2025-06-08 20:42:46,797 - app.services.firebase_service - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:46,797 - app.storage.storage - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:46,797 - app.storage.storage - INFO - Created new story: story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:47,159 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:42:47,793 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:47] "POST /api/stories HTTP/1.1" 200 -
+2025-06-08 20:42:47,982 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:47,982 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:47,983 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:47] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:42:48,221 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:48,222 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:48,223 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:48] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:42:48,224 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:48,225 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:48,226 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:48] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:42:48,319 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:48,319 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:42:48,320 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:42:48] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:50:08,371 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:50:08] "OPTIONS /api/stories/story_1749440566_79d694d5/choices/3 HTTP/1.1" 200 -
+2025-06-08 20:50:08,376 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:50:08,564 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:08,564 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:09,191 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:50:09,294 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:09,294 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:09,552 - app.services.firebase_service - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:09,552 - app.storage.storage - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:09,552 - app.storage.storage - INFO - Saved choice 3 for node initial in story story_1749440566_79d694d5
+2025-06-08 20:50:09,552 - app.services.ai_service - INFO - Using cultivation_progression genre for story continuation
+2025-06-08 20:50:09,553 - app.services.ai_service - INFO - Using big story goal for cultivation continuation: Recover the legendary artifact sealed by ancient cultivators.
+2025-06-08 20:50:09,553 - app.genres.cultivation_progression - INFO - Continuing cultivation progression story for Ali
+2025-06-08 20:50:09,553 - app.models.base_genre - INFO - Generating story for Ali
+2025-06-08 20:50:15,595 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 20:50:15,601 - app.models.base_genre - INFO - 🎭 GENRE GPT RESPONSE (3626 chars):
+2025-06-08 20:50:15,602 - app.models.base_genre - INFO - ============================================================
+2025-06-08 20:50:15,602 - app.models.base_genre - INFO - [STORY]
+Panel 1:
+Setting: Inside a mystical cave hidden deep within the forest, illuminated by glowing crystals.
+Action: Ali stands before the Guardian Spirit, his eyes filled with curiosity and determination, ready to delve into the secrets of cultivation.
+Dialogue (Ali): "Guardian Spirit, can you tell me about the origins of the glowing plant? How does it connect to the world's cultivation?"
+
+Panel 2:
+Action: The Guardian Spirit, surrounded by an aura of ancient wisdom, gestures towards a mural depicting the plant's history.
+Dialogue (Guardian Spirit): "Long ago, this plant was a gift from the Celestial Dragons, imbued with the essence of balance and growth. Its qi holds the key to unlocking hidden potential."
+
+Panel 3:
+Action: The mural shimmers, revealing hidden symbols and cryptic writings detailing the cultivation techniques associated with the glowing plant.
+Cultivation Technique: Dragon's Essence Meditation - A method to harmonize one's qi with the Celestial Dragons' energy, unlocking dormant power within.
+Dialogue (Guardian Spirit): "To understand the plant's significance, you must master the Dragon's Essence Meditation."
+
+Panel 4:
+Action: Ali closes his eyes, focusing his qi as he attempts the Dragon's Essence Meditation technique, feeling the ancient power of the Celestial Dragons flowing through him.
+Emotional Reaction: A mix of awe and determination fills Ali's expression as he delves into the depths of cultivation knowledge.
+Dialogue (Ali): "The Celestial Dragons' energy is potent. I must master this technique to uncover the plant's true potential."
+
+Panel 5:
+Action: As Ali delves deeper into the meditation, a vision of a celestial dragon manifests before him, its majestic form radiating with divine light.
+Consequence: The celestial dragon's presence signifies Ali's connection to ancient powers and the potential for great cultivation advancement.
+Dialogue (Celestial Dragon): "Seeker of balance, embrace the essence of the Celestial Dragons and unlock the plant's true potential."
+
+Panel 6:
+Action: The celestial dragon bestows a shimmering scale, a symbol of the dragon's blessing and a key to unlocking the plant's hidden powers.
+Reward: Dragon Scale - Enhances qi control and unlocks the plant's dormant abilities for Ali's cultivation.
+Emotional Moment: Ali is filled with gratitude and determination, humbled by the dragon's blessing.
+Dialogue (Ali): "I am honored by your gift, Celestial Dragon. I will use it wisely in my cultivation journey."
+
+Panel 7:
+Setting: The mystical cave resonates with a harmonious energy, echoing the balance between light and dark qi.
+Action: The Guardian Spirit smiles, witnessing Ali's progress and newfound connection to the celestial dragon's energy.
+Dialogue (Guardian Spirit): "You have taken the first step towards unlocking the ancient powers within you. The path to enlightenment awaits, Seeker of balance."
+
+Panel 8:
+Ending:
+Ali bows respectfully to the Celestial Dragon and the Guardian Spirit, ready to embark on his journey to uncover the plant's hidden potential and master the Dragon's Essence Meditation.
+Intriguing Ending: The cave rumbles with a newfound energy, hinting at the challenges and revelations awaiting Ali as he progresses on his cultivation path.
+
+[CHOICES]
+1. Meditate further to strengthen the connection with the Celestial Dragon and unlock more of the plant's secrets.
+2. Explore the depths of the mystical cave to uncover additional ancient cultivation techniques and artifacts.
+3. Seek guidance from the Guardian Spirit on how to integrate the Dragon Scale into his cultivation practice for optimal results.
+2025-06-08 20:50:15,602 - app.models.base_genre - INFO - ============================================================
+2025-06-08 20:50:15,604 - app.models.base_genre - INFO - Successfully parsed genre response: story=3262 chars, choices=3
+2025-06-08 20:50:15,712 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:15,712 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:15,997 - app.services.firebase_service - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:15,997 - app.storage.storage - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:50:15,997 - app.storage.storage - INFO - Added node node_4000501720 to story story_1749440566_79d694d5
+2025-06-08 20:50:16,517 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:50:16] "POST /api/stories/story_1749440566_79d694d5/choices/3 HTTP/1.1" 200 -
+2025-06-08 20:52:11,559 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:52:11] "OPTIONS /api/stories/story_1749440566_79d694d5/choices/2 HTTP/1.1" 200 -
+2025-06-08 20:52:11,562 - app.auth - INFO - Authentication successful for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:52:11,778 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:11,779 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:12,326 - app.services.usage_service - INFO - Updated usage for user: Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:52:12,458 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:12,459 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:12,711 - app.services.firebase_service - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:12,711 - app.storage.storage - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:12,711 - app.storage.storage - INFO - Saved choice 2 for node node_4000501720 in story story_1749440566_79d694d5
+2025-06-08 20:52:12,711 - app.services.ai_service - INFO - Using cultivation_progression genre for story continuation
+2025-06-08 20:52:12,711 - app.services.ai_service - INFO - Using big story goal for cultivation continuation: Regain lost memories from a past life.
+2025-06-08 20:52:12,711 - app.genres.cultivation_progression - INFO - Continuing cultivation progression story for Ali
+2025-06-08 20:52:12,711 - app.models.base_genre - INFO - Generating story for Ali
+2025-06-08 20:52:18,996 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 20:52:19,000 - app.models.base_genre - INFO - 🎭 GENRE GPT RESPONSE (2899 chars):
+2025-06-08 20:52:19,000 - app.models.base_genre - INFO - ============================================================
+2025-06-08 20:52:19,001 - app.models.base_genre - INFO - [STORY]
+Panel 1:
+Setting: Deep within the mystical cave, Ali walks cautiously, his hand brushing against ancient runes etched into the walls.
+Action: Ali's curiosity drives him to search for more hidden knowledge, his eyes gleaming with determination.
+Panel 2:
+Action: A soft glow emanates from a hidden alcove, revealing a dusty tome covered in intricate symbols and diagrams.
+Discovery: Ancient Cultivation Manual - Whisper of the Elements, a forbidden technique said to harness the power of nature's elements.
+Panel 3:
+Action: Ali carefully opens the manual, feeling a surge of elemental qi swirling around him as the pages come to life with vibrant colors.
+Cultivation Technique: Elemental Harmony Stance - A technique that allows the user to attune to and manipulate the elements around them.
+Panel 4:
+Action: Ali adopts the Elemental Harmony Stance, his body surrounded by swirling wind, crackling lightning, and flowing water.
+Emotional Reaction: A mix of excitement and focus fills Ali as he connects with the elemental energies, feeling a newfound sense of power.
+Dialogue (Ali): "The elements respond to my will. This technique is truly remarkable."
+Panel 5:
+Action: Suddenly, the elemental energies surge out of control, creating a chaotic vortex that threatens to engulf Ali.
+Conflict: The unbridled power of the elements presents a dangerous challenge, testing Ali's control and mastery.
+Panel 6:
+Action: With quick thinking, Ali channels his qi with precision, calming the elemental energies and bringing harmony back to the cave.
+Consequence: Ali's quick thinking and control over the elements showcase his growing cultivation skills and adaptability.
+Dialogue (Guardian Spirit): "Balance is key, Seeker. Embrace the harmony of the elements to unlock their true potential."
+Panel 7:
+Action: The Guardian Spirit appears, observing Ali with a knowing gaze, impressed by his handling of the elemental challenge.
+Character Development: Ali's resilience and quick thinking earn him the respect of the Guardian Spirit, deepening their bond.
+Dialogue (Guardian Spirit): "You wield the elements with grace, a rare trait among cultivators. Your journey is filled with promise."
+Panel 8:
+Ending:
+Ali gazes at the Ancient Cultivation Manual with newfound determination, ready to delve deeper into the forbidden techniques and unlock the secrets of Whisper of the Elements.
+Intriguing Ending: The cave rumbles once more, hinting at the trials and revelations that lie ahead on Ali's path to recovering his lost memories.
+[CHOICES]
+1. Meditate further to attune to the elemental energies and unlock hidden insights within the Ancient Cultivation Manual.
+2. Seek guidance from the Guardian Spirit on how to navigate the dangers of mastering the Whisper of the Elements technique.
+3. Venture deeper into the cave in search of artifacts that can aid in mastering the elemental cultivation techniques.
+2025-06-08 20:52:19,001 - app.models.base_genre - INFO - ============================================================
+2025-06-08 20:52:19,001 - app.models.base_genre - INFO - Successfully parsed genre response: story=2533 chars, choices=3
+2025-06-08 20:52:19,108 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:19,109 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:19,452 - app.services.firebase_service - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:19,453 - app.storage.storage - INFO - Saved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:19,453 - app.storage.storage - INFO - Added node node_2548334051 to story story_1749440566_79d694d5
+2025-06-08 20:52:19,777 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:52:19] "POST /api/stories/story_1749440566_79d694d5/choices/2 HTTP/1.1" 200 -
+2025-06-08 20:52:41,684 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:41,685 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:41,686 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:52:41] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:52:42,031 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:42,031 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:42,032 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:42,032 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:42,033 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:52:42] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:52:42,034 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:52:42] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:52:42,170 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:42,171 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:52:42,172 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:52:42] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:53:44,134 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:53:44,134 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:53:44,136 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:53:44] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:53:44,258 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:53:44,258 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:53:44,260 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:53:44] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:53:44,264 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:53:44,265 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:53:44,265 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:53:44] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:53:44,383 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:53:44,384 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:53:44,385 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:53:44] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:54:20,959 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:54:20,960 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:54:20,962 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:54:20] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:54:21,074 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:54:21,075 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:54:21,076 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:54:21] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:54:21,176 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:54:21,177 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:54:21,178 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:54:21] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:54:21,308 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:54:21,308 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:54:21,309 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:54:21] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:54:25,444 - app.services.firebase_service - INFO - Retrieved 10 stories
+2025-06-08 20:54:25,444 - app.storage.storage - INFO - Retrieved 10 stories
+2025-06-08 20:54:25,446 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:54:25] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 20:54:25,471 - app.services.firebase_service - INFO - Retrieved 10 stories
+2025-06-08 20:54:25,472 - app.storage.storage - INFO - Retrieved 10 stories
+2025-06-08 20:54:25,473 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:54:25] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-08 20:54:25,629 - app.services.firebase_service - INFO - Retrieved 4 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:54:25,629 - app.storage.storage - INFO - Retrieved 4 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:54:25,630 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:54:25] "GET /api/stories HTTP/1.1" 200 -
+2025-06-08 20:54:25,864 - app.services.firebase_service - INFO - Retrieved 4 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:54:25,864 - app.storage.storage - INFO - Retrieved 4 stories for user Qbml4uDBe0O6YlYHLO4CuXFnXuu2
+2025-06-08 20:54:25,865 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:54:25] "GET /api/stories HTTP/1.1" 200 -
+2025-06-08 20:55:35,500 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:55:35,502 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:55:35,503 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:55:35] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:55:35,730 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:55:35,730 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:55:35,732 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:55:35] "OPTIONS /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:55:35,733 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:55:35,733 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:55:35,734 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:55:35] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -
+2025-06-08 20:55:35,860 - app.services.firebase_service - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:55:35,860 - app.storage.storage - INFO - Retrieved story story_1749440566_79d694d5: Ali's Cultivation Story
+2025-06-08 20:55:35,861 - werkzeug - INFO - 127.0.0.1 - - [08/Jun/2025 20:55:35] "GET /api/stories/story_1749440566_79d694d5 HTTP/1.1" 200 -

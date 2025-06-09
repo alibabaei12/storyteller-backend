@@ -7,9 +7,9 @@ from rich.text import Text
 from rich.prompt import Prompt, IntPrompt
 from rich.table import Table
 
-from .models import Story, StoryNode, Choice, StoryCreationParams
-from .storage import create_story, get_story, add_story_node, save_choice, get_all_stories
-from .ai_service import AIService
+from app.models.models import Story, StoryNode, Choice, StoryCreationParams
+from app.storage.storage import create_story, get_story, add_story_node, save_choice, get_all_stories
+from app.services.ai_service import AIService
 
 class StoryGame:
     """Main game class for the terminal-based interactive story experience."""
@@ -250,46 +250,44 @@ class StoryGame:
             )
             self.console.print(panel)
             
-            # Print choices
+            # Print the choices
             self.console.print("\n[bold]What will you do?[/bold]")
-            
             for i, choice in enumerate(self.current_node.choices, 1):
                 self.console.print(f"{i}. {choice.text}")
             
-            self.console.print("0. Save and return to main menu")
+            # Additional options
+            self.console.print("\n[bold]Options:[/bold]")
+            self.console.print("0. Return to main menu")
             
-            # Get user choice
+            # Get player choice
             choice_num = IntPrompt.ask(
                 "\nEnter your choice",
                 choices=["0"] + [str(i) for i in range(1, len(self.current_node.choices) + 1)]
             )
             
             if choice_num == 0:
-                # Return to main menu
                 return
             
             # Process the choice
             selected_choice = self.current_node.choices[choice_num - 1]
-            self.console.print(f"\nYou chose: {selected_choice.text}")
             
-            # Save the choice
+            # Update the current node with the selected choice
+            self.current_node.selected_choice_id = selected_choice.id
             save_choice(self.current_story.id, self.current_node.id, selected_choice.id)
             
-            # Generate continuation
+            # Generate next story content based on the choice
             self.console.print("\n[bold]Generating story continuation...[/bold]")
             
             try:
-                # Generate story content
                 story_content, choices = AIService.continue_story(
-                    character_name=self.current_story.character_name,
-                    character_gender=self.current_story.character_gender,
-                    setting=self.current_story.setting,
-                    tone=self.current_story.tone,
-                    previous_content=self.current_node.content,
-                    selected_choice=selected_choice.text,
-    
-                    manga_genre=getattr(self.current_story, 'manga_genre', None),
-                    character_origin=getattr(self.current_story, 'character_origin', 'normal')
+                    self.current_story.id,
+                    self.current_story.character_name,
+                    self.current_story.character_gender,
+                    self.current_node.content,
+                    selected_choice.text,
+                    self.current_story.setting,
+                    self.current_story.character_origin,
+                    self.current_story.manga_genre
                 )
                 
                 # Create the new node
@@ -299,54 +297,52 @@ class StoryGame:
                     content=story_content,
                     choices=choices,
                     parent_node_id=self.current_node.id,
-                    selected_choice_id=selected_choice.id
+                    selected_choice_id=None
                 )
                 
-                # Save the new node
-                updated_story = add_story_node(self.current_story.id, new_node)
+                # Add the new node to the story
+                add_story_node(self.current_story.id, new_node)
                 
-                if updated_story:
-                    self.current_story = updated_story
-                    self.current_node = new_node
-                else:
-                    raise Exception("Failed to update story")
+                # Update the current node
+                self.current_node = new_node
                 
             except Exception as e:
                 self.console.print(f"[bold red]Error continuing story:[/bold red] {str(e)}")
                 input("\nPress Enter to continue...")
     
     def _print_story_header(self):
-        """Print the story header with character info."""
+        """Print the story header with character information."""
         if not self.current_story:
             return
         
-        # Create header table
-        table = Table(show_header=False, show_edge=False, box=None, padding=(0, 1))
-        table.add_column("Key", style="dim")
-        table.add_column("Value", style="bold")
+        header = Table(show_header=False, show_footer=False, box=None)
+        header.add_column("Key", style="bold cyan")
+        header.add_column("Value", style="yellow")
         
-        table.add_row("Character", self.current_story.character_name)
-        table.add_row("Setting", self.current_story.setting.capitalize())
-        
+        header.add_row("Character", self.current_story.character_name)
+        header.add_row("Setting", self.current_story.setting.capitalize())
         if self.current_story.cultivation_stage:
-            table.add_row("Cultivation", self.current_story.cultivation_stage)
+            header.add_row("Cultivation Stage", self.current_story.cultivation_stage)
         
-        self.console.print(table)
+        self.console.print(header)
+        self.console.print("=" * 80)
     
     def _print_title(self):
         """Print the game title."""
         title = """
-███████╗████████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗██╗     ██╗     ███████╗██████╗ 
-██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔════╝██║     ██║     ██╔════╝██╔══██╗
-███████╗   ██║   ██║   ██║██████╔╝ ╚████╔╝    ██║   █████╗  ██║     ██║     █████╗  ██████╔╝
-╚════██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝     ██║   ██╔══╝  ██║     ██║     ██╔══╝  ██╔══██╗
-███████║   ██║   ╚██████╔╝██║  ██║   ██║      ██║   ███████╗███████╗███████╗███████╗██║  ██║
-╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
-                                                                                            
+        ███████╗████████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗██╗     ██╗     ███████╗██████╗ 
+        ██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔════╝██║     ██║     ██╔════╝██╔══██╗
+        ███████╗   ██║   ██║   ██║██████╔╝ ╚████╔╝    ██║   █████╗  ██║     ██║     █████╗  ██████╔╝
+        ╚════██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝     ██║   ██╔══╝  ██║     ██║     ██╔══╝  ██╔══██╗
+        ███████║   ██║   ╚██████╔╝██║  ██║   ██║      ██║   ███████╗███████╗███████╗███████╗██║  ██║
+        ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
         """
-        self.console.print(f"[bold cyan]{title}[/bold cyan]")
-        self.console.print("[italic]An AI-powered interactive fiction experience[/italic]", justify="center")
+        self.console.print(title, style="bold magenta")
     
     def _clear_screen(self):
         """Clear the terminal screen."""
-        os.system('cls' if os.name == 'nt' else 'clear') 
+        # Check if running in a terminal
+        if os.name == 'nt':  # Windows
+            os.system('cls')
+        else:  # Mac/Linux
+            os.system('clear') 

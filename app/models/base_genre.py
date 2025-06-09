@@ -1,9 +1,10 @@
 """
 Base class for story genre implementations with shared functionality.
 """
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from abc import ABC, abstractmethod
-from .models import Choice
+from pydantic import BaseModel, Field
+from app.models.models import Choice
 import openai
 import time
 import logging
@@ -14,8 +15,6 @@ logger = logging.getLogger(__name__)
 
 class BaseGenre:
     """Base class for all story genres with shared functionality."""
-    
-
     
     @staticmethod
     def create_gender_pronouns(character_gender: str) -> str:
@@ -28,6 +27,38 @@ class BaseGenre:
             return "they/them/their"
         else:
             return "they/them/their"
+            
+    @staticmethod
+    def create_character_origin_profile(character_origin: str, setting: str) -> str:
+        """Create character origin profile for prompt engineering."""
+        if character_origin == "reincarnated":
+            return f"The character was reincarnated from another world with knowledge of their past life."
+        elif character_origin == "weak":
+            return f"The character starts with major disadvantages and is considered weak in this world."
+        elif character_origin == "hidden":
+            return f"The character has hidden talents or a secret background not apparent to others."
+        elif character_origin == "genius":
+            return f"The character is naturally talented and learns much faster than others."
+        elif character_origin == "fallen":
+            return f"The character once had high status but has fallen from grace and must rebuild."
+        else:  # normal/ordinary
+            return f"The character has a normal background with no special advantages or disadvantages."
+    
+    @staticmethod
+    def create_character_origin_profile(character_origin: str, setting: str) -> str:
+        """Create character origin profile for prompt engineering."""
+        if character_origin == "reincarnated":
+            return f"The character was reincarnated from another world with knowledge of their past life."
+        elif character_origin == "weak":
+            return f"The character starts with major disadvantages and is considered weak in this world."
+        elif character_origin == "hidden":
+            return f"The character has hidden talents or a secret background not apparent to others."
+        elif character_origin == "genius":
+            return f"The character is naturally talented and learns much faster than others."
+        elif character_origin == "fallen":
+            return f"The character once had high status but has fallen from grace and must rebuild."
+        else:  # normal/ordinary
+            return f"The character has a normal background with no special advantages or disadvantages."
     
     @staticmethod
     def generate_story_with_openai(system_prompt: str, user_prompt: str, character_name: str, max_tokens: int = 1200, temperature: float = 0.8) -> str:
@@ -249,60 +280,57 @@ class BaseGenre:
             final_choices = choices[:3]
             logger.info(f"Successfully parsed genre response: story={len(story_content)} chars, choices={len(final_choices)}")
             return story_content, final_choices
-            
+        
         except Exception as e:
-            logger.error(f"Genre parsing failed with error: {e}")
-            logger.debug(f"Full response text: {response_text}")
-            raise ValueError(f"Failed to parse story response: {e}")
+            logger.error(f"Error parsing genre response: {e}")
+            # Return a very basic fallback in case of parsing error
+            return (
+                "The adventure continues...",
+                [
+                    Choice(id="1", text="Continue forward cautiously"),
+                    Choice(id="2", text="Take a bold approach to the situation"),
+                    Choice(id="3", text="Look for alternative options")
+                ]
+            )
     
     @staticmethod
     def generate_story_with_retry(system_prompt: str, user_prompt: str, character_name: str, max_retries: int = 3) -> Tuple[str, List[Choice]]:
-        """
-        Generate story with retry logic when parsing fails.
-        """
+        """Generate story content with retry logic for error handling."""
+        attempt = 0
         last_error = None
         
-        for attempt in range(max_retries + 1):
+        while attempt < max_retries:
             try:
-                if attempt > 0:
-                    logger.info(f"Retry attempt {attempt} for {character_name}")
-                    time.sleep(1)  # Brief delay between retries
+                # Generate content with OpenAI
+                response_text = BaseGenre.generate_story_with_openai(
+                    system_prompt=system_prompt,
+                    user_prompt=user_prompt,
+                    character_name=character_name
+                )
                 
-                # Generate content
-                content = BaseGenre.generate_story_with_openai(system_prompt, user_prompt, character_name)
-                
-                # Parse with strict validation
-                story_content, choices = BaseGenre.parse_story_response_strict(content)
-                
-                if attempt > 0:
-                    logger.info(f"Retry successful on attempt {attempt}")
-                
-                return story_content, choices
-                
-            except ValueError as e:
-                last_error = e
-                logger.warning(f"Parsing attempt {attempt + 1} failed: {e}")
-                continue
-            except openai.OpenAIError as e:
-                # For OpenAI API errors, don't retry unless it's rate limiting
-                logger.error(f"OpenAI API error on attempt {attempt + 1}: {e}")
-                if "rate_limit" in str(e).lower() and attempt < max_retries:
-                    logger.info(f"Rate limit detected, retrying in {2 ** attempt} seconds...")
-                    time.sleep(2 ** attempt)  # Exponential backoff for rate limits
-                    continue
-                raise
+                # Parse the response
+                return BaseGenre.parse_story_response_strict(response_text)
             except Exception as e:
-                # For other non-parsing errors, don't retry
-                logger.error(f"Non-retryable error: {e}")
-                raise
+                attempt += 1
+                last_error = e
+                logger.warning(f"Story generation attempt {attempt} failed: {e}")
+                time.sleep(1)  # Brief pause before retrying
         
-        # If all retries failed, raise the last parsing error
-        logger.error(f"All {max_retries + 1} attempts failed for {character_name}")
-        raise ValueError(f"Story generation failed after {max_retries + 1} attempts. Last error: {last_error}")
+        # If we've reached here, all attempts failed
+        logger.error(f"All {max_retries} story generation attempts failed: {last_error}")
+        return BaseGenre.create_fallback_story(
+            character_name,
+            f"The story begins with {character_name} facing an important decision...",
+            [
+                Choice(id="1", text="Proceed with determination"),
+                Choice(id="2", text="Seek more information first"),
+                Choice(id="3", text="Consider alternative approaches")
+            ]
+        )
 
 
-class Genre(ABC):
-    """Abstract base class that all story genres must inherit from."""
+class Genre(BaseModel):
+    """Base class for story genres."""
     
     @abstractmethod
     def generate_story(
@@ -311,7 +339,7 @@ class Genre(ABC):
         character_gender: str,
         character_origin: str = "normal"
     ) -> Tuple[str, List[Choice]]:
-        """Generate an initial story for this genre."""
+        """Generate a story opening for the given character."""
         pass
     
     @abstractmethod
@@ -323,17 +351,25 @@ class Genre(ABC):
         selected_choice: str,
         character_origin: str = "normal"
     ) -> Tuple[str, List[Choice]]:
-        """Continue a story for this genre based on the selected choice."""
+        """Continue a story based on the previous content and selected choice."""
         pass
     
     @property
     @abstractmethod
     def genre_name(self) -> str:
-        """Return the human-readable name of this genre."""
+        """Get the genre name."""
         pass
     
     @property
     @abstractmethod
     def genre_context(self) -> str:
-        """Return the context string used for fallbacks."""
-        pass 
+        """Get the genre context for fallback stories."""
+        pass
+
+    def get_prompt_rules(self) -> str:
+        """Get genre-specific prompt rules."""
+        return ""
+    
+    def get_prompt_style(self) -> str:
+        """Get genre-specific prompt style."""
+        return "" 

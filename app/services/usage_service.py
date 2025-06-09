@@ -1,9 +1,13 @@
 import os
 import json
+import logging
 from typing import Dict, Optional
 from datetime import datetime, timezone
-from .models import UserUsage
+from ..models.models import UserUsage
 from .firebase_service import firebase_service
+
+# Set up logger
+logger = logging.getLogger(__name__)
 
 class UsageService:
     """Service for tracking and managing user usage limits using Firebase."""
@@ -30,13 +34,14 @@ class UsageService:
                 )
                 # Save the new usage record
                 firebase_service.save_user_usage(usage)
-                print("[Usage] Created new usage record")
+                logger.info("Created new usage record")
             else:
                 # Migrate existing users to include new fields
                 if not hasattr(usage, 'stories_created_this_month'):
-                    # Count existing stories created this month
-                    from .storage import get_user_stories
+                    # Import here to avoid circular import
+                    from ..storage.storage import get_user_stories
                     
+                    # Count existing stories created this month
                     user_stories = get_user_stories(user_id)
                     current_month_stories = 0
                     
@@ -53,19 +58,19 @@ class UsageService:
                             if (story_date.year == datetime.now(timezone.utc).year and 
                                 story_date.month == datetime.now(timezone.utc).month):
                                 current_month_stories += 1
-                                print(f"[Usage] Found story from this month: {story_meta.title} created on {story_date}")
+                                logger.info(f"Found story from this month: {story_meta.title} created on {story_date}")
                         except Exception as e:
-                            print(f"[Usage] Error parsing date for story {story_meta.title}: {e}")
+                            logger.error(f"Error parsing date for story {story_meta.title}: {e}")
                             # Skip this story in count to be safe
                     
                     usage.stories_created_this_month = current_month_stories
                     usage.stories_created_limit = 5
                     firebase_service.save_user_usage(usage)
-                    print(f"[Usage] Migrated user: found {current_month_stories} stories this month")
+                    logger.info(f"Migrated user: found {current_month_stories} stories this month")
             
             return usage
         except Exception as e:
-            print(f"[Usage] Error getting user usage: {e}")
+            logger.error(f"Error getting user usage: {e}")
             # Return default usage as fallback
             return UserUsage(
                 user_id=user_id,
@@ -80,9 +85,9 @@ class UsageService:
         """Update usage data for a specific user in Firebase."""
         try:
             firebase_service.save_user_usage(usage)
-            print(f"[Usage] Updated usage for user: {user_id}")
+            logger.info(f"Updated usage for user: {user_id}")
         except Exception as e:
-            print(f"[Usage] Error updating user usage: {e}")
+            logger.error(f"Error updating user usage: {e}")
             raise
     
     def increment_story_continuations(self, user_id: str) -> UserUsage:
@@ -93,7 +98,7 @@ class UsageService:
             self.update_user_usage(user_id, usage)
             return usage
         except Exception as e:
-            print(f"[Usage] Error incrementing story continuations: {e}")
+            logger.error(f"Error incrementing story continuations: {e}")
             raise
     
     def can_continue_story(self, user_id: str) -> bool:
@@ -102,7 +107,7 @@ class UsageService:
             usage = self.get_user_usage(user_id)
             return usage.story_continuations_used < usage.story_continuations_limit
         except Exception as e:
-            print(f"[Usage] Error checking story continuation limit: {e}")
+            logger.error(f"Error checking story continuation limit: {e}")
             return False  # Conservative approach - deny if error
     
     def get_remaining_continuations(self, user_id: str) -> int:
@@ -112,7 +117,7 @@ class UsageService:
             remaining = usage.story_continuations_limit - usage.story_continuations_used
             return max(0, remaining)  # Ensure non-negative
         except Exception as e:
-            print(f"[Usage] Error getting remaining continuations: {e}")
+            logger.error(f"Error getting remaining continuations: {e}")
             return 0  # Conservative approach
     
     def can_create_story(self, user_id: str) -> bool:
@@ -126,7 +131,7 @@ class UsageService:
             stories_limit = getattr(usage, 'stories_created_limit', 5)
             return stories_created < stories_limit
         except Exception as e:
-            print(f"[Usage] Error checking story creation limit: {e}")
+            logger.error(f"Error checking story creation limit: {e}")
             return False  # Conservative approach - deny if error
     
     def increment_stories_created(self, user_id: str) -> UserUsage:
@@ -137,7 +142,7 @@ class UsageService:
             self.update_user_usage(user_id, usage)
             return usage
         except Exception as e:
-            print(f"[Usage] Error incrementing stories created: {e}")
+            logger.error(f"Error incrementing stories created: {e}")
             raise
     
     def decrement_stories_created(self, user_id: str) -> UserUsage:
@@ -147,10 +152,10 @@ class UsageService:
             # Ensure we don't go below 0
             usage.stories_created_this_month = max(0, usage.stories_created_this_month - 1)
             self.update_user_usage(user_id, usage)
-            print(f"[Usage] Decremented stories created for user {user_id}: {usage.stories_created_this_month}")
+            logger.info(f"Decremented stories created for user {user_id}: {usage.stories_created_this_month}")
             return usage
         except Exception as e:
-            print(f"[Usage] Error decrementing stories created: {e}")
+            logger.error(f"Error decrementing stories created: {e}")
             raise
     
     def get_remaining_stories(self, user_id: str) -> int:
@@ -160,13 +165,15 @@ class UsageService:
             remaining = usage.stories_created_limit - usage.stories_created_this_month
             return max(0, remaining)  # Ensure non-negative
         except Exception as e:
-            print(f"[Usage] Error getting remaining stories: {e}")
+            logger.error(f"Error getting remaining stories: {e}")
             return 0  # Conservative approach
     
     def _auto_correct_usage(self, user_id: str) -> None:
         """Auto-correct usage count by recounting actual current stories."""
         try:
-            from .storage import get_user_stories
+            # Import here to avoid circular import
+            from ..storage.storage import get_user_stories
+            
             user_stories = get_user_stories(user_id)
             
             # Count current month stories manually
@@ -183,47 +190,47 @@ class UsageService:
                     if (story_date.year == now.year and story_date.month == now.month):
                         current_month_stories += 1
                 except Exception as e:
-                    print(f"[Usage] Error parsing story date: {e}")
+                    logger.error(f"Error parsing story date: {e}")
             
             # Update usage if different
             usage = firebase_service.get_user_usage(user_id)
             if usage and hasattr(usage, 'stories_created_this_month'):
                 if usage.stories_created_this_month != current_month_stories:
-                    print(f"[Usage] Auto-correcting count for {user_id}: {usage.stories_created_this_month} -> {current_month_stories}")
+                    logger.info(f"Auto-correcting count for {user_id}: {usage.stories_created_this_month} -> {current_month_stories}")
                     usage.stories_created_this_month = current_month_stories
                     firebase_service.save_user_usage(usage)
         except Exception as e:
-            print(f"[Usage] Error in auto-correction: {e}")
+            logger.error(f"Error in auto-correction: {e}")
 
     def reset_daily_limits(self, user_id: str) -> None:
         """Reset daily limits for a user (for admin use)."""
         try:
             usage = self.get_user_usage(user_id)
             usage.story_continuations_used = 0
-            usage.last_reset_date = datetime.now(timezone.utc)
-            self.update_user_usage(user_id, usage)
-            print(f"[Usage] Reset daily limits for user: {user_id}")
+            firebase_service.save_user_usage(usage)
+            logger.info(f"Reset daily limits for user: {user_id}")
         except Exception as e:
-            print(f"[Usage] Error resetting daily limits: {e}")
+            logger.error(f"Error resetting daily limits: {e}")
             raise
     
-    # Legacy methods for backward compatibility
     def _load_all_usage(self) -> Dict[str, UserUsage]:
-        """Load all user usage data (legacy method - now uses Firebase)."""
+        """Load all usage data from Firebase (for admin use)."""
         try:
             return firebase_service.get_all_user_usage()
         except Exception as e:
-            print(f"[Usage] Error loading all usage data: {e}")
+            logger.error(f"Error loading all usage: {e}")
             return {}
     
     def _save_all_usage(self, usage_data: Dict[str, UserUsage]) -> None:
-        """Save all user usage data (legacy method - now saves to Firebase)."""
+        """Save all usage data to Firebase (for admin use)."""
         try:
             for user_id, usage in usage_data.items():
                 firebase_service.save_user_usage(usage)
+            logger.info(f"Saved {len(usage_data)} usage records")
         except Exception as e:
-            print(f"[Usage] Error saving all usage data: {e}")
+            logger.error(f"Error saving all usage: {e}")
+            raise
 
 
-# Global usage service instance
+# Create a single instance to be imported by other modules
 usage_service = UsageService() 

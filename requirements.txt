@@ -16,3 +16,5 @@ uuid==1.30
 typing-extensions==4.8.0
 requests
 firebase-admin
+tiktoken
+tenacity

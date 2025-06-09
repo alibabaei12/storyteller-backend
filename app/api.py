@@ -2,22 +2,29 @@ from flask import Flask, request, jsonify, redirect, g
 from flask_cors import CORS
 import os
 import json
+import logging
 from uuid import uuid4
+from .config.logging import setup_logging
 
-from .models import Story, StoryNode, Choice, StoryCreationParams, StoryMetadata, FeedbackRequest
-from .storage import (
+# Configure logging
+setup_logging()
+
+from .models.models import Story, StoryNode, Choice, StoryCreationParams, StoryMetadata, FeedbackRequest
+from .storage.storage import (
     save_story, 
     get_story, 
     delete_story, 
     get_all_stories, 
-    add_story_node, 
-    save_choice, 
-    create_story,
     get_user_stories,
-    submit_feedback
+    add_story_node,
+    save_choice,
+    create_story,
+    submit_feedback,
+    update_story_share_token,
+    get_story_by_share_token
 )
-from .ai_service import AIService
-from .usage_service import usage_service
+from .services import AIService
+from .services.usage_service import usage_service
 from .auth import auth_required, auth_optional
 
 # Initialize Flask app
@@ -155,15 +162,15 @@ def delete_story_by_id(story_id):
                 if (story_created.year == now.year and 
                     story_created.month == now.month):
                     usage_service.decrement_stories_created(user_id)
-                    print("[API] Decremented usage count for user")
+                    logging.info(f"[API] Decremented usage count for user {user_id}")
             except Exception as e:
-                print(f"[API] Error updating usage after delete: {e}")
+                logging.error(f"[API] Error updating usage after delete: {e}")
                 # Don't fail the delete if usage update fails
         
         return jsonify({'success': True})
     
     except Exception as e:
-        print(f"[API] Error in delete_story_by_id: {e}")
+        logging.error(f"[API] Error in delete_story_by_id: {e}")
         return jsonify({'error': 'Failed to delete story'}), 500
 
 @app.route('/api/stories', methods=['POST', 'OPTIONS'])
@@ -198,7 +205,7 @@ def create_new_story():
         )
         
         # Generate initial story content
-        story_content, choices = AIService.generate_initial_story(
+        story_content, choices, arc_goal = AIService.generate_initial_story(
             character_name=params.character_name,
             character_gender=params.character_gender,
             setting=params.setting,
@@ -216,7 +223,7 @@ def create_new_story():
         )
         
         # Create the story
-        story = create_story(params, initial_node)
+        story = create_story(params, initial_node, arc_goal)
         
         # Increment stories created count
         usage_service.increment_stories_created(user_id)
@@ -293,17 +300,31 @@ def make_choice(story_id, choice_id):
         print(f"🔍 DEBUG API: selected_choice='{selected_choice.text}'")
         print(f"🔍 DEBUG API: previous_content length={len(current_node.content)} chars")
         
-        story_content, choices = AIService.continue_story(
-            character_name=story.character_name,
-            character_gender=story.character_gender,
-            setting=story.setting,
-            tone=story.tone,
-            previous_content=current_node.content,
-            selected_choice=selected_choice.text,
-
-            manga_genre=manga_genre_value,
-            character_origin=getattr(story, 'character_origin', 'normal')
-        )
+        # For cultivation_progression, we also want to pass characters if available
+        if manga_genre_value == "cultivation_progression" and hasattr(story, 'memory') and story.memory is not None:
+            story_content, choices = AIService.continue_story(
+                character_name=story.character_name,
+                character_gender=story.character_gender,
+                setting=story.setting,
+                tone=story.tone,
+                previous_content=current_node.content,
+                selected_choice=selected_choice.text,
+                manga_genre=manga_genre_value,
+                character_origin=getattr(story, 'character_origin', 'normal'),
+                characters=story.memory.characters if hasattr(story.memory, 'characters') else [],
+                memory=story.memory
+            )
+        else:
+            story_content, choices = AIService.continue_story(
+                character_name=story.character_name,
+                character_gender=story.character_gender,
+                setting=story.setting,
+                tone=story.tone,
+                previous_content=current_node.content,
+                selected_choice=selected_choice.text,
+                manga_genre=manga_genre_value,
+                character_origin=getattr(story, 'character_origin', 'normal')
+            )
         
         # Create new node
         new_node_id = f"node_{int(uuid4().hex[:8], 16)}"
@@ -315,7 +336,7 @@ def make_choice(story_id, choice_id):
             selected_choice_id=choice_id
         )
         
-        # Add the node to the story
+        # Add the new node to the story
         updated_story = add_story_node(story_id, new_node)
         
         if not updated_story:
@@ -374,8 +395,6 @@ def reset_usage():
     usage_service.reset_daily_limits(user_id)
     return jsonify({'success': True})
 
-
-
 @app.route('/api/stories/<story_id>/share', methods=['POST', 'OPTIONS'])
 @auth_required
 def generate_share_token(story_id):
@@ -400,7 +419,6 @@ def generate_share_token(story_id):
             story.is_shareable = True
             
             # Update the story in storage
-            from .storage import update_story_share_token
             success = update_story_share_token(story_id, story.share_token)
             if not success:
                 return jsonify({'error': 'Failed to generate share token'}), 500
@@ -428,7 +446,6 @@ def view_shared_story(share_token):
     """API endpoint to get shared story data for frontend."""
     try:
         # Find story by share token
-        from .storage import get_story_by_share_token
         story = get_story_by_share_token(share_token)
         
         if not story or not story.is_shareable:

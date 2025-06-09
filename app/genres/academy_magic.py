@@ -1,11 +1,20 @@
 """
 Academy Magic genre implementation for magical school stories.
 """
-from typing import List, Tuple
+from typing import List, Tuple, Optional, Literal
 import openai
 import logging
-from ..models import Choice
-from ..base_genre import BaseGenre, Genre
+from pydantic import Field
+from app.models.models import Choice
+from app.models.base_genre import BaseGenre, Genre
+import os
+import json
+import random
+from dotenv import load_dotenv
+from ..services import AIService  # Fixed import using relative path
+
+# Load environment variables
+load_dotenv()
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -13,30 +22,31 @@ logger = logging.getLogger(__name__)
 class AcademyMagic(Genre):
     """Academy magic story generator for magical school narratives."""
     
+    genre_name_value: Literal["Academy Magic"] = "Academy Magic"
+    genre_context_value: Literal["magical academy realm"] = "magical academy realm"
+    
     @property
     def genre_name(self) -> str:
-        return "Academy Magic"
+        return self.genre_name_value
     
     @property
     def genre_context(self) -> str:
-        return "magical academy realm"
+        return self.genre_context_value
     
     def generate_story(
         self,
         character_name: str,
         character_gender: str,
-        character_origin: str = "normal"
+        character_origin: str = "normal",
+        big_story_goal: str = None
     ) -> Tuple[str, List[Choice]]:
         """Generate an academy magic story opening."""
         
         # Create gender-specific pronouns
         pronouns = BaseGenre.create_gender_pronouns(character_gender)
         
-        # Import the origin profile method
-        from app.ai_service import AIService
-        
         # Create character origin profile
-        origin_prompt = AIService._create_character_origin_profile(character_origin, "academy")
+        origin_prompt = BaseGenre.create_character_origin_profile(character_origin, "academy")
         
         system_prompt = f"""You are creating an engaging magical academy manga/manhwa opening scene.
 
@@ -128,7 +138,8 @@ Make it engaging and magical like a real school magic manga chapter opening."""
         character_gender: str,
         previous_content: str,
         selected_choice: str,
-        character_origin: str = None
+        character_origin: str = None,
+        big_story_goal: str = None
     ) -> Tuple[str, List[Choice]]:
         """Continue an academy magic story."""
         
