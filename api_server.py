@@ -4,9 +4,11 @@ Simple API server for StoryTeller
 Run with: python3 api_server.py
 """
 
-import os
 import logging
+import os
+
 from dotenv import load_dotenv
+
 from app.api import app
 from app.config.logging import setup_logging
 

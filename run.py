@@ -4,6 +4,7 @@ Development server script for StoryTeller API.
 """
 
 import logging
+
 from app.api import app
 from app.config.logging import setup_logging
 

@@ -1,0 +1,3 @@
+2025-06-09 20:31:18,500 - app.services.firebase_service - INFO - Initialized with environment credentials for project: storyteller-6deea
+2025-06-09 20:31:19,602 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-09 20:31:19,603 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation

@@ -1,10 +1,9 @@
-import os
-import json
 import logging
-from typing import Dict, Optional
 from datetime import datetime, timezone
-from ..models.models import UserUsage
+from typing import Dict
+
 from .firebase_service import firebase_service
+from ..models.models import UserUsage
 
 # Set up logger
 logger = logging.getLogger(__name__)

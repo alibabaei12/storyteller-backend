@@ -1,11 +1,13 @@
 """Authentication middleware for development with minimal token validation."""
 
-import os
-import json
 import base64
+import json
 import logging
+import os
 from functools import wraps
+
 from flask import request, jsonify, g
+
 from .config.logging import setup_logging
 
 # Configure logging

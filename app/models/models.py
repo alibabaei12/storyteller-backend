@@ -1,8 +1,10 @@
-from pydantic import BaseModel, Field, validator
-from typing import Dict, List, Optional, Any
-from datetime import datetime, timezone
-from uuid import uuid4
 import time
+from datetime import datetime, timezone
+from typing import Dict, List, Optional, Any
+from uuid import uuid4
+
+from pydantic import BaseModel, Field
+
 
 class Choice(BaseModel):
     """A choice that the user can make in the story."""
@@ -53,7 +55,6 @@ class Story(BaseModel):
     setting: str
     tone: str
     character_origin: str
-    manga_genre: Optional[str] = None
     nodes: Dict[str, StoryNode]
     current_node_id: str
     last_updated: float = Field(default_factory=lambda: time.time())
@@ -77,7 +78,6 @@ class StoryCreationParams(BaseModel):
     setting: str = "cultivation"
     tone: str = "optimistic"
     character_origin: str = "ordinary"
-    manga_genre: Optional[str] = None
     user_id: Optional[str] = None
 
 class StoryMetadata(BaseModel):

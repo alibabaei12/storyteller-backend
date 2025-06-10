@@ -1,12 +1,12 @@
-import os
 import json
-from typing import List, Optional, Dict
+import logging
+import os
+from datetime import datetime, timezone
+from typing import List, Optional
+from uuid import uuid4
+
 from ..models.models import Story, StoryNode, StoryMetadata, Choice, StoryCreationParams, Feedback, FeedbackRequest
 from ..services.firebase_service import firebase_service
-from datetime import datetime, timezone, timedelta
-from uuid import uuid4
-from .utils import serialize, deserialize
-import logging
 
 # Get the logger
 logger = logging.getLogger(__name__)
@@ -191,10 +191,10 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
         memory = None
         big_story_goal = None
         
-        if params.manga_genre == "cultivation_progression":
+        if params.tone == "cultivation":
             # Generate a big story goal
             from ..services.story_planner import generate_big_story_goal
-            big_story_goal = generate_big_story_goal("cultivation_progression")
+            big_story_goal = generate_big_story_goal("cultivation_setting")
             
             # Create a memory object with the big story goal
             memory = StoryMemory(
@@ -235,7 +235,6 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
             setting=params.setting,
             tone=params.tone,
             character_origin=params.character_origin,
-            manga_genre=params.manga_genre,  # Add the missing manga_genre field
             power_system="auto",  # AI will decide the appropriate power system
             cultivation_stage=cultivation_stage,
             current_node_id=node.id,

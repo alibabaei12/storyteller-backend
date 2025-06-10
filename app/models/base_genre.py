@@ -1,13 +1,15 @@
 """
 Base class for story genre implementations with shared functionality.
 """
-from typing import List, Tuple, Optional
-from abc import ABC, abstractmethod
-from pydantic import BaseModel, Field
-from app.models.models import Choice
-import openai
-import time
 import logging
+import time
+from abc import abstractmethod
+from typing import List, Tuple
+
+import openai
+from pydantic import BaseModel
+
+from app.models.models import Choice
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -45,21 +47,42 @@ class BaseGenre:
             return f"The character has a normal background with no special advantages or disadvantages."
     
     @staticmethod
-    def create_character_origin_profile(character_origin: str, setting: str) -> str:
+    def create_character_origin_profile(character_origin: str, character_name: str) -> str:
         """Create character origin profile for prompt engineering."""
         if character_origin == "reincarnated":
-            return f"The character was reincarnated from another world with knowledge of their past life."
+            return f"""The character was reincarnated from another world with extensive knowledge and unique
+             perspectives from their past life. This past life experience should constantly provide {character_name} 
+             with unconventional solutions, advanced insights into cultivation techniques, or surprising foresight,
+              often setting them apart from others. Showcase how this past knowledge gives {character_name}
+               an edge or creates unique internal conflicts."""
         elif character_origin == "weak":
-            return f"The character starts with major disadvantages and is considered weak in this world."
+            return f"""The character starts with major disadvantages and is considered weak in this world.
+             This 'weakness' should be a constant challenge, forcing {character_name} to rely on cunning, sheer grit, 
+             resourcefulness, or unconventional training methods to overcome obstacles. Emphasize their struggle and 
+             their journey to defy expectations, making small gains feel significant."""
         elif character_origin == "hidden":
-            return f"The character has hidden talents or a secret background not apparent to others."
+            return f"""The character has hidden talents or a secret background not apparent to others. 
+            This hidden aspect should be hinted at, subtly influencing {character_name}'s abilities or decision-making.
+             Occasionally, this hidden power or background should manifest unexpectedly, surprising both {character_name} 
+             and other characters, and potentially drawing unwanted attention."""
         elif character_origin == "genius":
-            return f"The character is naturally talented and learns much faster than others."
+            return f"""The character is naturally talented and learns much faster than others.
+             This genius should be consistently demonstrated through rapid comprehension of complex techniques, 
+             intuitive problem-solving, or groundbreaking discoveries. While gifted, ensure {character_name}
+              still faces challenges, perhaps due to jealousy, lack of experience, or overconfidence,
+               rather than just raw power."""
         elif character_origin == "fallen":
-            return f"The character once had high status but has fallen from grace and must rebuild."
+            return f"""The character once had high status but has fallen from grace and must rebuild. 
+            This 'fallen' status should influence {character_name}'s current challenges, motivations 
+            (e.g., reclaiming honor, seeking revenge, protecting someone), and interactions with others 
+            (some might scorn them, others might secretly support). Showcase the struggle to regain their standing 
+            and the internal conflict of their past versus present."""
         else:  # normal/ordinary
-            return f"The character has a normal background with no special advantages or disadvantages."
-    
+            return f"""The character has a normal background with no special advantages or disadvantages. 
+            Their progression should primarily come from hard work, mentorship, and relatable growth, making their 
+            achievements feel earned and grounded. Focus on their perseverance and gradual mastery of challenges 
+            through dedication."""
+
     @staticmethod
     def generate_story_with_openai(system_prompt: str, user_prompt: str, character_name: str, max_tokens: int = 1200, temperature: float = 0.8) -> str:
         """Generate story content using OpenAI API."""

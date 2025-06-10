@@ -1,18 +1,17 @@
-from flask import Flask, request, jsonify, redirect, g
-from flask_cors import CORS
-import os
-import json
 import logging
 from uuid import uuid4
+
+from flask import Flask, request, jsonify, g
+from flask_cors import CORS
+
 from .config.logging import setup_logging
 
 # Configure logging
 setup_logging()
 
-from .models.models import Story, StoryNode, Choice, StoryCreationParams, StoryMetadata, FeedbackRequest
+from .models.models import StoryNode, StoryCreationParams, FeedbackRequest
 from .storage.storage import (
-    save_story, 
-    get_story, 
+    get_story,
     delete_story, 
     get_all_stories, 
     get_user_stories,
@@ -200,7 +199,6 @@ def create_new_story():
             setting=data.get('setting', 'cultivation'),
             tone=data.get('tone', 'shonen'),
             character_origin=data.get('character_origin', 'weak'),
-            manga_genre=data.get('manga_genre', None),
             user_id=g.user_id  # Add the authenticated user's ID
         )
         
@@ -211,7 +209,6 @@ def create_new_story():
             setting=params.setting,
             tone=params.tone,
             character_origin=params.character_origin,
-            manga_genre=params.manga_genre
         )
         
         # Create initial node
@@ -295,13 +292,12 @@ def make_choice(story_id, choice_id):
         save_choice(story_id, current_node.id, choice_id)
         
         # Generate continuation
-        manga_genre_value = getattr(story, 'manga_genre', None)
-        print(f"🔍 DEBUG API: character_name={story.character_name}, manga_genre={manga_genre_value}, setting={story.setting}")
+        print(f"🔍 DEBUG API: character_name={story.character_name}, setting={story.setting}")
         print(f"🔍 DEBUG API: selected_choice='{selected_choice.text}'")
         print(f"🔍 DEBUG API: previous_content length={len(current_node.content)} chars")
         
         # For cultivation_progression, we also want to pass characters if available
-        if manga_genre_value == "cultivation_progression" and hasattr(story, 'memory') and story.memory is not None:
+        if story.setting == "cultivation" and hasattr(story, 'memory') and story.memory is not None:
             story_content, choices = AIService.continue_story(
                 character_name=story.character_name,
                 character_gender=story.character_gender,
@@ -309,7 +305,6 @@ def make_choice(story_id, choice_id):
                 tone=story.tone,
                 previous_content=current_node.content,
                 selected_choice=selected_choice.text,
-                manga_genre=manga_genre_value,
                 character_origin=getattr(story, 'character_origin', 'normal'),
                 characters=story.memory.characters if hasattr(story.memory, 'characters') else [],
                 memory=story.memory
@@ -322,7 +317,6 @@ def make_choice(story_id, choice_id):
                 tone=story.tone,
                 previous_content=current_node.content,
                 selected_choice=selected_choice.text,
-                manga_genre=manga_genre_value,
                 character_origin=getattr(story, 'character_origin', 'normal')
             )
         

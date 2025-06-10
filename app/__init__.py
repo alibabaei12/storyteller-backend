@@ -1,9 +1,10 @@
 """
 StoryTeller Python API for interactive fiction stories.
 """
-import os
 import logging
+import os
 from logging.handlers import RotatingFileHandler
+
 import openai
 
 # Set up logging
@@ -20,7 +21,6 @@ logging.basicConfig(
     ]
 )
 
-from .genres.game import StoryGame
 from .storage.storage import get_all_stories, save_story, get_story, delete_story, add_story_node, save_choice, create_story
 from .models.models import Story, StoryNode, Choice, StoryCreationParams, StoryMetadata
 from .services import AIService

@@ -1,17 +1,14 @@
 """
 Fantasy Adventure genre implementation for epic quest stories.
 """
-from typing import List, Tuple, Optional, Literal
-import openai
 import logging
-from pydantic import Field
-from app.models.models import Choice
-from app.models.base_genre import BaseGenre, Genre
-import os
-import json
-import random
+from typing import List, Tuple, Literal
+
+import openai
 from dotenv import load_dotenv
-from ..services import AIService  # Fixed import using relative path
+
+from app.models.base_genre import BaseGenre, Genre
+from app.models.models import Choice
 
 # Load environment variables
 load_dotenv()

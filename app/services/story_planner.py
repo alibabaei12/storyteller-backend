@@ -1,10 +1,10 @@
 """
 Story planning utilities for generating story goals and arcs.
 """
+import logging
 import random
 import re
-import logging
-from typing import Dict, List, Optional, Union, Any
+from typing import List, Optional, Any
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -83,7 +83,7 @@ def generate_big_story_goal(setting: str) -> str:
     Returns:
         A randomly selected big story goal appropriate for the setting
     """
-    if setting == "cultivation_progression":
+    if setting == "cultivation":
         goals = [
             "Revenge on the Sect Leader who betrayed their family.",
             "Seek immortality and uncover ancient cultivation secrets.",
