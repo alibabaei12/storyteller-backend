@@ -7,6 +7,7 @@ from uuid import uuid4
 
 from ..models.models import Story, StoryNode, StoryMetadata, Choice, StoryCreationParams, Feedback, FeedbackRequest
 from ..services.firebase_service import firebase_service
+from ..services.story_planner import generate_big_story_goal
 
 # Get the logger
 logger = logging.getLogger(__name__)
@@ -88,11 +89,36 @@ def add_story_node(story_id: str, node: StoryNode) -> Optional[Story]:
         # Update timestamp
         story.last_updated = node.timestamp
         
-        # Save the story
-        save_story(story)
+        # Update memory if it exists
+        if hasattr(story, 'memory') and story.memory:
+            # Add node ID to story_nodes if not already there
+            if node.id not in story.memory.story_nodes:
+                story.memory.story_nodes.append(node.id)
+            logger.info(f"Updated story memory with node {node.id}")
         
-        logger.info(f"Added node {node.id} to story {story_id}")
-        return story
+        # Save the story
+        try:
+            save_story(story)
+            logger.info(f"Added node {node.id} to story {story_id}")
+            return story
+        except Exception as e:
+            logger.error(f"Error saving story after adding node: {e}")
+            # Try to save without memory if there might be an issue there
+            if hasattr(story, 'memory'):
+                try:
+                    # Create a backup of memory
+                    memory_backup = story.memory
+                    # Try saving without memory
+                    story.memory = None
+                    save_story(story)
+                    # Restore memory and try again
+                    story.memory = memory_backup
+                    save_story(story)
+                    logger.info(f"Successfully saved story after memory adjustment")
+                    return story
+                except Exception as backup_error:
+                    logger.error(f"Failed backup save attempt: {backup_error}")
+            return None
     except Exception as e:
         logger.error(f"Error adding node: {e}")
         return None
@@ -125,25 +151,13 @@ def save_choice(story_id: str, node_id: str, choice_id: str) -> Optional[Story]:
         logger.error(f"Error saving choice: {e}")
         return None
 
-def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] = None, arc_goal: Optional[str] = None) -> Story:
+def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] = None, arc_goal: Optional[str] = None, big_story_goal: str = "", all_arc_goals: Optional[List[str]] = None) -> Story:
     """Create a new story with the given parameters in Firebase."""
     try:
         # Generate title based on setting and tone
-        tone_titles = {
-            "romantic": "Love Story", "mystery": "Mystery", "adventure": "Adventure", 
-            "thriller": "Thriller", "comedy": "Comedy", "drama": "Story",
-            "horror": "Horror Tale", "slice-of-life": "Story", "epic": "Epic",
-            "philosophical": "Journey"
-        }
-        
-        setting_titles = {
-            "modern": "Urban", "fantasy": "Fantasy", "scifi": "Space", 
-            "academy": "Academy", "historical": "Historical", "gamelike": "Game",
-            "cultivation": "Cultivation", "apocalypse": "Survival"
-        }
-        
-        tone_title = tone_titles.get(params.tone, "Story")
-        setting_title = setting_titles.get(params.setting, "")
+
+        tone_title = params.tone
+        setting_title = params.setting
         
         if setting_title:
             title = f"{params.character_name}'s {setting_title} {tone_title}"
@@ -188,44 +202,106 @@ def create_story(params: StoryCreationParams, initial_node: Optional[StoryNode] 
         
         # For cultivation stories, initialize memory with story goals
         from ..models.models import StoryMemory
-        memory = None
-        big_story_goal = None
-        
-        if params.tone == "cultivation":
-            # Generate a big story goal
-            from ..services.story_planner import generate_big_story_goal
-            big_story_goal = generate_big_story_goal("cultivation_setting")
-            
-            # Create a memory object with the big story goal
-            memory = StoryMemory(
-                character_name=params.character_name,
-                character_gender=params.character_gender,
-                character_origin=params.character_origin,
-                setting=params.setting,
-                big_story_goal=big_story_goal
-            )
-            
-            # Use the provided arc goal if available
-            if arc_goal:
-                memory.current_arc_goal = arc_goal
-                memory.arc_history.append(arc_goal)
-                logger.info(f"Using provided arc goal: {arc_goal}")
+
+        # Create a memory object with the big story goal
+        memory = StoryMemory(
+            character_name=params.character_name,
+            character_gender=params.character_gender,
+            character_origin=params.character_origin,
+            setting=params.setting,
+            big_story_goal=big_story_goal
+        )
+
+        # Use the provided arc goal and all arc goals if available
+        if arc_goal:
+            # Use all provided arc goals if available
+            if all_arc_goals and len(all_arc_goals) > 0:
+                memory.arcs = all_arc_goals
+                logger.info(f"Using provided arc goals: {len(all_arc_goals)} goals")
             else:
-                # Generate a new arc goal if none was provided
-                try:
-                    from ..services.story_planner import generate_new_arc_goal
-                    new_arc_goal = generate_new_arc_goal(big_story_goal, [])
-                    memory.current_arc_goal = new_arc_goal
-                    memory.arc_history.append(new_arc_goal)
-                    logger.info(f"Generated new arc goal: {memory.current_arc_goal}")
-                except Exception as e:
-                    logger.error(f"Error initializing arc goal: {e}")
-                    # Set a fallback arc goal
-                    memory.current_arc_goal = "Survive the sect's brutal outer disciple training."
-                    memory.arc_history.append(memory.current_arc_goal)
-                    logger.info(f"Set fallback arc goal: {memory.current_arc_goal}")
+                # If only a single arc goal was provided, use it
+                memory.arcs = [arc_goal]
+                
+            # Initialize arc tracking variables
+            memory.current_arc_index = 0
+            memory.chapters_completed = 0
             
-            logger.info(f"Initialized memory with big goal: '{big_story_goal}' and arc goal: '{memory.current_arc_goal}'")
+            # Add first arc to arc history
+            if memory.arcs and memory.arcs[0] not in memory.arc_history:
+                memory.arc_history.append(memory.arcs[0])
+                
+            # Set total arcs planned without changing total_chapters_planned 
+            memory.total_arcs_planned = len(memory.arcs)
+            
+            # Make sure chapters_per_arc is consistent with the planned values
+            if memory.total_arcs_planned > 0:
+                memory.chapters_per_arc = memory.total_chapters_planned // memory.total_arcs_planned
+                # Ensure at least 1 chapter per arc
+                memory.chapters_per_arc = max(1, memory.chapters_per_arc)
+                
+            logger.info(f"Using provided arc goal: {memory.arcs[0]}")
+        else:
+            # Generate new arc goals if none were provided
+            try:
+                from ..services.story_planner import generate_new_arc_goal
+                # Get arc goals with number calculated from total chapters
+                arc_goals = generate_new_arc_goal(big_story_goal, [], num_arcs=None)
+                
+                if arc_goals:
+                    # Store all generated arcs in the arcs list
+                    memory.arcs = arc_goals
+                    
+                    # Initialize arc tracking variables
+                    memory.current_arc_index = 0
+                    memory.chapters_completed = 0
+                    
+                    # Add first arc to arc history
+                    if memory.arcs and memory.arcs[0] not in memory.arc_history:
+                        memory.arc_history.append(memory.arcs[0])
+                    
+                    # Set total arcs planned without changing total_chapters_planned
+                    memory.total_arcs_planned = len(memory.arcs)
+                    
+                    # Make sure chapters_per_arc is consistent with the planned values
+                    if memory.total_arcs_planned > 0:
+                        memory.chapters_per_arc = memory.total_chapters_planned // memory.total_arcs_planned
+                        # Ensure at least 1 chapter per arc
+                        memory.chapters_per_arc = max(1, memory.chapters_per_arc)
+                    
+                    logger.info(f"Generated {len(arc_goals)} arc goals. Current arc goal: {memory.arcs[0]}")
+                else:
+                    # Fallback if no arcs were generated
+                    fallback_arc = "Survive the sect's brutal outer disciple training."
+                    memory.arcs = [fallback_arc]
+                    memory.arc_history.append(fallback_arc)
+                    # Initialize arc tracking variables
+                    memory.current_arc_index = 0
+                    memory.chapters_completed = 0
+                    # Set total arcs planned without changing total_chapters_planned
+                    memory.total_arcs_planned = 1
+                    memory.chapters_per_arc = memory.total_chapters_planned  # All chapters in one arc
+            except Exception as e:
+                logger.error(f"Error initializing arc goals: {e}")
+                # Set a fallback arc goal
+                fallback_arc = "Survive the sect's brutal outer disciple training."
+                memory.arcs = [fallback_arc]
+                memory.arc_history.append(fallback_arc)
+                # Initialize arc tracking variables
+                memory.current_arc_index = 0
+                memory.chapters_completed = 0
+                # Set total arcs planned without changing total_chapters_planned
+                memory.total_arcs_planned = 1
+                memory.chapters_per_arc = memory.total_chapters_planned  # All chapters in one arc
+                logger.info(f"Set fallback arc goal: {fallback_arc}")
+
+        current_arc = memory.arcs[memory.current_arc_index] if memory.arcs else ""
+        logger.info(f"Initialized memory with big goal: '{big_story_goal}' and arc goal: '{current_arc}'")
+        logger.info(f"Arc progression: {memory.current_arc_index + 1}/{memory.total_arcs_planned}, Chapter: {memory.chapters_completed + 1}/{memory.chapters_per_arc}")
+        
+        # Calculate overall story progress
+        current_story_chapter = ((memory.current_arc_index) * memory.chapters_per_arc) + memory.chapters_completed + 1
+        story_progress_percent = round((current_story_chapter / memory.total_chapters_planned) * 100)
+        logger.info(f"Overall story progress: Chapter {current_story_chapter}/{memory.total_chapters_planned} ({story_progress_percent}%)")
                 
         # Create the story
         story = Story(
@@ -350,4 +426,6 @@ def get_story_by_share_token(share_token: str) -> Optional[Story]:
         return firebase_service.get_story_by_share_token(share_token)
     except Exception as e:
         logger.error(f"Error getting story by share token: {e}")
-        return None 
+        return None
+
+ 

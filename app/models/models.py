@@ -27,15 +27,21 @@ class StoryMemory(BaseModel):
     story_nodes: List[str] = Field(default_factory=list)  # IDs of nodes in chronological order
     character_traits: Dict[str, Any] = Field(default_factory=dict)
     locations: Dict[str, Any] = Field(default_factory=dict)
-    supporting_characters: Dict[str, Any] = Field(default_factory=dict)
+    supporting_characters: Dict[str, Any] = Field(default_factory=dict) #TODO: how do we know about supporting characters?
     important_items: Dict[str, Any] = Field(default_factory=dict)
     story_day: int = 1  # Day in the story timeline
     cultivation_stage: Optional[str] = None
     current_arc: Optional[str] = None
     big_story_goal: Optional[str] = None  # Main character's long-term goal (e.g., revenge, immortality, reclaim power)
     characters: List[Character] = Field(default_factory=list)  # List of characters with relationships
-    current_arc_goal: Optional[str] = None  # Current story arc goal
-    arc_history: List[str] = Field(default_factory=list)  # List of completed story arcs
+    arcs: List[str] = Field(default_factory=list)  # List of story arcs
+    arc_history: List[str] = Field(default_factory=list)  # History of completed arc goals
+    current_arc_index: int = 0  # Index of the current arc in the arcs list
+    chapters_completed: int = 0  # Number of chapters completed in the current arc
+    chapters_per_arc: int = 7  # Number of chapters per arc (adjusted from 3 to 7)
+    total_chapters_planned: int = 50 # Total number of chapters planned for the story
+    total_arcs_planned: int = 7  # Default arcs (derived from total_chapters_planned / chapters_per_arc)
+    story_completed: bool = False  # Flag to mark if the story has been completed
 
 class StoryNode(BaseModel):
     """A single node in the story with content and choices."""

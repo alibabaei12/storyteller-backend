@@ -1,4 +1,8 @@
+import json
 import logging
+import os
+import time
+from typing import Dict, List, Optional
 from uuid import uuid4
 
 from flask import Flask, request, jsonify, g
@@ -9,7 +13,10 @@ from .config.logging import setup_logging
 # Configure logging
 setup_logging()
 
-from .models.models import StoryNode, StoryCreationParams, FeedbackRequest
+# Get logger for this module
+logger = logging.getLogger(__name__)
+
+from .models.models import StoryNode, StoryCreationParams, FeedbackRequest, Choice
 from .storage.storage import (
     get_story,
     delete_story, 
@@ -19,10 +26,12 @@ from .storage.storage import (
     save_choice,
     create_story,
     submit_feedback,
+    get_user_feedback,
+    update_feedback_status,
     update_story_share_token,
     get_story_by_share_token
 )
-from .services import AIService
+from .services.ai_service import AIService
 from .services.usage_service import usage_service
 from .auth import auth_required, auth_optional
 
@@ -202,13 +211,17 @@ def create_new_story():
             user_id=g.user_id  # Add the authenticated user's ID
         )
         
+        # Get the number of arcs to generate (default to 5 if not specified)
+        num_arcs = data.get('num_arcs', 5)
+        
         # Generate initial story content
-        story_content, choices, arc_goal = AIService.generate_initial_story(
+        story_content, choices, arc_goal, big_story_goal, all_arc_goals = AIService.generate_initial_story(
             character_name=params.character_name,
             character_gender=params.character_gender,
             setting=params.setting,
             tone=params.tone,
             character_origin=params.character_origin,
+            num_arcs=num_arcs
         )
         
         # Create initial node
@@ -219,8 +232,29 @@ def create_new_story():
             parent_node_id=None
         )
         
-        # Create the story
-        story = create_story(params, initial_node, arc_goal)
+        # Create the story with all arc goals
+        story = create_story(params, initial_node, arc_goal, big_story_goal, all_arc_goals)
+        
+        # For cultivation stories, extract characters from the initial story content
+        if params.setting == "cultivation" and hasattr(story, 'memory') and story.memory is not None:
+            try:
+                from app.services.story_planner import extract_characters_from_content
+                story.memory = extract_characters_from_content(
+                    memory=story.memory,
+                    story_content=story_content,
+                    protagonist_name=params.character_name
+                )
+                
+                # Remove [NEW CHARACTERS] section from the story content
+                import re
+                initial_node.content = re.sub(r'\[NEW CHARACTERS\].*?\[/NEW CHARACTERS\]', '', story_content, flags=re.DOTALL)
+                
+                # Save the updated story with extracted characters
+                from app.storage.storage import save_story
+                save_story(story)
+                logger.info(f"Extracted characters from initial story content for {params.character_name}")
+            except Exception as e:
+                logger.error(f"Error extracting characters from initial story content: {e}")
         
         # Increment stories created count
         usage_service.increment_stories_created(user_id)
@@ -289,36 +323,91 @@ def make_choice(story_id, choice_id):
             return jsonify({'error': 'Choice not found'}), 404
         
         # Save the choice
-        save_choice(story_id, current_node.id, choice_id)
+        save_result = save_choice(story_id, current_node.id, choice_id)
+        if not save_result:
+            return jsonify({'error': 'Failed to save choice'}), 500
+        
+        # Get request data - safely handle missing or invalid JSON
+        try:
+            data = request.get_json(silent=True) or {}
+        except Exception:
+            data = {}
+            logger.warning("Failed to parse JSON data from request, using empty dict")
+        
+        # Get the number of arcs to generate (default to 5 if not specified)
+        num_arcs = data.get('num_arcs', 5)
         
         # Generate continuation
-        print(f"🔍 DEBUG API: character_name={story.character_name}, setting={story.setting}")
-        print(f"🔍 DEBUG API: selected_choice='{selected_choice.text}'")
-        print(f"🔍 DEBUG API: previous_content length={len(current_node.content)} chars")
+        logger.info(f"Generating continuation for story {story_id}, choice {choice_id}")
+        logger.info(f"Character: {story.character_name}, Setting: {story.setting}")
+        logger.info(f"Selected choice: '{selected_choice.text}'")
         
-        # For cultivation_progression, we also want to pass characters if available
-        if story.setting == "cultivation" and hasattr(story, 'memory') and story.memory is not None:
-            story_content, choices = AIService.continue_story(
-                character_name=story.character_name,
-                character_gender=story.character_gender,
-                setting=story.setting,
-                tone=story.tone,
-                previous_content=current_node.content,
-                selected_choice=selected_choice.text,
-                character_origin=getattr(story, 'character_origin', 'normal'),
-                characters=story.memory.characters if hasattr(story.memory, 'characters') else [],
-                memory=story.memory
-            )
-        else:
-            story_content, choices = AIService.continue_story(
-                character_name=story.character_name,
-                character_gender=story.character_gender,
-                setting=story.setting,
-                tone=story.tone,
-                previous_content=current_node.content,
-                selected_choice=selected_choice.text,
-                character_origin=getattr(story, 'character_origin', 'normal')
-            )
+        try:
+            # For cultivation_progression, we also want to pass characters if available
+            if story.setting == "cultivation" and hasattr(story, 'memory') and story.memory is not None:
+                story_content, choices = AIService.continue_story(
+                    character_name=story.character_name,
+                    character_gender=story.character_gender,
+                    setting=story.setting,
+                    tone=story.tone,
+                    previous_content=current_node.content,
+                    selected_choice=selected_choice.text,
+                    character_origin=getattr(story, 'character_origin', 'normal'),
+                    characters=story.memory.characters if hasattr(story.memory, 'characters') else [],
+                    memory=story.memory,
+                    num_arcs=num_arcs
+                )
+                
+                # Extract characters using the genre's method
+                genre_instance = AIService.get_genre_instance(story.setting)
+                if genre_instance and hasattr(genre_instance, 'extract_characters_from_content'):
+                    story.memory = genre_instance.extract_characters_from_content(
+                        memory=story.memory,
+                        story_content=story_content,
+                        character_name=story.character_name
+                    )
+                    
+                    # Remove [NEW CHARACTERS] section from the story content
+                    import re
+                    story_content = re.sub(r'\[NEW CHARACTERS\].*?\[/NEW CHARACTERS\]', '', story_content, flags=re.DOTALL)
+            else:
+                story_content, choices = AIService.continue_story(
+                    character_name=story.character_name,
+                    character_gender=story.character_gender,
+                    setting=story.setting,
+                    tone=story.tone,
+                    previous_content=current_node.content,
+                    selected_choice=selected_choice.text,
+                    character_origin=getattr(story, 'character_origin', 'normal')
+                )
+        except Exception as e:
+            logger.error(f"Error generating story continuation: {str(e)}")
+            # Create fallback content and choices
+            
+            # Clean up the selected choice text to make it more suitable for insertion
+            # Remove any trailing punctuation and ensure it starts with a lowercase letter
+            clean_choice = selected_choice.text.rstrip('.!?,;:')
+            if clean_choice:
+                # Make sure it starts with a lowercase letter if it's not a proper noun
+                if clean_choice[0].isupper() and len(clean_choice) > 1:
+                    clean_choice = clean_choice[0].lower() + clean_choice[1:]
+            
+            story_content = f"""
+            # Something unexpected happened
+            
+            As {story.character_name} attempted to {clean_choice}, a strange energy rippled through the area. The path forward seemed momentarily unclear, but determination shone in {story.character_name}'s eyes.
+            
+            "I will find a way through this," {story.character_name} thought, studying the situation carefully.
+            """
+            
+            choices = [
+                Choice(id="1", text=f"Try a different approach"),
+                Choice(id="2", text=f"Seek assistance from allies"),
+                Choice(id="3", text=f"Use your intuition to find another path")
+            ]
+            
+            # Log the error for debugging
+            logger.error(f"Generated fallback content due to AI error: {str(e)}")
         
         # Create new node
         new_node_id = f"node_{int(uuid4().hex[:8], 16)}"
@@ -334,6 +423,7 @@ def make_choice(story_id, choice_id):
         updated_story = add_story_node(story_id, new_node)
         
         if not updated_story:
+            logger.error(f"Failed to update story after generating content")
             return jsonify({'error': 'Failed to update story'}), 500
         
         # Get remaining continuations
@@ -348,7 +438,14 @@ def make_choice(story_id, choice_id):
         return jsonify(response_data)
     
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error in make_choice endpoint: {str(e)}")
+        # Return a more detailed error message for debugging
+        error_details = str(e)
+        return jsonify({
+            'error': 'Failed to process your choice', 
+            'details': error_details,
+            'message': 'An unexpected error occurred. Please try again or contact support if the issue persists.'
+        }), 500
 
 @app.route('/api/usage', methods=['GET', 'OPTIONS'])
 @auth_required
@@ -496,6 +593,7 @@ def submit_feedback_endpoint():
     except Exception as e:
         print(f"[API] Error in submit_feedback: {e}")
         return jsonify({'error': 'Internal server error'}), 500
+
 
 def run_api(host='0.0.0.0', port=5001, debug=False):
     """Run the Flask API server."""

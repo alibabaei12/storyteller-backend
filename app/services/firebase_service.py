@@ -1,6 +1,12 @@
+"""
+Firebase service for database operations.
+"""
 import logging
 import os
-from typing import List, Optional, Dict
+import json
+import tempfile
+import time
+from typing import List, Dict, Optional
 
 import firebase_admin
 # Load environment variables
@@ -29,48 +35,119 @@ class FirebaseService:
             app = firebase_admin.get_app()
             self._db = firestore.client(app)
             logger.info("Using existing Firebase app")
+            return
         except ValueError:
             # No app exists, create new one
             try:
-                # Get credentials from environment variables
-                cred_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-                project_id = os.getenv('FIREBASE_PROJECT_ID')
+                # First try: Use FIREBASE_CREDENTIALS environment variable (complete JSON)
+                firebase_creds_json = os.getenv('FIREBASE_CREDENTIALS')
+                if firebase_creds_json:
+                    try:
+                        # Parse the JSON string to a dictionary
+                        cred_dict = json.loads(firebase_creds_json)
+                        
+                        # Create a temporary file with the credentials
+                        temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False)
+                        json.dump(cred_dict, temp_file, indent=2)
+                        temp_file.close()
+                        temp_path = temp_file.name
+                        
+                        # Use the temporary file
+                        cred = credentials.Certificate(temp_path)
+                        firebase_admin.initialize_app(cred)
+                        self._db = firestore.client()
+                        
+                        # Delete the temporary file
+                        os.unlink(temp_path)
+                        
+                        logger.info(f"Initialized with FIREBASE_CREDENTIALS for project: {cred_dict.get('project_id')}")
+                        return
+                    except Exception as e:
+                        logger.error(f"Error initializing with FIREBASE_CREDENTIALS: {e}")
                 
-                # Check for individual credential environment variables (for production)
+                # Second try: Use individual credential fields
                 firebase_private_key = os.getenv('FIREBASE_PRIVATE_KEY')
                 firebase_client_email = os.getenv('FIREBASE_CLIENT_EMAIL')
+                project_id = os.getenv('FIREBASE_PROJECT_ID')
                 
                 if firebase_private_key and firebase_client_email and project_id:
-                    # Production: Use individual environment variables
+                    # Fix the private key format - ensure newlines are properly formatted
+                    fixed_private_key = firebase_private_key
+                    if '\\n' in fixed_private_key:
+                        fixed_private_key = fixed_private_key.replace('\\n', '\n')
+                    
+                    # Create a direct credential object without using a file
                     cred_dict = {
                         "type": "service_account",
                         "project_id": project_id,
-                        "private_key": firebase_private_key.replace('\\n', '\n'),  # Fix newlines
+                        "private_key": fixed_private_key,
                         "client_email": firebase_client_email,
                         "token_uri": "https://oauth2.googleapis.com/token",
                     }
-                    cred = credentials.Certificate(cred_dict)
-                    firebase_admin.initialize_app(cred, {'projectId': project_id})
-                    self._db = firestore.client()
-                    logger.info(f"Initialized with environment credentials for project: {project_id}")
                     
-                elif cred_path and os.path.exists(cred_path):
-                    # Development: Use service account file
-                    cred = credentials.Certificate(cred_path)
-                    firebase_admin.initialize_app(cred, {'projectId': project_id})
-                    self._db = firestore.client()
-                    logger.info(f"Initialized with service account file: {cred_path}")
+                    try:
+                        # Try direct initialization with the credential dict
+                        cred = credentials.Certificate(cred_dict)
+                        firebase_admin.initialize_app(cred)
+                        self._db = firestore.client()
+                        logger.info(f"Initialized with direct credentials for project: {project_id}")
+                        return
+                    except Exception as e:
+                        logger.error(f"Error initializing with direct credentials: {e}")
+                        # Continue to fallback method
                     
-                else:
-                    # Fallback to default credentials
+                    # If direct initialization failed, try with a temporary file
+                    try:
+                        # Create a more complete credential dict for the file
+                        temp_cred_dict = {
+                            "type": "service_account",
+                            "project_id": project_id,
+                            "private_key_id": f"temp_key_id_{int(time.time())}",  # Add timestamp to make it unique
+                            "private_key": fixed_private_key,
+                            "client_email": firebase_client_email,
+                            "client_id": "",
+                            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                            "token_uri": "https://oauth2.googleapis.com/token",
+                            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                            "client_x509_cert_url": f"https://www.googleapis.com/robot/v1/metadata/x509/{firebase_client_email.replace('@', '%40')}"
+                        }
+                        
+                        # Write to temporary file
+                        temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False)
+                        json.dump(temp_cred_dict, temp_file, indent=2)
+                        temp_file.close()
+                        temp_path = temp_file.name
+                        
+                        # Use the temporary file
+                        cred = credentials.Certificate(temp_path)
+                        firebase_admin.initialize_app(cred)
+                        self._db = firestore.client()
+                        
+                        # Delete the temporary file
+                        os.unlink(temp_path)
+                        
+                        logger.info(f"Initialized with temporary service account file for project: {project_id}")
+                        return
+                    except Exception as e:
+                        logger.error(f"Error creating temporary service account file: {e}")
+                
+                # Fallback to default credentials
+                try:
                     firebase_admin.initialize_app()
                     self._db = firestore.client()
                     logger.info("Initialized with default credentials")
+                    return
+                except Exception as e:
+                    logger.error(f"Error initializing with default credentials: {e}")
+                    raise ValueError("Failed to initialize Firebase with any available method")
+                    
             except Exception as e:
                 logger.error(f"Error initializing: {e}")
                 logger.error("Make sure Firebase Admin SDK is properly configured")
-                logger.error(f"GOOGLE_APPLICATION_CREDENTIALS: {os.getenv('GOOGLE_APPLICATION_CREDENTIALS')}")
-                logger.error(f"File exists: {os.path.exists(os.getenv('GOOGLE_APPLICATION_CREDENTIALS', ''))}")
+                logger.error(f"FIREBASE_PROJECT_ID is set: {bool(os.getenv('FIREBASE_PROJECT_ID'))}")
+                logger.error(f"FIREBASE_CLIENT_EMAIL is set: {bool(os.getenv('FIREBASE_CLIENT_EMAIL'))}")
+                logger.error(f"FIREBASE_PRIVATE_KEY is set: {bool(os.getenv('FIREBASE_PRIVATE_KEY'))}")
+                logger.error(f"FIREBASE_CREDENTIALS is set: {bool(os.getenv('FIREBASE_CREDENTIALS'))}")
                 raise
     
     @property

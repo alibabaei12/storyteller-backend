@@ -36,56 +36,36 @@ class AIService:
             setting: str,
             tone: str,
             character_origin: str,
-
-    ) -> Tuple[str, List[Choice], Optional[str]]:
+            num_arcs: int = 5
+    ) -> Tuple[str, List[Choice], str, str, List[str]]:
         """Generate initial story content with choices based on genre."""
-        try:
-            # Generate a big story goal
-            big_story_goal = generate_big_story_goal(setting)
-            logger.info(f"Generated big story goal: {big_story_goal}")
+        # Generate a big story goal
+        big_story_goal = generate_big_story_goal(setting)
+        logger.info(f"Generated big story goal: {big_story_goal}")
 
-            # Create genre map here to avoid circular imports
-            GENRE_MAP = {
-                "cultivation": CultivationSetting(),
-                # "fantasy_adventure": FantasyAdventure(),
-                # "academy_magic": AcademyMagic(),
-            }
+        # Create genre map here to avoid circular imports
+        GENRE_MAP = {
+            "cultivation": CultivationSetting(),
+            # "fantasy_adventure": FantasyAdventure(),
+            # "academy_magic": AcademyMagic(),
+        }
 
-            # Try to use the specific genre implementation if available
-            if setting and setting in GENRE_MAP:
-                genre = GENRE_MAP[setting]
-                logger.info(f"Using {setting} genre for initial story")
-                try:
-                    if setting == "cultivation_progression":
-                        # CultivationProgression returns an extra value (the arc goal)
-                        story_content, choices, arc_goal = genre.generate_story(
-                            character_name=character_name,
-                            character_gender=character_gender,
-                            character_origin=character_origin,
-                            big_story_goal=big_story_goal,
-                            style=tone
-                        )
-                        return story_content, choices, arc_goal
-                    else:
-                        # Other genres don't return arc goal
-                        return genre.generate_story(
-                            character_name=character_name,
-                            character_gender=character_gender,
-                            character_origin=character_origin,
-                            big_story_goal=big_story_goal
-                        )
-                except Exception as e:
-                    logger.error(f"Error in genre-specific story generation: {e}")
-                    # Fall back to basic story but with the big_story_goal
-                    return AIService._create_basic_story(character_name, setting, character_origin, big_story_goal)
-
-            # Fallback to basic story
-            logger.info(f"Using default genre for initial story (no specific genre found for {setting})")
-            return AIService._create_basic_story(character_name, setting, character_origin, big_story_goal)
-
-        except Exception as e:
-            logger.error(f"Error generating initial story: {e}")
-            return AIService._create_emergency_fallback(character_name, setting)
+        # Try to use the specific genre implementation if available
+        if setting and setting in GENRE_MAP:
+            genre = GENRE_MAP[setting]
+            logger.info(f"Using {setting} genre for initial story")
+            # CultivationProgression returns extra values (arc goal and all arc goals)
+            story_content, choices, arc_goal, all_arc_goals = genre.generate_story(
+                character_name=character_name,
+                character_gender=character_gender,
+                character_origin=character_origin,
+                big_story_goal=big_story_goal,
+                style=tone
+            )
+            return story_content, choices, arc_goal, big_story_goal, all_arc_goals
+        else:
+            # No fallback - raise an error for unsupported settings
+            raise ValueError(f"Setting not supported: {setting}")
 
     @staticmethod
     def continue_story(
@@ -97,12 +77,11 @@ class AIService:
             selected_choice: str,
             character_origin: str = "normal",
             characters: List[Dict[str, str]] = None,
-            memory=None
+            memory=None,
+            num_arcs: int = 5
     ) -> Tuple[str, List[Choice]]:
         """Continue story based on previous content and selected choice."""
         try:
-            # Import genre classes here to avoid circular imports
-
             # Create genre map here to avoid circular imports
             GENRE_MAP = {
                 "cultivation": CultivationSetting(),
@@ -110,16 +89,87 @@ class AIService:
                 # "academy_magic": AcademyMagic(),
             }
 
-            # Initialize or update arc goal for cultivation genre
-            if setting == "cultivation" and memory:
-                # Initialize current_arc_goal if not set
-                if not memory.current_arc_goal and memory.big_story_goal:
-                    memory.current_arc_goal = generate_new_arc_goal(memory.big_story_goal, memory.arc_history)
-                    logger.info(f"Initialized arc goal: {memory.current_arc_goal}")
+            # Log memory state before processing
+            if memory:
+                logger.info(f"Memory before processing - chapters_completed: {memory.chapters_completed}, current_arc_index: {memory.current_arc_index}, chapters_per_arc: {memory.chapters_per_arc}")
+                if hasattr(memory, 'arcs') and memory.arcs:
+                    logger.info(f"Memory arcs: {len(memory.arcs)} arcs total")
+                    if memory.current_arc_index < len(memory.arcs):
+                        logger.info(f"Current arc: '{memory.arcs[memory.current_arc_index]}'")
+                    else:
+                        logger.error(f"Invalid arc index: {memory.current_arc_index} (max: {len(memory.arcs)-1})")
 
-                    # Add to arc history
-                    if memory.current_arc_goal not in memory.arc_history:
-                        memory.arc_history.append(memory.current_arc_goal)
+            # Track chapter completion and check for arc completion if memory exists
+            if memory and hasattr(memory, 'arcs') and memory.arcs:
+                try:
+                    # Safely get current arc goal
+                    current_arc_goal = None
+                    if 0 <= memory.current_arc_index < len(memory.arcs):
+                        current_arc_goal = memory.arcs[memory.current_arc_index]
+                    else:
+                        logger.error(f"Arc index out of range: {memory.current_arc_index}, arcs: {len(memory.arcs)}")
+                        # Fix invalid index
+                        memory.current_arc_index = min(max(0, memory.current_arc_index), max(0, len(memory.arcs)-1))
+                        if memory.arcs:
+                            current_arc_goal = memory.arcs[memory.current_arc_index]
+                    
+                    # Increment chapters completed
+                    memory.chapters_completed += 1
+                    logger.info(f"Chapter {memory.chapters_completed} of arc '{current_arc_goal}' completed")
+                    
+                    # Check if we need to move to the next arc
+                    if memory.chapters_completed >= memory.chapters_per_arc:
+                        # Current arc is complete
+                        completed_arc = current_arc_goal
+                        
+                        # Check if we have more arcs
+                        if memory.current_arc_index + 1 < len(memory.arcs):
+                            # Move to the next arc
+                            memory.current_arc_index += 1
+                            new_arc_goal = memory.arcs[memory.current_arc_index]
+                            
+                            # Reset chapter counter for the new arc
+                            memory.chapters_completed = 0
+                            
+                            # Add to arc history if not already there
+                            if new_arc_goal not in memory.arc_history:
+                                memory.arc_history.append(new_arc_goal)
+                                
+                            logger.info(f"Moving to next arc: '{new_arc_goal}', index {memory.current_arc_index}")
+                        else:
+                            # We've completed all arcs - the story is finished
+                            logger.info("All arcs completed! Story is finished.")
+                            
+                            # Mark the story as completed
+                            memory.story_completed = True
+                            
+                            # For a finished story, return a final message and special choices
+                            final_content = f"""
+                            ---
+                            
+                            # The Journey Concludes
+                            
+                            {character_name}'s epic journey comes to a close. With the final goal of **{current_arc_goal}** achieved, {character_name} has accomplished what few could even dream of.
+                            
+                            ---
+                            
+                            Looking back on the road traveled, from humble beginnings to reaching the pinnacle of power, {character_name} feels a profound sense of achievement. The challenges overcome, enemies defeated, and allies made along the way have all contributed to this moment of triumph.
+                            
+                            ---
+                            
+                            **Congratulations on completing your story!**
+                            """
+                            
+                            final_choices = [
+                                Choice(id="1", text="Start a new adventure"),
+                                Choice(id="2", text="Reflect on your journey"),
+                                Choice(id="3", text="Share your story")
+                            ]
+                            
+                            return final_content, final_choices
+                except Exception as e:
+                    logger.error(f"Error processing arc progression: {str(e)}")
+                    # Continue with the story even if arc progression fails
 
             # Prepare character relationships text for cultivation genre only
             character_relationships_text = ""
@@ -134,6 +184,20 @@ class AIService:
                     character_relationships_text += char_info + "\n"
                 character_relationships_text += "\nRemember to:\n- Maintain existing relationships\n- Bring back important characters when relevant\n- Update relationships if they change (e.g., Friend becomes Rival)"
 
+            # Add current arc goal to the prompt
+            arc_goal_text = ""
+            if memory and hasattr(memory, 'arcs') and memory.arcs and 0 <= memory.current_arc_index < len(memory.arcs):
+                current_arc_goal = memory.arcs[memory.current_arc_index]
+                arc_goal_text = f"\n\nCURRENT ARC GOAL: {current_arc_goal}"
+                
+                # Add progress info
+                if memory.chapters_completed > 0:
+                    arc_goal_text += f" (Chapter {memory.chapters_completed + 1} of {memory.chapters_per_arc})"
+                
+                # If this is the final chapter of the arc, mention it
+                if memory.chapters_completed == memory.chapters_per_arc - 1:
+                    arc_goal_text += "\nThis is the FINAL CHAPTER of the current arc. Conclude this arc goal in a satisfying way."
+
             # Try to use the specific genre implementation if available
             if setting and setting in GENRE_MAP:
                 genre = GENRE_MAP[setting]
@@ -141,18 +205,19 @@ class AIService:
 
                 # For cultivation_progression, we also want to pass the big_story_goal
                 if setting == "cultivation":
-                    # Generate a big story goal for cultivation
-                    big_story_goal = generate_big_story_goal(setting)
+                    # Get big story goal from memory if available, otherwise generate
+                    big_story_goal = memory.big_story_goal if memory and hasattr(memory, 'big_story_goal') and memory.big_story_goal else generate_big_story_goal(setting)
                     logger.info(f"Using big story goal for cultivation continuation: {big_story_goal}")
 
                     return genre.continue_story(
                         character_name=character_name,
                         character_gender=character_gender,
-                        previous_content=previous_content + character_relationships_text,
+                        previous_content=previous_content + character_relationships_text + arc_goal_text,
                         selected_choice=selected_choice,
                         character_origin=character_origin,
                         big_story_goal=big_story_goal,
-                        memory=memory
+                        memory=memory,
+                        style=tone
                     )
                 else:
                     # For other genres, don't pass the big_story_goal or character info
@@ -161,16 +226,32 @@ class AIService:
                         character_gender=character_gender,
                         previous_content=previous_content,
                         selected_choice=selected_choice,
-                        character_origin=character_origin
+                        character_origin=character_origin,
+                        style=tone
                     )
-
-            # Fallback to basic continuation
-            logger.info(f"Using default genre for story continuation (no specific genre found for {setting})")
-            return AIService._create_basic_continuation(character_name, setting, previous_content, selected_choice)
-
+            else:
+                # No fallback - raise an error for unsupported settings
+                raise ValueError(f"Setting not supported: {setting}")
         except Exception as e:
-            logger.error(f"Error continuing story: {e}")
-            return AIService._create_emergency_continuation(character_name, selected_choice)
+            logger.error(f"Error in continue_story: {str(e)}")
+            # Return a basic error message with valid choices to keep the app working
+            error_content = f"""
+            # Unexpected Error
+            
+            We encountered an issue continuing your story. Don't worry, your story is saved.
+            
+            Technical details: {str(e)}
+            
+            Please choose an option below to continue:
+            """
+            
+            error_choices = [
+                Choice(id="1", text="Try continuing from here"),
+                Choice(id="2", text="Start a new branch of the story"),
+                Choice(id="3", text="Let the AI suggest how to continue")
+            ]
+            
+            return error_content, error_choices
 
     @staticmethod
     def _create_character_origin_profile(character_origin: str, setting: str) -> str:
@@ -187,3 +268,16 @@ class AIService:
             return f"The character once had high status but has fallen from grace and must rebuild."
         else:  # normal/ordinary
             return f"The character has a normal background with no special advantages or disadvantages."
+
+    @staticmethod
+    def get_genre_instance(setting: str):
+        """Get the genre instance based on the setting."""
+        # Create genre map here to avoid circular imports
+        from ..genres.cultivation_setting import CultivationSetting
+        
+        GENRE_MAP = {
+            "cultivation": CultivationSetting(),
+            # Add other genres here as they are implemented
+        }
+        
+        return GENRE_MAP.get(setting)
