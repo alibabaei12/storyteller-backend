@@ -6628,3 +6628,202 @@ Ali bows in gratitude, a sense of validation and purpose swelling within him. Th
 2025-06-12 19:22:54,219 - app.storage.storage - INFO - Saved story story_1749781296_ef391443: Ali's cultivation shonen
 2025-06-12 19:22:54,219 - app.storage.storage - INFO - Added node node_1568628456 to story story_1749781296_ef391443
 2025-06-12 19:22:54,426 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:22:54] "POST /api/stories/story_1749781296_ef391443/choices/1 HTTP/1.1" 200 -
+2025-06-12 19:32:47,643 - app.services.firebase_service - ERROR - Error initializing with FIREBASE_CREDENTIALS: Invalid control character at: line 1 column 162 (char 161)
+2025-06-12 19:32:47,644 - app.services.firebase_service - ERROR - Error initializing with direct credentials: Failed to initialize a certificate credential. Caused by: "Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. InvalidData(InvalidByte(1600, 61))"
+2025-06-12 19:32:47,645 - app.services.firebase_service - ERROR - Error creating temporary service account file: Failed to initialize a certificate credential. Caused by: "Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. InvalidData(InvalidByte(1600, 61))"
+2025-06-12 19:32:47,709 - app.services.firebase_service - INFO - Initialized with default credentials
+2025-06-12 19:32:47,772 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-12 19:32:47,772 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-12 19:32:47,776 - root - INFO - Starting StoryTeller API server...
+2025-06-12 19:32:47,776 - root - INFO - Host: 0.0.0.0
+2025-06-12 19:32:47,776 - root - INFO - Port: 5001
+2025-06-12 19:32:47,776 - root - INFO - Debug mode: True
+2025-06-12 19:32:47,782 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.0.0.243:5001
+2025-06-12 19:32:47,783 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-12 19:32:47,783 - werkzeug - INFO -  * Restarting with stat
+2025-06-12 19:32:48,139 - app.services.firebase_service - ERROR - Error initializing with FIREBASE_CREDENTIALS: Invalid control character at: line 1 column 162 (char 161)
+2025-06-12 19:32:48,139 - app.services.firebase_service - ERROR - Error initializing with direct credentials: Failed to initialize a certificate credential. Caused by: "Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. InvalidData(InvalidByte(1600, 61))"
+2025-06-12 19:32:48,140 - app.services.firebase_service - ERROR - Error creating temporary service account file: Failed to initialize a certificate credential. Caused by: "Unable to load PEM file. See https://cryptography.io/en/latest/faq/#why-can-t-i-import-my-pem-file for more details. InvalidData(InvalidByte(1600, 61))"
+2025-06-12 19:32:48,205 - app.services.firebase_service - INFO - Initialized with default credentials
+2025-06-12 19:32:48,249 - app.auth - INFO - Using Firebase Project ID: storyteller-6deea
+2025-06-12 19:32:48,249 - app.auth - WARNING - DEVELOPMENT MODE: Using simplified token validation
+2025-06-12 19:32:48,253 - root - INFO - Starting StoryTeller API server...
+2025-06-12 19:32:48,253 - root - INFO - Host: 0.0.0.0
+2025-06-12 19:32:48,253 - root - INFO - Port: 5001
+2025-06-12 19:32:48,253 - root - INFO - Debug mode: True
+2025-06-12 19:32:48,255 - werkzeug - WARNING -  * Debugger is active!
+2025-06-12 19:32:48,262 - werkzeug - INFO -  * Debugger PIN: 143-601-283
+2025-06-12 19:32:50,336 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:32:50] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-12 19:32:50,338 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:32:50] "OPTIONS /api/status HTTP/1.1" 200 -
+2025-06-12 19:32:50,339 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:32:50] "GET /api/status HTTP/1.1" 200 -
+2025-06-12 19:32:50,341 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:32:50] "GET /api/status HTTP/1.1" 200 -
+2025-06-12 19:33:01,650 - app.services.firebase_service - INFO - Retrieved 0 stories
+2025-06-12 19:33:01,650 - app.storage.storage - INFO - Retrieved 0 stories
+2025-06-12 19:33:01,652 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:33:01] "OPTIONS /api/stories HTTP/1.1" 200 -
+2025-06-12 19:33:01,657 - app.auth - INFO - Authentication successful for user: h3GkK3ksTWhz3xeT9h7E4k6Jw7v2
+2025-06-12 19:33:01,789 - app.services.firebase_service - INFO - Retrieved 0 stories for user h3GkK3ksTWhz3xeT9h7E4k6Jw7v2
+2025-06-12 19:33:01,789 - app.storage.storage - INFO - Retrieved 0 stories for user h3GkK3ksTWhz3xeT9h7E4k6Jw7v2
+2025-06-12 19:33:01,919 - app.services.usage_service - INFO - Auto-correcting count for h3GkK3ksTWhz3xeT9h7E4k6Jw7v2: 4 -> 0
+2025-06-12 19:33:02,172 - app.services.ai_service - INFO - Generated big story goal: Forge a unique cultivation path rejected by the world, overcoming divine resistance to prove your Dao is supreme.
+2025-06-12 19:33:02,172 - app.services.ai_service - INFO - Using cultivation genre for initial story
+2025-06-12 19:33:02,173 - app.services.story_planner - INFO - Calculated number of arcs: 7 based on 50 chapters and 7 chapters per arc
+2025-06-12 19:33:02,173 - app.services.story_planner - INFO - Found exact match for goal: 'Forge a unique cultivation path rejected by the world, overcoming divine resistance to prove your Dao is supreme.'
+2025-06-12 19:33:02,173 - app.services.story_planner - INFO - Generated 7 new arc goals for theme: 'unique_dao'
+2025-06-12 19:33:02,173 - app.genres.cultivation_setting - INFO - Generated 7 arc goals. Initial arc goal: Attract disciples who believe in your method.
+2025-06-12 19:33:02,174 - app.genres.cultivation_setting - INFO - Generating cultivation progression story for Ali
+2025-06-12 19:33:02,174 - app.models.base_genre - INFO - Generating story for Ali
+2025-06-12 19:33:12,459 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-12 19:33:12,466 - app.models.base_genre - INFO - 🎭 GENRE GPT RESPONSE (3113 chars):
+2025-06-12 19:33:12,466 - app.models.base_genre - INFO - ============================================================
+2025-06-12 19:33:12,467 - app.models.base_genre - INFO - [STORY]
+Ali stood at the edge of the Heavenly Cliff, overlooking the vast expanse of the cultivation world below. His eyes, filled with determination, reflected the glow of the setting sun as he contemplated his next move. The wind carried whispers of ancient qi techniques lost to time, fueling his resolve to forge a path unlike any other.
+
+---
+As twilight descended, Ali made his way to the bustling marketplace of the Crimson Phoenix Sect, a renowned hub for cultivators seeking knowledge and power. The air buzzed with excitement and the scent of exotic herbs as disciples sparred in the courtyards, their qi shimmering in vibrant hues.
+
+---
+Approaching a group of senior disciples deep in discussion, Ali's presence sparked curiosity. One of them, Lei, a fire-wielder known for his quick temper, eyed Ali with suspicion. "What brings you here, outsider?" Lei's tone held a challenge, testing Ali's resolve.
+
+---
+With a confident smile, Ali responded, "I seek not the well-trodden paths of cultivation but a road less traveled, one of my own making." His words hung in the air, drawing intrigued gazes from the onlookers. The unconventional declaration raised eyebrows and piqued interest.
+
+---
+Intrigued by Ali's audacity, Lei stepped forward, a flicker of respect in his eyes. "If you truly possess such conviction, prove your worth in the Trial of Flames tomorrow." The Trial, a test of endurance and adaptability, was renowned for weeding out the weak from the strong.
+
+---
+As the marketplace buzzed with anticipation, Ali accepted the challenge with a nod. He knew that overcoming this trial would not only attract disciples but also establish his credibility in this realm of fierce competition. The stage was set for a display of his unorthodox talents.
+
+---
+At dawn, the Trial of Flames began, with pillars of fire erupting to test the participants. Ali's movements were fluid and precise, his qi weaving in intricate patterns unseen before. With each step, he showcased a fusion of earth and lightning techniques, surprising even the most seasoned cultivators.
+
+---
+By the trial's end, Ali emerged victorious, his qi blazing like a comet in the sky. The crowd erupted into cheers as Lei, now with a newfound respect, extended a hand in friendship. "You've proven yourself, Ali. Walk your path with pride, for the disciples are watching." Ali's reputation had taken root, attracting disciples who sought a master with a vision beyond the norm.
+
+---
+
+[NEW CHARACTERS]
+Name: Lei
+Relationship: Senior disciple of the Crimson Phoenix Sect
+Sect: Crimson Phoenix Sect
+Role: Challenger turned ally
+[/NEW CHARACTERS]
+
+[CHOICES]
+1. Embrace Lei's offer of friendship and collaboration to gain insider support within the sect, setting the groundwork for attracting more disciples who believe in your method.
+2. Challenge Lei to a friendly but intense spar to further solidify your position within the sect and showcase your cultivation techniques.
+3. Seek out the reclusive hermit on the outskirts of the sect, rumored to possess ancient knowledge that could enhance your unorthodox cultivation path.
+[/CHOICES]
+2025-06-12 19:33:12,467 - app.models.base_genre - INFO - ============================================================
+2025-06-12 19:33:12,470 - app.models.base_genre - INFO - Successfully parsed genre response: story=2622 chars, choices=3
+2025-06-12 19:33:12,471 - app.storage.storage - INFO - Using provided arc goals: 7 goals
+2025-06-12 19:33:12,471 - app.storage.storage - INFO - Using provided arc goal: Attract disciples who believe in your method.
+2025-06-12 19:33:12,471 - app.storage.storage - INFO - Initialized memory with big goal: 'Forge a unique cultivation path rejected by the world, overcoming divine resistance to prove your Dao is supreme.' and arc goal: 'Attract disciples who believe in your method.'
+2025-06-12 19:33:12,471 - app.storage.storage - INFO - Arc progression: 1/7, Chapter: 1/7
+2025-06-12 19:33:12,471 - app.storage.storage - INFO - Overall story progress: Chapter 1/50 (2%)
+2025-06-12 19:33:12,633 - app.services.firebase_service - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:12,633 - app.storage.storage - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:12,634 - app.storage.storage - INFO - Created new story: story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:12,634 - app.services.story_planner - INFO - Found [NEW CHARACTERS] section: Name: Lei
+Relationship: Senior disciple of the Crimson Phoenix Sect
+Sect: Crimson Phoenix Sect
+Role: Challenger turned ally
+2025-06-12 19:33:12,635 - app.services.story_planner - INFO - Extracted character from section: Lei - Senior disciple of the Crimson Phoenix Sect
+2025-06-12 19:33:12,635 - app.services.story_planner - INFO - Adding new character: Lei (Senior disciple of the Crimson Phoenix Sect)
+2025-06-12 19:33:12,635 - app.services.story_planner - INFO - Memory now has 1 characters: Lei
+2025-06-12 19:33:12,766 - app.services.firebase_service - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:12,766 - app.storage.storage - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:12,767 - app.api - INFO - Extracted characters from initial story content for Ali
+2025-06-12 19:33:13,033 - app.services.usage_service - INFO - Updated usage for user: h3GkK3ksTWhz3xeT9h7E4k6Jw7v2
+2025-06-12 19:33:13,337 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:33:13] "POST /api/stories HTTP/1.1" 200 -
+2025-06-12 19:33:13,537 - app.services.firebase_service - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:13,537 - app.storage.storage - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:13,537 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:33:13] "OPTIONS /api/stories/story_1749781992_d1dcc36a HTTP/1.1" 200 -
+2025-06-12 19:33:13,544 - app.services.firebase_service - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:13,544 - app.storage.storage - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:13,545 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:33:13] "OPTIONS /api/stories/story_1749781992_d1dcc36a HTTP/1.1" 200 -
+2025-06-12 19:33:13,649 - app.services.firebase_service - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:13,649 - app.storage.storage - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:13,651 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:33:13] "GET /api/stories/story_1749781992_d1dcc36a HTTP/1.1" 200 -
+2025-06-12 19:33:13,761 - app.services.firebase_service - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:13,762 - app.storage.storage - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:33:13,763 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:33:13] "GET /api/stories/story_1749781992_d1dcc36a HTTP/1.1" 200 -
+2025-06-12 19:34:00,175 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:34:00] "OPTIONS /api/stories/story_1749781992_d1dcc36a/choices/1 HTTP/1.1" 200 -
+2025-06-12 19:34:00,178 - app.auth - INFO - Authentication successful for user: h3GkK3ksTWhz3xeT9h7E4k6Jw7v2
+2025-06-12 19:34:00,859 - app.services.firebase_service - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:00,860 - app.storage.storage - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:01,579 - app.services.usage_service - INFO - Updated usage for user: h3GkK3ksTWhz3xeT9h7E4k6Jw7v2
+2025-06-12 19:34:01,695 - app.services.firebase_service - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:01,695 - app.storage.storage - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:01,973 - app.services.firebase_service - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:01,974 - app.storage.storage - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:01,974 - app.storage.storage - INFO - Saved choice 1 for node initial in story story_1749781992_d1dcc36a
+2025-06-12 19:34:01,975 - app.api - INFO - Generating continuation for story story_1749781992_d1dcc36a, choice 1
+2025-06-12 19:34:01,975 - app.api - INFO - Character: Ali, Setting: cultivation
+2025-06-12 19:34:01,976 - app.api - INFO - Selected choice: 'Embrace Lei's offer of friendship and collaboration to gain insider support within the sect, setting the groundwork for attracting more disciples who believe in your method.'
+2025-06-12 19:34:01,976 - app.services.ai_service - INFO - Memory before processing - chapters_completed: 0, current_arc_index: 0, chapters_per_arc: 7
+2025-06-12 19:34:01,976 - app.services.ai_service - INFO - Memory arcs: 7 arcs total
+2025-06-12 19:34:01,976 - app.services.ai_service - INFO - Current arc: 'Attract disciples who believe in your method.'
+2025-06-12 19:34:01,976 - app.services.ai_service - INFO - Chapter 1 of arc 'Attract disciples who believe in your method.' completed
+2025-06-12 19:34:01,976 - app.services.ai_service - INFO - Using cultivation genre for story continuation
+2025-06-12 19:34:01,977 - app.services.ai_service - INFO - Using big story goal for cultivation continuation: Forge a unique cultivation path rejected by the world, overcoming divine resistance to prove your Dao is supreme.
+2025-06-12 19:34:01,977 - app.genres.cultivation_setting - INFO - Continuing cultivation progression story for Ali with style: shonen
+2025-06-12 19:34:01,977 - app.models.base_genre - INFO - Generating story for Ali
+2025-06-12 19:34:08,450 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-12 19:34:08,456 - app.models.base_genre - INFO - 🎭 GENRE GPT RESPONSE (3206 chars):
+2025-06-12 19:34:08,456 - app.models.base_genre - INFO - ============================================================
+2025-06-12 19:34:08,456 - app.models.base_genre - INFO - [STORY]
+Ali clasped Lei's hand firmly, accepting his offer of friendship and collaboration. The gesture sent ripples through the sect, with whispers of the outsider who had gained the respect of the fire-wielder spreading like wildfire. As they walked through the courtyards of the Crimson Phoenix Sect, Lei shared insights into the inner workings of the sect, providing Ali with valuable insider knowledge on the disciples' expectations and desires.
+
+With Lei's guidance, Ali began to weave his unique cultivation techniques into the daily routines of the sect, subtly showcasing his unorthodox methods. The disciples watched in awe as Ali's qi danced in intricate patterns, a harmonious blend of earth and lightning elements that resonated with a power unseen in the sect before. His demonstrations sparked curiosity and admiration among the younger cultivators, drawing them closer to witness the birth of a new path.
+
+However, not all were pleased with Ali's growing influence. A group of traditionalists led by Zhen, a seasoned cultivator known for his strict adherence to orthodox techniques, viewed Ali's methods with disdain. Zhen's eyes glittered with hostility as he confronted Lei and Ali in the training grounds, his voice dripping with contempt. "You pollute our sacred art with your reckless experiments, outsider. Your presence here is an insult to our traditions."
+
+Ali stood unwavering, his gaze meeting Zhen's challenge with quiet determination. "I respect the traditions of the sect, but I believe in forging a path that resonates with my essence. If my methods offend you, then let our qi speak for us in a duel," Ali declared, his words carrying a quiet intensity that echoed through the training grounds.
+
+The clash of qi between Ali and Zhen painted the sky with vibrant hues, the earth trembled beneath their feet as their techniques clashed in a dazzling display of power. The younger disciples watched in awe, torn between the allure of tradition and the call of innovation, as Ali's unyielding spirit met Zhen's rigid resolve in a battle that would shape the sect's future.
+
+As the dust settled and the echoes of their clash faded, Ali and Zhen stood facing each other, their breaths heavy with exertion. Lei approached, a knowing smile on his face, as he extended a hand to both cultivators. "Your paths may differ, but your dedication to the art is undeniable. Let this duel mark the beginning of a new era in the Crimson Phoenix Sect, where tradition and innovation converge."
+
+[NEW CHARACTERS]
+Name: Zhen
+Relationship: Adversary/Rival
+Sect: Crimson Phoenix Sect
+Role: Seasoned cultivator upholding traditional techniques
+
+[/NEW CHARACTERS]
+
+[CHOICES]
+1. Seek a peaceful resolution with Zhen, aiming to find common ground and mutual respect to unite the sect under a new vision that blends tradition and innovation.
+2. Challenge Zhen to a series of duels, aiming to prove the superiority of your cultivation path and solidify your position within the sect through decisive victories.
+3. Engage the younger disciples in friendly spars, aiming to inspire them with your techniques and win their support to sway the sect's future towards embracing your unique cultivation method.
+2025-06-12 19:34:08,456 - app.models.base_genre - INFO - ============================================================
+2025-06-12 19:34:08,457 - app.models.base_genre - INFO - Successfully parsed genre response: story=2673 chars, choices=3
+2025-06-12 19:34:08,457 - app.services.story_planner - INFO - Found [NEW CHARACTERS] section: Name: Zhen
+Relationship: Adversary/Rival
+Sect: Crimson Phoenix Sect
+Role: Seasoned cultivator upholding traditional techniques
+2025-06-12 19:34:08,457 - app.services.story_planner - INFO - Extracted character from section: Zhen - Adversary/Rival
+2025-06-12 19:34:08,457 - app.services.story_planner - INFO - Adding new character: Zhen (Adversary/Rival)
+2025-06-12 19:34:08,457 - app.services.story_planner - INFO - Memory now has 2 characters: Lei, Zhen
+2025-06-12 19:34:08,457 - app.genres.cultivation_setting - INFO - Extracted characters from story content for Ali
+2025-06-12 19:34:08,458 - app.services.story_planner - INFO - Found [NEW CHARACTERS] section: Name: Zhen
+Relationship: Adversary/Rival
+Sect: Crimson Phoenix Sect
+Role: Seasoned cultivator upholding traditional techniques
+2025-06-12 19:34:08,458 - app.services.story_planner - INFO - Extracted character from section: Zhen - Adversary/Rival
+2025-06-12 19:34:08,458 - app.services.story_planner - INFO - Updating character: Zhen
+2025-06-12 19:34:08,458 - app.services.story_planner - INFO - Memory now has 2 characters: Lei, Zhen
+2025-06-12 19:34:08,458 - app.genres.cultivation_setting - INFO - Extracted characters from story content for Ali
+2025-06-12 19:34:08,599 - app.services.firebase_service - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:08,600 - app.storage.storage - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:08,600 - app.api - INFO - Saved story with updated characters for Ali
+2025-06-12 19:34:08,706 - app.services.firebase_service - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:08,707 - app.storage.storage - INFO - Retrieved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:08,707 - app.storage.storage - INFO - Updated story memory with node node_2206203370
+2025-06-12 19:34:08,854 - app.services.firebase_service - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:08,855 - app.storage.storage - INFO - Saved story story_1749781992_d1dcc36a: Ali's cultivation shonen
+2025-06-12 19:34:08,855 - app.storage.storage - INFO - Added node node_2206203370 to story story_1749781992_d1dcc36a
+2025-06-12 19:34:09,055 - werkzeug - INFO - 127.0.0.1 - - [12/Jun/2025 19:34:09] "POST /api/stories/story_1749781992_d1dcc36a/choices/1 HTTP/1.1" 200 -

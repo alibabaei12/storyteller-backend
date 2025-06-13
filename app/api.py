@@ -370,6 +370,11 @@ def make_choice(story_id, choice_id):
                     # Remove [NEW CHARACTERS] section from the story content
                     import re
                     story_content = re.sub(r'\[NEW CHARACTERS\].*?\[/NEW CHARACTERS\]', '', story_content, flags=re.DOTALL)
+                    
+                    # Save the updated story with extracted characters
+                    from app.storage.storage import save_story
+                    save_story(story)
+                    logger.info(f"Saved story with updated characters for {story.character_name}")
             else:
                 story_content, choices = AIService.continue_story(
                     character_name=story.character_name,
