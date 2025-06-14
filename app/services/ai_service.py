@@ -256,18 +256,12 @@ class AIService:
     @staticmethod
     def _create_character_origin_profile(character_origin: str, setting: str) -> str:
         """Create character origin profile for prompt engineering."""
-        if character_origin == "reincarnated":
-            return f"The character was reincarnated from another world with knowledge of their past life."
-        elif character_origin == "weak":
-            return f"The character starts with major disadvantages and is considered weak in this world."
-        elif character_origin == "hidden":
-            return f"The character has hidden talents or a secret background not apparent to others."
-        elif character_origin == "genius":
-            return f"The character is naturally talented and learns much faster than others."
-        elif character_origin == "fallen":
-            return f"The character once had high status but has fallen from grace and must rebuild."
-        else:  # normal/ordinary
-            return f"The character has a normal background with no special advantages or disadvantages."
+        # Import here to avoid circular import
+        from ..models.base_genre import BaseGenre
+        
+        # Use the BaseGenre implementation with a placeholder character name
+        # This is a fallback method, as most code should use the BaseGenre method directly
+        return BaseGenre.create_character_origin_profile(character_origin, "the character")
 
     @staticmethod
     def get_genre_instance(setting: str):

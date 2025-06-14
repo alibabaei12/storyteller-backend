@@ -25,7 +25,15 @@ cultivation_story_templates = [
             "Confront and defeat the enemy sect responsible for your family's destruction.",
             "Unlock a hidden realm or inheritance that boosts your cultivation to a new level.",
             "Challenge the leaders of your world in a final battle to bring justice and peace."
-        ]
+        ], 
+        "emotional_core_prompt": (
+            "Invent an emotionally powerful event in the protagonist's past (e.g., the death of a loved one, betrayal by a trusted ally, or watching their clan fall) that fuels their need for revenge. "
+            "Let this memory recur in dreams, reflections, or emotional flashbacks to strengthen their resolve."
+        ),
+        "fatal_flaw_prompt": (
+            "Give the protagonist a flaw such as obsession, anger, or a tendency to push others away, stemming from their desire for revenge. "
+            "This flaw should interfere with relationships or cause hesitation in moments of mercy or diplomacy."
+        ),
     },
     {
         "goal": "Use your knowledge of a tragic future life to change fate, protect your loved ones, and prevent the fall of your world.",
@@ -57,7 +65,15 @@ cultivation_story_templates = [
             "Survive a heavenly tribulation to ascend to a higher plane.",
             "Compete in divine tournaments to secure a place among immortals.",
             "Confront a divine guardian to reach the final stage of transcendence."
-        ]
+        ],
+        "emotional_core_prompt": (
+            "Invent a reason why the protagonist seeks immortality beyond just power — such as a promise to someone, a fear of death, or a dream unfulfilled. "
+            "This motivation should occasionally emerge in deep meditation, near-death experiences, or philosophical moments."
+        ),
+        "fatal_flaw_prompt": (
+            "Introduce a flaw such as fear of failure, obsession with perfection, or emotional coldness. "
+            "This flaw should challenge their humanity as they ascend higher and gain power."
+        ),
     },
     {
         "goal": "Unite the martial world under your leadership and create a new era of peace and strength.",
@@ -73,7 +89,16 @@ cultivation_story_templates = [
             "Resist political sabotage and internal betrayal.",
             "Challenge the council of sect leaders to prove your vision.",
             "Establish a united alliance and gain recognition from the heavens."
-        ]
+        ],
+        "emotional_core_prompt": (
+            "Give the protagonist a leadership-related motivation — perhaps a vow to unite a fractured world after witnessing chaos, or to live up to a fallen leader’s legacy. "
+            "Let this conviction appear when inspiring allies or facing political betrayal."
+        ),
+        "fatal_flaw_prompt": (
+            "Assign a flaw like idealism, self-doubt, or intolerance for corruption. "
+            "This should create tension during alliances, betrayals, or difficult moral decisions."
+        ),
+
     },
     {
         "goal": "Recover a legendary artifact sealed by ancient cultivators to gain its immense power and reshape the world.",
@@ -89,7 +114,16 @@ cultivation_story_templates = [
             "Resist the artifact's will or backlash that tests your mind and heart.",
             "Fight a sect that claims ancestral rights over the artifact.",
             "Fuse with or master the artifact, transforming your cultivation path."
-        ]
+        ], 
+        "emotional_core_prompt": (
+            "Tie the search for the artifact to a personal reason — e.g., a parent died protecting it, or it was part of their destiny. "
+            "Use this to create meaningful emotional weight during each step toward the artifact."
+        ),
+        "fatal_flaw_prompt": (
+            "Give the protagonist a flaw like greed, recklessness, or impatience. "
+            "Let the artifact test their will, emotions, and morality as they get closer to mastering it."
+        ),
+
     },
     {
         "goal": "Awaken the memories and powers of your past life to reclaim your former glory and settle unfinished karma.",
@@ -105,7 +139,17 @@ cultivation_story_templates = [
             "Fuse your current and past cultivation paths to ascend.",
             "Face judgment from cosmic forces punishing reincarnation cheats.",
             "Transcend your past and reshape your own destiny anew."
-        ]
+        ],
+        "emotional_core_prompt": (
+            "Create a powerful emotional drive tied to reclaiming the protagonist’s former glory or righting a past wrong. "
+            "This could be shame over how they died, guilt for a betrayal they couldn’t stop, or a vow they failed to keep. "
+            "Let this emotional memory resurface when confronting remnants of their old life or facing people who once knew them."
+        ),
+        "fatal_flaw_prompt": (
+            "Design a flaw rooted in clinging too tightly to the past — such as arrogance, a superiority complex, or difficulty accepting change. "
+            "This flaw should cause tension when the protagonist is forced to evolve, let go, or admit fault from their previous incarnation."
+        ),
+
     },
     {
         "goal": "Forge a unique cultivation path rejected by the world, overcoming divine resistance to prove your Dao is supreme.",
@@ -121,7 +165,14 @@ cultivation_story_templates = [
             "Fuse Dao concepts to gain enlightenment beyond traditional realms.",
             "Challenge the heavens or divine guardians defending the status quo.",
             "Be recognized as a Dao pioneer and reshape cultivation forever."
-        ]
+        ],
+        "emotional_core_prompt": (
+            "Show the pain of being rejected, ridiculed, or cast out by others. Let the protagonist carry a deep drive to prove that their path has meaning, often reflecting on early humiliations or solitude."
+        ),
+        "fatal_flaw_prompt": (
+            "Make the flaw stem from being misunderstood — like distrust, defiance, or pride. Let it clash with allies who don't understand their Dao, and cause isolation even among supporters."
+        ),
+
     },
     {
         "goal": "Protect someone dear to you by becoming strong enough that no force in the world can ever threaten them again.",
@@ -137,7 +188,16 @@ cultivation_story_templates = [
             "Lose them once and pursue a path of resurrection.",
             "Defy karma or the underworld to retrieve their soul.",
             "Create a peaceful haven where no one can threaten your bond."
-        ]
+        ],
+        "emotional_core_prompt": (
+            "Ground the protagonist’s motivation in a bond — e.g., protecting a younger sibling, a sick parent, or a lover. "
+            "Let this relationship drive every major choice, and flashbacks should keep that person emotionally present even when off-screen."
+        ),
+        "fatal_flaw_prompt": (
+            "Their flaw might be overprotectiveness, fear of loss, or a willingness to sacrifice too much. "
+            "Let this cause internal conflict — should they protect, or let others grow stronger on their own?"
+        ),
+
     }
 ]
 
@@ -486,3 +546,35 @@ def extract_characters_from_content(memory: Any, story_content: str, protagonist
         logger.error(f"Error extracting characters from content: {e}")
         
     return memory 
+
+
+def build_emotional_and_flaw_injection(big_story_goal: str) -> str:
+    """
+    Based on the story's big goal, extract the emotional and flaw prompts and build
+    an instruction for injecting them into chapter generation.
+    
+    Returns:
+        A formatted instruction string to be injected into the prompt.
+    """
+    # Find the matching template
+    matching_template = None
+    for template in cultivation_story_templates:
+        if template["goal"] == big_story_goal:
+            matching_template = template
+            break
+
+    if not matching_template:
+        return ""
+
+    emotional = matching_template.get("emotional_core_prompt", "")
+    flaw = matching_template.get("fatal_flaw_prompt", "")
+
+    instruction = (
+        f"\n\n[EMOTIONAL DEPTH INSTRUCTIONS]\n"
+        f"{emotional}\n"
+        f"{flaw}\n"
+        f"Make sure the flaw subtly affects the protagonist's behavior, especially during decisions, interactions, or moments of pressure."
+        f"During at least one panel, the protagonist should internally struggle due to their flaw {flaw}. This struggle may cause hesitation, a poor decision, or conflict with others. Do not let them always act perfectly."
+    )
+
+    return instruction

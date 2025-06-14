@@ -53,34 +53,55 @@ STORY_OBJECTIVES_TEMPLATE = """
 4. **Supporting Characters:** Maintain continuity with existing characters. Remember their relationships to {character_name} and reference their previous interactions. If introducing new characters, make them distinctive and memorable.
 
 5. **{style} Tone:** Infuse the chapter with {style} elements in the descriptions, dialogue tone, and overall mood.
+
+6. **Arc Pacing Guidance:** 
+If this is **not** the final chapter of the arc:
+- This chapter should build tension, deepen mystery, develop relationships, or evolve a technique. 
+- Avoid resolving major conflicts or unlocking core secrets too soon.
+
+If this **is** the final chapter of the arc:
+- Deliver a satisfying resolution to the arc’s core challenge or mystery.
+- Include a key transformation in {character_name}, emotionally or in cultivation.
+- Hint at a new opportunity, challenge, or threat that sets up the next arc without fully starting it.
+
+### 🎯 Long-Term Goal & Arc Progression Alignment:
+
+- Every chapter must clearly reflect how the current arc relates to {character_name}’s ultimate goal: {big_goal_prompt}.
+- Treat each arc as a **chapter in a long journey** toward that goal — not a distraction.
+- This chapter’s events should contribute meaningfully to the arc's immediate purpose, while subtly reinforcing the protagonist’s deeper motivation.
+- Avoid arcs or scenes that feel disconnected or episodic — everything should feel like it’s building toward something bigger.
 """
 
 CHOICE_GUIDANCE_TEMPLATE = """
-For EACH CHOICE clearly provide:
-- A vivid, visual, and concise description of the action {character_name} will take.
-- Clearly indicate how each choice logically connects and progresses from the immediate events just shown.
-- Make each choice offer a **distinct narrative path** within the current arc. At least one option should open a new direction, ally, or strategy that still contributes to the arc goal, not just different combat outcomes.
+🎲 **CHOICE GENERATION RULES**
 
+At the end of the chapter, generate **3 distinct, meaningful player choices**.
 
-### 🎌 CREATIVITY REQUIREMENTS (MANDATORY):
-- Choices must naturally match the current chapter's tone, situation, and character's personality.
-- Choices must be consistent with the overarching {style} genre.
-- Avoid overly repetitive or predictable patterns.
-- Use intriguing visual and sensory details to make each choice appealing.
-- One choice should offer a way to change how the protagonist progresses the arc (e.g., seek help, take a detour, ally with someone, unlock a new technique) while still working toward the arc goal.
-- Not all choices need to resolve the current moment — some may delay or sidestep the conflict in favor of a broader strategy.
+Each choice must:
+- Be **vivid**, visual, and clearly describe the action the protagonist will take next
+- Logically follow from the **chapter’s ending situation**
+- Offer emotionally and strategically different directions (e.g., bold, cautious, diplomatic, mysterious)
+- Help the player progress the **current arc goal** in varied ways — without resolving the full arc
 
+Creativity Guidelines:
+- At least one choice should open up a new strategy, ally, route, or clue
+- One choice can be personal or introspective (e.g., training, reflection, forging bonds)
+- Use immersive language: sights, sounds, emotions, not vague plans
 
-### 🚫 STRICTLY FORBIDDEN IN CHOICES:
-- Generic labels (do NOT say "aggressive," "strategic," or "risky/curious").
-- Repetitive or vague wording ("fight aggressively," "plan strategically," "explore curiously").
-- Abstract or unrelated actions not clearly tied to the current story scenario.
-- Choices that jump to the conclusion of the arc or a new major storyline.
-- Starting a choice description with phrases like "{character_name} decides to...", "{character_name} chooses to...", or "{character_name} opts to...".
+🚫 Forbidden:
+- Generic verbs like "fight aggressively," "explore curiously," "train harder"
+- Repeating a line or phrase from the chapter verbatim
+- Choices that end the entire arc too early or skip logical progression
+- Starting a choice with “{character_name} decides to...” or “chooses to...”
+
+Present the choices as cleanly formatted numbered items (1, 2, 3).
 """
 
+# Replace the existing FORMAT_TEMPLATE with a combined version
 FORMAT_TEMPLATE = """
-FORMAT:
+⚠️ **CRITICAL FORMAT REQUIREMENT**:
+You MUST use the EXACT format shown below:
+
 [STORY]
 (Your dynamic, creative {story_type} - 4-8 panels organized for maximum visual and emotional impact. Use '---' on a new line to separate panels, but do NOT include "Panel X:" labels or numbers. Each panel should flow naturally into the next with clear visual transitions.)
 [/STORY]
@@ -90,6 +111,8 @@ FORMAT:
 2. (Second unique choice based on the situation you created)
 3. (Third distinctive choice offering different narrative path)
 [/CHOICES]
+
+Failure to follow this exact format will result in errors. Do not use any other format or tags.
 """
 
 # Add this new template for arc pacing
@@ -109,6 +132,70 @@ FORBIDDEN_COMPLETION_TEMPLATE = """
 - A chapter may show progress or small victories, but the main journey CANNOT be completed yet
 - Completing the current arc goal before its final chapter.
 - Resolving the main story goal ({big_story_goal}) prematurely.
+"""
+
+PANEL_STRUCTURE_TEMPLATE = """
+📘 **MANDATORY PANEL STRUCTURE (Use 6 to 8 panels per chapter):**
+
+- Each chapter should advance the current arc slightly — not conclude it.
+- Avoid rushing events; focus on pacing, emotion, and momentum.
+
+🪜 Panel Guidelines (Slow Burn Pacing):
+
+1. **Panel 1 – Status Check or Quiet Start**
+   - Continue naturally from last chapter
+   - Set the tone, show calm before action or hint at tension
+
+2. **Panel 2 – Minor Event, Challenge, or Movement**
+   - Introduce a small obstacle, discovery, or new location (within reason)
+   - Keep new characters minimal — only if necessary for arc
+
+3. **Panel 3 – Character Interaction or Thought**
+   - Include *either* internal monologue or conversation with someone from previous chapters
+   - Advance emotional depth or build tension
+
+4. **Panel 4 – Midpoint Turn**
+   - Something shifts: mood, info, enemy appears, interruption
+   - Not always dramatic, but forward-moving
+
+5. **Panel 5 – Small Action or Reaction**
+   - A decision is made or an action taken — but don’t resolve the issue yet
+
+6. **Panel 6 – Build Toward Conflict or Clue Drop**
+   - Lay groundwork for a major moment *2–3 chapters away*
+   - Optional: show small reveal or thematic callback
+
+7. **(Optional) Panel 7 – Atmosphere / Lore / Foreshadowing**
+   - Expand world subtly — a legend mentioned, a rune glows strangely, someone observes from afar
+
+8. **Panel 8 – Cliffhanger or Emotional Hook**
+   - Don’t resolve the situation — raise a question, hint danger, or create anticipation
+
+📏 **Formatting Rule:**
+After each panel, insert a horizontal line with three dashes (---), followed by a new line.
+"""
+
+INTROSPECTION_RULE = """
+Include a short emotional reflection moment tied to the protagonist's character origin.
+
+- This reflection can express ambition, insecurity, determination, guilt, pressure, or a memory — depending on their origin.
+- It should feel **natural** in the scene (not forced) and add emotional weight to the chapter.
+- Use the CHARACTER BACKGROUND info provided to inspire the tone of this reflection.
+
+Keep it brief (1–3 sentences) and consistent with the story’s pacing and mood.
+"""
+
+DIALOGUE_RULE = """
+💬 **DIALOGUE REQUIREMENT**
+
+Each important character in the chapter (especially rivals, allies, mentors, or enemies) should speak at least once using direct dialogue.
+
+- Use natural, emotionally expressive lines — not just exposition
+- Allow for teasing, rivalry, doubt, admiration, or fear
+- Do not summarize key character interactions; let them speak in their own words
+- Dialogue should match the tone (e.g., dramatic, playful, tense)
+
+If the protagonist speaks, they may also include internal thoughts in response.
 """
 
 class CultivationSetting(Genre):
@@ -158,7 +245,7 @@ class CultivationSetting(Genre):
         pronouns = BaseGenre.create_gender_pronouns(character_gender)
 
         # Create character origin profile
-        origin_prompt = BaseGenre.create_character_origin_profile(character_origin, character_name)
+        origin_prompt = BaseGenre.create_character_origin_profile(character_origin, character_name) 
 
         # Add big story goal if provided
         big_goal_prompt = ""
@@ -171,6 +258,12 @@ class CultivationSetting(Genre):
             arc_goals = generate_new_arc_goal(big_story_goal, [])
             initial_arc_goal = arc_goals[0] if arc_goals else "Survive the sect's brutal outer disciple training."
             logger.info(f"Generated {len(arc_goals)} arc goals. Initial arc goal: {initial_arc_goal}")
+
+        # Add emotional and flaw prompts
+        emotional_flaw_prompt = ""
+        if big_story_goal:
+            from ..services.story_planner import build_emotional_and_flaw_injection
+            emotional_flaw_prompt = build_emotional_and_flaw_injection(big_story_goal)
 
         # Create story arc awareness section with arc pacing
         arc_awareness = ""
@@ -207,7 +300,8 @@ Each arc will span approximately 7 chapters, with the story progressing meaningf
         story_objectives = STORY_OBJECTIVES_TEMPLATE.format(
             character_name=character_name,
             style=style,
-            arc_goal_text=initial_arc_goal
+            arc_goal_text=initial_arc_goal,
+            big_goal_prompt=big_goal_prompt
         )
         
         # Add intriguing ending requirement for first chapter
@@ -301,6 +395,14 @@ Use {pronouns} pronouns for {character_name}.
 
 {choice_guidance}
 
+{emotional_flaw_prompt}
+
+{PANEL_STRUCTURE_TEMPLATE}
+
+{INTROSPECTION_RULE}
+
+{DIALOGUE_RULE}
+
 {format_section}"""
 
         user_prompt = f"""Create the opening chapter for {character_name}'s cultivation journey with a {character_origin} background.
@@ -361,10 +463,21 @@ If no new characters were introduced in this chapter, simply omit this section.
         # Create gender-specific pronouns
         pronouns = BaseGenre.create_gender_pronouns(character_gender)
 
+        # Create character origin profile
+        origin_prompt = ""
+        if character_origin:
+            origin_prompt = BaseGenre.create_character_origin_profile(character_origin, character_name)
+
         # Add big story goal if provided
         big_goal_prompt = ""
         if big_story_goal:
             big_goal_prompt = f"\n\nMAIN CHARACTER GOAL: {character_name}'s ultimate goal is to {big_story_goal}"
+
+        # Add emotional and flaw prompts
+        emotional_flaw_prompt = ""
+        if big_story_goal:
+            from ..services.story_planner import build_emotional_and_flaw_injection
+            emotional_flaw_prompt = build_emotional_and_flaw_injection(big_story_goal)
 
         # Create arc progression awareness
         arc_progression = ""
@@ -489,8 +602,9 @@ This is a multi-arc story with a total of {total_arcs} story arcs, all working t
         story_objectives = STORY_OBJECTIVES_TEMPLATE.format(
             character_name=character_name,
             style=style,
-            arc_goal_text=arc_goal_reference
-        )
+            arc_goal_text=arc_goal_reference,
+            big_goal_prompt=big_goal_prompt
+        )   
         
         # Format choice guidance for continuation
         choice_guidance = CHOICE_GUIDANCE_TEMPLATE.format(
@@ -568,7 +682,7 @@ At the conclusion of this chapter, clearly present exactly three visually distin
 
 Use {pronouns} pronouns for {character_name}.
 **Story Style/Genre:** {style} - Ensure every aspect of the chapter (plot, character interactions, conflict, mood) aligns perfectly with this genre.
-{big_goal_prompt}
+{origin_prompt} {big_goal_prompt}
 
 {arc_progression}
 
@@ -581,6 +695,14 @@ You will create the next compelling chapter (4–8 panels) that builds meaningfu
 {creative_enhancements}
 
 {choice_guidance}
+
+{emotional_flaw_prompt}
+
+{PANEL_STRUCTURE_TEMPLATE}
+
+{INTROSPECTION_RULE}
+
+{DIALOGUE_RULE}
 
 {format_section}"""
 
